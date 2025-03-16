@@ -22,6 +22,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// Main error-handling middleware
+app.use((err, req, res, next) => {
+	console.error(err.stack);
+	const statusCode = err.statusCode || err.status || 500;
+	const message = err.message || "Internal server error";
+	res.status(statusCode).json({ error: { message } });
+});
+
 // Error handling for uncaught exceptions
 process.on("uncaughtException", (error) => {
 	console.error(`Uncaught exception: ${error}`);
