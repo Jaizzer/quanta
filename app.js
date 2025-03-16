@@ -14,8 +14,11 @@ app.listen(PORT, (error) => {
 	}
 });
 
-// Setup views
+// Serve public files
 const path = require("node:path");
+app.use(express.static(path.join(__dirname, "public")));
+
+// Setup views
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
