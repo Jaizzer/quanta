@@ -55,37 +55,40 @@ CREATE TABLE IF NOT EXISTS item_categories (
 `;
 
 async function main() {
-    let client;
-    try {
-        const connectionString = process.argv[2] === 'PRODUCTION'
-        ? process.env.PRODUCTION_DB_URL
-        : process.env.LOCAL_DB_URL;
+	let client;
+	try {
+		const connectionString =
+			process.argv[2] === "PRODUCTION"
+				? process.env.PRODUCTION_DB_URL
+				: process.env.LOCAL_DB_URL;
 
-        if (!connectionString) {
-            throw new Error("Database URL not defined in environment variables.");
-        }
-        
-        client = new Client({
-            connectionString: connectionString,
-            ssl: {
-                rejectUnauthorized: false,
-            }
-        })
-        
-        await client.connect();
-	    await client.query(SQL);
-        console.log(`Database setup complete.`)
-    } catch (error) {
-        console.error(`Error during database setup: ${error}`)
-    } finally {
-        if (client) {
-            try {
-                await client.end();
-                console.log(`Database connection closed successfully.`)
-            } catch (endError) {
-                console.error(`Error closing database connection: ${endError}`);
-            }
-        }
-    }
+		if (!connectionString) {
+			throw new Error(
+				"Database URL not defined in environment variables.",
+			);
+		}
+
+		client = new Client({
+			connectionString: connectionString,
+			ssl: {
+				rejectUnauthorized: false,
+			},
+		});
+
+		await client.connect();
+		await client.query(SQL);
+		console.log(`Database setup complete.`);
+	} catch (error) {
+		console.error(`Error during database setup: ${error}`);
+	} finally {
+		if (client) {
+			try {
+				await client.end();
+				console.log(`Database connection closed successfully.`);
+			} catch (endError) {
+				console.error(`Error closing database connection: ${endError}`);
+			}
+		}
+	}
 }
 main();
