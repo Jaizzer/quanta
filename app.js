@@ -14,6 +14,11 @@ app.listen(PORT, (error) => {
 	}
 });
 
+// Setup views
+const path = require("node:path");
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 // Error handling for uncaught exceptions
 process.on("uncaughtException", (error) => {
 	console.error(`Uncaught exception: ${error}`);
