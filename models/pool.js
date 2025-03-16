@@ -16,9 +16,12 @@ try {
 
 	pool = new Pool({
 		connectionString: connectionString,
-		ssl: {
-			rejectUnauthorized: false,
-		},
+		ssl:
+			process.argv[2] === "PRODUCTION"
+				? {
+						rejectUnauthorized: false,
+					}
+				: false,
 	});
 
 	console.log("Database pool created successfully.");
