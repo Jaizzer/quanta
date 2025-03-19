@@ -1,11 +1,16 @@
 * {
 	margin: 0px;
-    padding: 0px;
+	padding: 0px;
 }
 
 body {
 	position: relative;
 	height: 100vh;
+}
+
+nav {
+	position: absolute;
+	bottom: 0px;
 }
 
 li {
