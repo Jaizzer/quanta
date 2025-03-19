@@ -1,6 +1,7 @@
 * {
 	margin: 0px;
 	padding: 0px;
+	box-sizing: border-box;
 }
 
 body {
@@ -11,19 +12,19 @@ body {
 nav {
 	position: absolute;
 	bottom: 0px;
-    width: 100%;
+	width: 100%;
 }
 
 ul {
-    display: flex;
-    gap: 1em;
-    justify-content: center;
+	display: flex;
+	gap: 1em;
+	justify-content: center;
 }
 
 li {
-    list-style: none;
+	list-style: none;
 }
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
