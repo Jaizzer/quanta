@@ -1,7 +1,7 @@
 const { Client } = require("pg");
 require("dotenv").config("../.env");
 
-const SQL = `
+const SQL1 = `
 CREATE TABLE IF NOT EXISTS product_types (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     type TEXT NOT NULL
@@ -54,6 +54,36 @@ CREATE TABLE IF NOT EXISTS item_categories (
 );
 `;
 
+const SQL2 = `
+CREATE TABLE IF NOT EXISTS activity_type (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name TEXT
+);
+
+INSERT INTO activity_type (name)
+VALUES
+    ('Create'),  
+    ('Update'),
+    ('Delete');
+
+CREATE TABLE IF NOT EXISTS activity_history (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    item_id INTEGER,
+    product_type_id INTEGER,
+    activity_type_id INTEGER,
+    reason TEXT,
+    property_name TEXT,
+    former_value_text TEXT,
+    new_value_text TEXT,
+    former_value_number DECIMAL(10, 2),
+    new_value_number DECIMAL(10, 2),
+    activity_done_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (item_id) REFERENCES items(id),
+    FOREIGN KEY (product_type_id) REFERENCES product_types(id),
+    FOREIGN KEY (activity_type_id) REFERENCES activity_type(id)
+);
+`;
+
 async function main() {
 	let client;
 	try {
@@ -70,13 +100,16 @@ async function main() {
 
 		client = new Client({
 			connectionString: connectionString,
-			ssl: {
-				rejectUnauthorized: false,
-			},
+			ssl:
+				process.argv[2] === "PRODUCTION"
+					? {
+							rejectUnauthorized: false,
+						}
+					: false,
 		});
 
 		await client.connect();
-		await client.query(SQL);
+		await client.query(SQL2);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
