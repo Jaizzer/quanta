@@ -84,6 +84,11 @@ CREATE TABLE IF NOT EXISTS activity_history (
 );
 `;
 
+const SQL3 = `
+ALTER TABLE items
+ADD COLUMN quantity INTEGER DEFAULT 0;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -109,7 +114,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL2);
+		await client.query(SQL3);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
