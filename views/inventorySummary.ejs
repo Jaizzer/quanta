@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Inventory Summary</h1>
+  <div class="inventory-summary-card">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Total Qty</th>
+            <th>Total Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= totalQuantity %></td>
+            <td>$<%= totalValue %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="recently-updated-items">
+    <h2>Recently Updated</h2>
+    <%- include('partials/itemCardContainer', {items: items}) %>
+  </div>
+</body>
+
+</html>
