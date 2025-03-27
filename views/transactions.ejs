@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="header">
+    <button class="back" onclick="history.back()">
+      ←
+    </button>
+    <h1>Transactions</h1>
+  </div>
+
+  <div class="transactions-container">
+    <% transactions.forEach(transaction => { %>
+    <a class="transaction-card" href="/transactions/<%= transaction.id %>">
+      <div class="transaction-header">
+        <div class="transaction-description">
+          <%= transaction.type %><%= transaction.reason ? ` (${transaction.reason})` : '' %>
+        </div>
+        <div class="transaction-date"><%= transaction.date %></div>
+      </div>
+      <div class="transaction-item">
+        <div class="item-name"><%= transaction.itemName %></div>
+        <div class="item-update"><%= transaction.quantityChange %></div>
+      </div>
+    </a>
+    <% });%>
+  </div>
+</body>
+
+</html>
