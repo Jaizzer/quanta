@@ -30,6 +30,10 @@ app.set("views", path.join(__dirname, "views"));
 const rootRouter = require("./routes/rootRouter");
 app.use("/", rootRouter);
 
+// Inventory Summary router
+const inventorySummaryRouter = require("./routes/inventorySummaryRouter.js");
+app.use("/inventory-summary", inventorySummaryRouter);
+
 // Main error-handling middleware
 app.use((err, req, res, next) => {
 	console.error(err.stack);
