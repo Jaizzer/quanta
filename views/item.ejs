@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="header">
+    <button class="back" onclick="history.back()">
+      ←
+    </button>
+    <a href="/items/edit/<%= item.id %>" class="edit">
+      <button>Edit</button>
+    </a>
+  </div>
+  <div class="item-container">
+    <h2><%= item.name %></h2>
+    <div class="item-details">
+      <div class="update-date">
+        <div class="title">Updated at:</div>
+        <div class="value"><%= item.updated dAt %></div>
+      </div>
+      <div class="actions">
+        <a href="/activity-history/<%=item.id%>"><button class="history-button">View History</button></a>
+      </div>
+    </div>
+
+    <div class="item-stats">
+      <div class="quantity">
+        <div class="title">Quantity:</div>
+        <div class="value"><%= item.quantity %></div>
+      </div>
+      <div class="min-level">
+        <div class="title">Min Level:</div>
+        <div class="value"><%= item.minLevel %></div>
+      </div>
+
+      <div class="price">
+        <div class="title">Price:</div>
+        <div class="value"><%= item.price %></div>
+      </div>
+
+      <div class="total-value">
+        <div class="title">Total Value:</div>
+        <div class="value"><%= item.totalValue %></div>
+      </div>
+    </div>
+    <div class="tags-section">
+      <div class="section-title">Tags:</div>
+      <% item.tags.forEach(tag => { %>
+      <div class="tag"><%= tag %></div>
+      <% }) %>
+    </div>
+  </div>
+  <%- include('partials/nav') %>
+
+
+</body>
+
+</html>
