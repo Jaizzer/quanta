@@ -20,7 +20,7 @@
     <% transactions.forEach(transaction => { %>
     <a class="transaction-card" href="/transactions/<%= transaction.id %>">
       <div class="transaction-header">
-        <div class="transaction-description">
+        <div class="transaction-type">
           <%= transaction.type %><%= transaction.reason ? ` (${transaction.reason})` : '' %>
         </div>
         <div class="transaction-date"><%= transaction.date %></div>
