@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 
-async function rootGet(req, res, next) {
+async function getAllTransactions(req, res, next) {
 	const transactions = [
 		{
 			id: 24,
@@ -29,5 +29,5 @@ async function rootGet(req, res, next) {
 }
 
 module.exports = {
-	rootGet: asyncHandler(rootGet),
+	getAllTransactions: asyncHandler(getAllTransactions),
 };
