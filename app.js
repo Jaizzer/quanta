@@ -30,6 +30,10 @@ app.set("views", path.join(__dirname, "views"));
 const rootRouter = require("./routes/rootRouter");
 app.use("/", rootRouter);
 
+// Items router
+const itemsRouter = require("./routes/itemsRouter.js");
+app.use("/items", itemsRouter);
+
 // Inventory Summary router
 const inventorySummaryRouter = require("./routes/inventorySummaryRouter.js");
 app.use("/inventory-summary", inventorySummaryRouter);
