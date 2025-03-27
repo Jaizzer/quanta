@@ -1,5 +1,8 @@
 const { Client } = require("pg");
-require("dotenv").config("../.env");
+const dotenv = require("dotenv");
+const path = require("path");
+
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 const SQL1 = `
 CREATE TABLE IF NOT EXISTS product_types (
