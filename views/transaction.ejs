@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="header">
+    <button class="back" onclick="history.back()">
+      ←
+    </button>
+    <h1><%= transaction.itemName %></h1>
+    <div class="transaction-description">
+      <div class="transaction-type">
+        <div class="title">Type: </div>
+        <div class="value"><%= transaction.type %><%= transaction.reason ? ` (${transaction.reason})` : '' %></div>
+      </div>
+
+      <div class="transaction-date">
+        <div class="title">Date:</div>
+        <div class="value"><%= transaction.date %></div>
+      </div>
+
+      <div class="transaction-change">
+        <div class="title">Change:</div>
+        <div class="value"><%= transaction.quantityChange %></div>
+      </div>
+      <a class="transaction-item" href="/items/<%= transaction.itemId %>">
+        <div class="item-name"><%= transaction.itemName %></div>
+      </a>
+    </div>
+  </div>
+
+</body>
+
+</html>
