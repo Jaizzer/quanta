@@ -34,6 +34,10 @@ app.use("/", rootRouter);
 const inventorySummaryRouter = require("./routes/inventorySummaryRouter.js");
 app.use("/inventory-summary", inventorySummaryRouter);
 
+// Transactions router
+const transactionsRouter = require("./routes/transactionsRouter.js");
+app.use("/transactions", transactionsRouter);
+
 // Main error-handling middleware
 app.use((err, req, res, next) => {
 	console.error(err.stack);
