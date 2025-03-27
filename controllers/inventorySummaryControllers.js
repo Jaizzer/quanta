@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
+const getTotalItemQuantity = require("./getTotalItemQuantity");
 
 async function rootGet(req, res, next) {
-	const totalQuantity = 25;
 	const totalValue = 45.21;
 	const items = [
 		{
@@ -17,6 +17,7 @@ async function rootGet(req, res, next) {
 			price: 45,
 		},
 	];
+	const totalQuantity = getTotalItemQuantity(items);
 
 	res.render("inventorySummary", {
 		title: "Home",
