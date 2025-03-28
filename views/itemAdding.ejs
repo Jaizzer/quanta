@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <div class="actions">
+    <button class="cancel" onclick="history.back()">x</button>
+    <button onclick="document.querySelector('form').submit()">Save</button>
+  </div>
+  <form id="itemForm" action="/add-item" method="POST">
+    <input type="text" name="item-name" id="item-name" placeholder="Enter Item Name">
+
+    <div class="quantity-field">
+      <label for="quantity">Quantity</label>
+      <input type="number" name="quantity" id="quantity">
+      <select name="measurement" id="measurement">
+        <option value="unit">unit</option>
+        <option value="gram">g</option>
+        <option value="kilogram">kg</option>
+        <option value="pounds">lbs</option>
+        <option value="inch">in</option>
+        <option value="meter">m</option>
+        <option value="yard">yard</option>
+      </select>
+    </div>
+
+    <div class="min-level-field">
+      <label for="min-level">Min Level</label>
+      <input type="number" name="min-level" id="min-level">
+      <input type="checkbox" name="notification-status" id="notification-status">
+      <label for="notification-status">Notify Me</label>
+    </div>
+
+    <div class="price-field">
+      <label for="price">Price</label>
+      <input type="number" name="price" id="price">
+    </div>
+
+    <div class="tag-field">
+      <div>Tags</div>
+      <% tags.forEach(tag => { %>
+      <label><input type="checkbox" name="tags" value="<%= tag %>" class="tag-checkbox" /><%= tag %></label>
+      <% }) %>
+    </div>
+
+    <button type="submit">Save</button>
+  </form>
+
+</body>
+
+</html>
