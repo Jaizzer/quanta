@@ -117,6 +117,11 @@ CREATE TABLE IF NOT EXISTS options (
 );
 `;
 
+const SQL6 = `
+ALTER TABLE items
+ADD COLUMN are_attributes_enabled BOOLEAN DEFAULT FALSE;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -142,7 +147,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL5);
+		await client.query(SQL6);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
