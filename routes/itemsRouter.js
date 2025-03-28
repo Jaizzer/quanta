@@ -3,6 +3,6 @@ const itemsRouter = Router();
 const itemsControllers = require("../controllers/itemsControllers.js");
 
 itemsRouter.get("/", itemsControllers.getAllItems);
-itemsRouter.get("/:id(\\d+)", itemsControllers.getItemById);
+itemsRouter.get("/:id", itemsControllers.getItemById);
 
 module.exports = itemsRouter;
