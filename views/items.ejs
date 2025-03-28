@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quanta | <%= title %></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Items</h1>
+  <div class="item-summary-card">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Items</th>
+            <th>Total Qty</th>
+            <th>Total Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= distinctItemQuantity %></td>
+            <td><%= totalQuantity %></td>
+            <td>$<%= totalValue %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <%- include('partials/itemCardContainer', {items: items}) %>
+  <%- include('partials/nav') %>
+</body>
+
+</html>
