@@ -122,6 +122,10 @@ ALTER TABLE items
 ADD COLUMN are_attributes_enabled BOOLEAN DEFAULT FALSE;
 `;
 
+const SQL7 = `
+ALTER TABLE items ALTER COLUMN type SET DEFAULT 1;
+`
+
 async function main() {
 	let client;
 	try {
@@ -147,7 +151,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL6);
+		await client.query(SQL7);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
