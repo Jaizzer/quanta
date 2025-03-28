@@ -92,6 +92,11 @@ ALTER TABLE items
 ADD COLUMN quantity INTEGER DEFAULT 0;
 `;
 
+const SQL4 = `
+ALTER TABLE items
+ADD COLUMN notify BOOLEAN DEFAULT false;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -117,7 +122,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL3);
+		await client.query(SQL4);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
