@@ -2,6 +2,13 @@ const asyncHandler = require("express-async-handler");
 const getTotalItemQuantity = require("./getTotalItemQuantity");
 const getTotalValue = require("./getTotalValue");
 
+async function addItemGet(req, res, next) {
+	res.render("itemAdding", {
+		title: "Add Item",
+		tags: ["Tag 1", "Tag 2", "Tag 3"],
+	});
+}
+
 async function getAllItems(req, res, next) {
 	const items = [
 		{
@@ -62,4 +69,5 @@ async function getItemById(req, res, next) {
 module.exports = {
 	getItemById: asyncHandler(getItemById),
 	getAllItems: asyncHandler(getAllItems),
+	addItemGet: asyncHandler(addItemGet),
 };
