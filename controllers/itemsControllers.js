@@ -5,7 +5,11 @@ const getTotalValue = require("./getTotalValue");
 async function addItemGet(req, res, next) {
 	res.render("itemAdding", {
 		title: "Add Item",
-		tags: ["Tag 1", "Tag 2", "Tag 3"],
+		tags: [
+			{ id: 1, name: "Tag 1" },
+			{ id: 2, name: "Tag 2" },
+			{ id: 3, name: "Tag 3" },
+		],
 	});
 }
 
