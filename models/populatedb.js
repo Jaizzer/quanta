@@ -97,6 +97,26 @@ ALTER TABLE items
 ADD COLUMN notify BOOLEAN DEFAULT false;
 `;
 
+const SQL5 = `
+CREATE TABLE IF NOT EXISTS attributes (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    item_id INTEGER,
+    name TEXT,
+    FOREIGN KEY (item_id) REFERENCES items(id)
+);
+
+CREATE TABLE IF NOT EXISTS options (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    attribute_id INTEGER,
+    item_id INTEGER,
+    name TEXT,
+    price DECIMAL(10, 2),
+    quantity DECIMAL(10, 2),
+    FOREIGN KEY (attribute_id) REFERENCES attributes(id),
+    FOREIGN KEY (item_id) REFERENCES items(id)
+);
+`;
+
 async function main() {
 	let client;
 	try {
@@ -122,7 +142,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL4);
+		await client.query(SQL5);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
