@@ -124,7 +124,12 @@ ADD COLUMN are_attributes_enabled BOOLEAN DEFAULT FALSE;
 
 const SQL7 = `
 ALTER TABLE items ALTER COLUMN type SET DEFAULT 1;
-`
+`;
+
+const SQL8 = `
+ALTER TABLE items
+ADD COLUMN measurement TEXT DEFAULT 'unit';
+`;
 
 async function main() {
 	let client;
@@ -151,7 +156,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL7);
+		await client.query(SQL8);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
