@@ -43,6 +43,7 @@ async function insertItem(item) {
 				);
 			});
 		} else {
+            // Default to 1 if no tags were submitted
 			await pool.query(
 				`INSERT INTO item_categories(item, category) VALUES($1, $2)`,
 				[itemID, 1],
