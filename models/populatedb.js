@@ -135,6 +135,10 @@ const SQL9 = `
 ALTER TABLE items
 ADD COLUMN min_level DECIMAL(10, 2)`;
 
+const SQL10 = `
+ALTER TABLE items
+ADD COLUMN notes TEXT`;
+
 async function main() {
 	let client;
 	try {
@@ -160,7 +164,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL9);
+		await client.query(SQL10);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
