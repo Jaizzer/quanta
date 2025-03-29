@@ -18,6 +18,9 @@ app.listen(PORT, (error) => {
 	}
 });
 
+// Encode data into key-value pairs
+app.use(express.urlencoded({ extended: true }));
+
 // Serve public files
 const path = require("node:path");
 app.use(express.static(path.join(__dirname, "public")));
