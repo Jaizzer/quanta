@@ -131,6 +131,10 @@ ALTER TABLE items
 ADD COLUMN measurement TEXT DEFAULT 'unit';
 `;
 
+const SQL9 = `
+ALTER TABLE items
+ADD COLUMN min_level DECIMAL(10, 2)`;
+
 async function main() {
 	let client;
 	try {
@@ -156,7 +160,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL8);
+		await client.query(SQL9);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
