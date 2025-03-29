@@ -139,6 +139,14 @@ const SQL10 = `
 ALTER TABLE items
 ADD COLUMN notes TEXT`;
 
+const SQL11 = `
+INSERT INTO categories (category)
+VALUES
+    ('Category 1'),  
+    ('Category 2'),
+    ('Category 4'),
+    ('Category 3');`;
+
 async function main() {
 	let client;
 	try {
@@ -164,7 +172,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL10);
+		await client.query(SQL11);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
