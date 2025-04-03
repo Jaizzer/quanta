@@ -19,6 +19,17 @@ async function addItemGet(req, res, next) {
 		itemTagError: null,
 		itemMinLevelError: null,
 		itemQuantityError: null,
+		item: {
+			variants: [
+				{
+					id: "Variant-1",
+					name: "Variant-1",
+					price: 45,
+					quantity: 50,
+					error: null,
+				},
+			],
+		},
 	});
 }
 
