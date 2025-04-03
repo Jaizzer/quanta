@@ -41,6 +41,17 @@ addVariantBtn.addEventListener("click", () => {
 		newVariantField.removeChild(errorMessageCopiedFromLastVariantField);
 	}
 
+	// Add event listener to the new variant field's Delete button
+	const newVariantFieldDeleteBtn = newVariantField.querySelector(
+		".delete-variant-btn",
+	);
+
+	newVariantFieldDeleteBtn.addEventListener("click", (e) => {
+		e.target.parentElement.parentElement.removeChild(
+			e.target.parentElement,
+		);
+	});
+
 	// Place the newly created variant field next to the last variant field
 	let variantCreationSection = document.querySelector(
 		".variant-creation-container",
@@ -49,6 +60,18 @@ addVariantBtn.addEventListener("click", () => {
 		newVariantField,
 		variantCreationSection.querySelector(".add-variant-btn"),
 	);
+});
+
+let deleteVariantBtns = Array.from(
+	document.querySelectorAll(".delete-variant-btn"),
+);
+
+deleteVariantBtns.forEach((deleteVariantBtn) => {
+	deleteVariantBtn.addEventListener("click", (e) => {
+		e.target.parentElement.parentElement.removeChild(
+			e.target.parentElement,
+		);
+	});
 });
 
 // Access the form
@@ -74,6 +97,21 @@ variantAddingToggleBtn.addEventListener("click", () => {
 		// Remove the original variant creation Section
 		form.removeChild(currentVariantCreationSection);
 	} else {
+		// Add functionality to the Delete Variant buttons inside the variant creation section's copy
+		let deleteVariantBtns = Array.from(
+			currentVariantCreationSectionCopy.querySelectorAll(
+				".delete-variant-btn",
+			),
+		);
+
+		deleteVariantBtns.forEach((deleteVariantBtn) => {
+			deleteVariantBtn.addEventListener("click", (e) => {
+				e.target.parentElement.parentElement.removeChild(
+					e.target.parentElement,
+				);
+			});
+		});
+
 		// Restore the variant creation section from a created copy
 		form.appendChild(currentVariantCreationSectionCopy);
 	}
