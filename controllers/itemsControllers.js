@@ -26,7 +26,7 @@ async function addItemGet(req, res, next) {
 			minLevel: 0,
 			notification: false,
 			tags: [],
-			notes: "Item note",
+			notes: "",
 			measurement: "unit",
 			variants: [
 				{
