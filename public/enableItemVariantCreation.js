@@ -4,6 +4,8 @@ let variantAddingToggleBtn = document.querySelector(
 	".variant-adding-toggle-btn",
 );
 
+let lastVariantField = document.querySelector(".variant-field");
+
 let addVariantBtn = document.querySelector(".add-variant-btn");
 
 addVariantBtn.addEventListener("click", () => {
@@ -69,15 +71,14 @@ variantAddingToggleBtn.addEventListener("click", () => {
 });
 
 function deleteVariantField(e) {
+	// Save a copy of the deleted variant-field
+	lastVariantField = e.target.parentElement.cloneNode(true);
+
+	// Remove the variant field
 	e.target.parentElement.parentElement.removeChild(e.target.parentElement);
 }
 
 function addVariant() {
-	// Extract the last variant field
-	const lastVariantField = Array.from(
-		document.querySelectorAll(".variant-field"),
-	).slice(-1)[0];
-
 	// Extract the input field name
 	const inputFieldName = lastVariantField.querySelector("input").name;
 
