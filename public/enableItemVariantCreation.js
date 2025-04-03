@@ -16,9 +16,7 @@ let deleteVariantBtns = Array.from(
 
 deleteVariantBtns.forEach((deleteVariantBtn) => {
 	deleteVariantBtn.addEventListener("click", (e) => {
-		e.target.parentElement.parentElement.removeChild(
-			e.target.parentElement,
-		);
+		deleteVariantField(e);
 	});
 });
 
@@ -54,9 +52,7 @@ variantAddingToggleBtn.addEventListener("click", () => {
 
 		deleteVariantBtns.forEach((deleteVariantBtn) => {
 			deleteVariantBtn.addEventListener("click", (e) => {
-				e.target.parentElement.parentElement.removeChild(
-					e.target.parentElement,
-				);
+				deleteVariantField(e);
 			});
 		});
 
@@ -71,6 +67,10 @@ variantAddingToggleBtn.addEventListener("click", () => {
 		form.appendChild(currentVariantCreationSectionCopy);
 	}
 });
+
+function deleteVariantField(e) {
+	e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+}
 
 function addVariant() {
 	// Extract the last variant field
@@ -114,9 +114,7 @@ function addVariant() {
 	);
 
 	newVariantFieldDeleteBtn.addEventListener("click", (e) => {
-		e.target.parentElement.parentElement.removeChild(
-			e.target.parentElement,
-		);
+		deleteVariantField(e);
 	});
 
 	// Place the newly created variant field next to the last variant field
