@@ -60,6 +60,13 @@ variantAddingToggleBtn.addEventListener("click", () => {
 			});
 		});
 
+		// Add functionality to the Add variant button inside the variant creation section's copy
+		let addVariantBtn =
+			currentVariantCreationSectionCopy.querySelector(".add-variant-btn");
+		addVariantBtn.addEventListener("click", () => {
+			addVariant();
+		});
+
 		// Restore the variant creation section from a created copy
 		form.appendChild(currentVariantCreationSectionCopy);
 	}
