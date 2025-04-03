@@ -24,8 +24,8 @@ async function addItemGet(req, res, next) {
 				{
 					id: "Variant-1",
 					name: "Variant-1",
-					price: 45,
-					quantity: 50,
+					price: 0,
+					quantity: 0,
 					error: null,
 				},
 			],
