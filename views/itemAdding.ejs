@@ -16,49 +16,51 @@
   </div>
   <form id="itemForm" action="add-item" method="POST">
     <div class="item-name-field">
-      <input type="text" name="itemName" id="item-name" placeholder="Enter Item Name">
+      <input type="text" name="itemName" id="item-name" placeholder="Enter Item Name" value="<%= item.name %>">
       <%- include('partials/formErrorMessage', {errorMessage: itemNameError}) %>
     </div>
 
     <div class="quantity-field">
       <label for="quantity">Quantity</label>
-      <input type="number" name="quantity" id="quantity">
+      <input type="number" name="quantity" id="quantity" value="<%= item.quantity %>">
       <select name="measurement" id="measurement">
-        <option value="unit">unit</option>
-        <option value="gram">g</option>
-        <option value="kilogram">kg</option>
-        <option value="pounds">lbs</option>
-        <option value="inch">in</option>
-        <option value="meter">m</option>
-        <option value="yard">yard</option>
+        <option value="unit" <%= item.measurement === 'unit' ? 'selected' : null %>>unit</option>
+        <option value="gram" <%= item.measurement === 'gram' ? 'selected' : null%>>g</option>
+        <option value="kilogram" <%= item.measurement ==='kilogram' ? 'selected' : null%>>kg</option>
+        <option value="pounds" <%= item.measurement === 'pounds'? 'selected' : null %>>lbs</option>
+        <option value="inch" <%= item.measurement === 'inch'? 'selected' : null %>>in</option>
+        <option value="meter" <%= item.measurement === 'meter' ? 'selected' : null%>>m</option>
+        <option value="yard" <%= item.measurement === 'yard' ? 'selected' : null%>>yard</option>
       </select>
       <%- include('partials/formErrorMessage', {errorMessage: itemQuantityError}) %>
     </div>
 
     <div class="min-level-field">
       <label for="min-level">Min Level</label>
-      <input type="number" name="minLevel" id="min-level">
-      <input type="checkbox" name="notificationStatus" id="notification-status">
-      <label for="notification-status">Notify Me</label>
+      <input type="number" name="minLevel" id="min-level" value="<%= item.minLevel %>">
+      <input type="checkbox" name="notificationStatus" id="notification-status" <%= item.notification ? 'checked': null %>>
+      <label for=" notification-status">Notify Me</label>
     </div>
 
     <div class="price-field">
       <label for="price">Price</label>
-      <input type="number" name="price" id="price">
+      <input type="number" name="price" id="price" value="<%= item.price %>">
       <%- include('partials/formErrorMessage', {errorMessage: itemPriceError}) %>
     </div>
 
     <div class="tag-field">
       <div>Tags</div>
       <% tags.forEach(tag => { %>
-      <label><input type="checkbox" name="tags" value="<%= tag.id %>" class="tag-checkbox" /><%= tag.name %></label>
+      <label><input type="checkbox" name="tags" value="<%= tag.id %>" class="tag-checkbox" <%= item.tags.includes(tag.id) ? 'checked': null%> /><%= tag.name %></label>
       <% }) %>
       <%- include('partials/formErrorMessage', {errorMessage: itemTagError}) %>
     </div>
 
-    <div class="notes-field">
+    <div class=" notes-field">
       <label for="notes">Notes:</label>
-      <textarea name="notes" id="notes"></textarea>
+      <textarea name="notes" id="notes">
+        <%= item.notes %>
+      </textarea>
     </div>
     <% if (item.variants.length > 0) {%>
     <div class="variant-creation-container">

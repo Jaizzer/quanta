@@ -20,6 +20,14 @@ async function addItemGet(req, res, next) {
 		itemMinLevelError: null,
 		itemQuantityError: null,
 		item: {
+			name: "Item",
+			price: 0,
+			quantity: 0,
+			minLevel: 0,
+			notification: false,
+			tags: [],
+			notes: "Item note",
+			measurement: "unit",
 			variants: [
 				{
 					id: "Variant-1",
