@@ -99,7 +99,7 @@ function addVariant() {
 	newVariantFieldInputs.forEach((input) => (input.name = newVariantFieldId));
 
 	// Put an initial value inside the variant name input
-	newVariantFieldInputs[0].value = newVariantFieldId;
+	newVariantFieldInputs[0].value = "Variant";
 
 	// Remove any error messages copied from the last variant field
 	let errorMessageCopiedFromLastVariantField =
