@@ -12,6 +12,7 @@ async function insertItem(item) {
 			notificationStatus,
 			notes,
 			tags,
+			variants,
 		} = item;
 
 		// Create the array of values to be used in inserting item in the database
@@ -43,15 +44,44 @@ async function insertItem(item) {
 				);
 			});
 		} else {
-            // Default to 1 if no tags were submitted
+			// Default to 1 if no tags were submitted
 			await pool.query(
 				`INSERT INTO item_categories(item, category) VALUES($1, $2)`,
 				[itemID, 1],
 			);
 		}
-		console.error("Item inserted successfully");
+
+		// Insert item variants
+		if (variants) {
+			variants.forEach((variant) => {
+				insertItemVariant(
+					itemID,
+					variant.name,
+					variant.price,
+					variant.quantity,
+				);
+			});
+		}
+		console.log("Item inserted successfully");
 	} catch (error) {
 		console.error("Error inserting the item. ", error);
+	}
+}
+
+async function insertItemVariant(
+	variantParentID,
+	variantName,
+	variantPrice,
+	variantQuantity,
+) {
+	try {
+		await pool.query(
+			`INSERT INTO variants(parent_item_id, name, price, quantity) VALUES($1, $2, $3, $4)`,
+			[variantParentID, variantName, variantPrice, variantQuantity],
+		);
+		console.log("Variant inserted successfully.");
+	} catch (error) {
+		console.error("Error inserting the variant. ", error);
 	}
 }
 
