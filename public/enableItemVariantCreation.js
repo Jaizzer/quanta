@@ -126,4 +126,7 @@ function addVariant() {
 		newVariantField,
 		variantCreationSection.querySelector(".add-variant-btn"),
 	);
+
+	// Update the last variant field to be this newly created variant field
+	lastVariantField = newVariantField;
 }
