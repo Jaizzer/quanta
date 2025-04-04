@@ -157,6 +157,11 @@ CREATE TABLE IF NOT EXISTS variants (
 );
 `;
 
+const SQL13 = `
+ALTER TABLE variants
+ADD COLUMN name TEXT NOT NULL;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -182,7 +187,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL12);
+		await client.query(SQL13);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
