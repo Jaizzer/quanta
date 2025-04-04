@@ -164,30 +164,7 @@ async function addItemPost(req, res, next) {
 }
 
 async function getAllItems(req, res, next) {
-	const items = [
-		{
-			id: 24,
-			name: "Item 78",
-			quantity: 5,
-			minLevel: 1,
-			tags: ["Tag 1", "Tag2"],
-			updatedAt: "Mar 20",
-			price: 25,
-			totalValue: 50,
-		},
-
-		{
-			id: 25,
-			name: "Item 99",
-			quantity: 5,
-			minLevel: 1,
-			tags: ["Tag 1", "Tag3"],
-			updatedAt: "Mar 20",
-			price: 25,
-			totalValue: 50,
-		},
-	];
-
+	const items = await db.getAllItems();
 	res.render("items", {
 		title: "Items",
 		items: items,

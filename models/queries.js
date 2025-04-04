@@ -85,6 +85,18 @@ async function insertItemVariant(
 	}
 }
 
+async function getAllItems() {
+	try {
+		const { rows } = await pool.query(
+			`SELECT id, name, quantity, measurement FROM items;`,
+		);
+		return rows;
+	} catch (error) {
+		console.error("Error getting the items. ", error);
+	}
+}
+
 module.exports = {
 	insertItem,
+	getAllItems,
 };
