@@ -162,6 +162,17 @@ ALTER TABLE variants
 ADD COLUMN name TEXT NOT NULL;
 `;
 
+const SQL14 = `
+DROP TABLE item_categories;
+CREATE TABLE IF NOT EXISTS item_categories (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    item_id INTEGER,
+    category_id INTEGER,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+);
+`;
+
 async function main() {
 	let client;
 	try {
@@ -187,7 +198,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL13);
+		await client.query(SQL14);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
