@@ -147,6 +147,16 @@ VALUES
     ('Category 4'),
     ('Category 3');`;
 
+const SQL12 = `
+CREATE TABLE IF NOT EXISTS variants (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    parent_item_id INTEGER,
+    price DECIMAL(10, 2) DEFAULT 0,
+    quantity DECIMAL(10, 2) DEFAULT 0,
+    FOREIGN KEY (parent_item_id) REFERENCES items(id)
+);
+`;
+
 async function main() {
 	let client;
 	try {
@@ -172,7 +182,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL11);
+		await client.query(SQL12);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
