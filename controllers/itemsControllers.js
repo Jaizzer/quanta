@@ -42,37 +42,7 @@ async function addItemGet(req, res, next) {
 }
 
 async function addItemPost(req, res, next) {
-	const errors = validationResult(req).array();
-	const isThereAnyError = errors.length !== 0;
-	if (isThereAnyError) {
-		return res.status(400).render("itemAdding", {
-			title: "Add Item",
-			tags: tags,
-			itemNameError:
-				isThereAnyError &&
-				errors.filter((error) => error.path === "itemName").length === 1
-					? errors.filter((error) => error.path === "itemName")[0].msg
-					: null,
-			itemPriceError:
-				isThereAnyError &&
-				errors.filter((error) => error.path === "price").length === 1
-					? errors.filter((error) => error.path === "price")[0].msg
-					: null,
-			itemTagError:
-				errors.filter((error) => error.path === "tag").length === 1
-					? errors.filter((error) => error.path === "tag")[0].msg
-					: null,
-			itemMinLevelError:
-				errors.filter((error) => error.path === "minLevel").length === 1
-					? errors.filter((error) => error.path === "minLevel")[0].msg
-					: null,
-			itemQuantityError:
-				errors.filter((error) => error.path === "quantity").length === 1
-					? errors.filter((error) => error.path === "quantity")[0].msg
-					: null,
-		});
-	}
-
+	// Create an item object out of the request body's content
 	const item = {
 		name: req.body.itemName,
 		price: req.body.price === "" ? null : parseFloat(req.body.price),
@@ -82,14 +52,113 @@ async function addItemPost(req, res, next) {
 		minLevel:
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
 		notes: req.body.notes,
-		notificationStatus: req.body.notificationStatus ? true : false,
+		notification: req.body.notificationStatus ? true : false,
 		// Ensure tag is an array of id number
 		tags: !req.body.tags
-			? null
+			? []
 			: Array.isArray(req.body.tags)
 				? req.body.tags.map((tagValue) => parseInt(tagValue))
 				: [parseInt(req.body.tags)],
 	};
+
+	// Access all the variant property names
+	const variantInputNames = Object.keys(req.body).filter((key) =>
+		key.includes("Variant"),
+	);
+
+	// Extract all variants from the request body
+	let variants = variantInputNames.map((variantInputName) => ({
+		id: variantInputName,
+		name: req.body[variantInputName][0],
+		quantity: Math.abs(parseFloat(req.body[variantInputName][1])),
+		price: Math.abs(parseFloat(req.body[variantInputName][2])),
+		error: null,
+	}));
+
+	// Check each variant input for errors
+	let isThereErrorInVariantInputs = false;
+	variants.forEach((currentVariant) => {
+		// Check for duplicates
+		let isCurrentVariantNameNotUnique =
+			variants.filter((variant) => variant.name === currentVariant.name)
+				.length > 1;
+
+		if (isCurrentVariantNameNotUnique) {
+			currentVariant.error = "Variant name must be unique";
+		}
+
+		// Check for empty variant names
+		let isCurrentVariantEmpty = currentVariant.name.trim().length === 0;
+
+		if (isCurrentVariantEmpty) {
+			currentVariant.error = "Variant name must not be empty";
+		}
+
+		// Update whether there is an error with the variant inputs
+		isThereErrorInVariantInputs =
+			isCurrentVariantNameNotUnique || isCurrentVariantEmpty;
+	});
+
+	// Insert the variants inside the item object
+	item.variants = variants;
+
+	// Check for non-variant and variant field errors
+	const nonVariantFieldErrors = validationResult(req).array();
+	const isThereErrorInNonVariantInputs = nonVariantFieldErrors.length > 0;
+	const isThereAnyError =
+		isThereErrorInNonVariantInputs || isThereErrorInVariantInputs;
+
+	if (isThereAnyError) {
+		return res.status(400).render("itemAdding", {
+			title: "Add Item",
+			tags: tags,
+			itemNameError:
+				isThereErrorInNonVariantInputs &&
+				nonVariantFieldErrors.filter(
+					(error) => error.path === "itemName",
+				).length === 1
+					? nonVariantFieldErrors.filter(
+							(error) => error.path === "itemName",
+						)[0].msg
+					: null,
+			itemPriceError:
+				isThereErrorInNonVariantInputs &&
+				nonVariantFieldErrors.filter((error) => error.path === "price")
+					.length === 1
+					? nonVariantFieldErrors.filter(
+							(error) => error.path === "price",
+						)[0].msg
+					: null,
+			itemTagError:
+				isThereErrorInNonVariantInputs &&
+				nonVariantFieldErrors.filter((error) => error.path === "tag")
+					.length === 1
+					? nonVariantFieldErrors.filter(
+							(error) => error.path === "tag",
+						)[0].msg
+					: null,
+			itemMinLevelError:
+				isThereErrorInNonVariantInputs &&
+				nonVariantFieldErrors.filter(
+					(error) => error.path === "minLevel",
+				).length === 1
+					? nonVariantFieldErrors.filter(
+							(error) => error.path === "minLevel",
+						)[0].msg
+					: null,
+			itemQuantityError:
+				isThereErrorInNonVariantInputs &&
+				nonVariantFieldErrors.filter(
+					(error) => error.path === "quantity",
+				).length === 1
+					? nonVariantFieldErrors.filter(
+							(error) => error.path === "quantity",
+						)[0].msg
+					: null,
+			item: item,
+		});
+	}
+
 	await db.insertItem(item);
 	res.status(200).redirect("/items");
 }
