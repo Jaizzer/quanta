@@ -111,7 +111,11 @@ async function getItemById(itemID) {
         variants,
         total_value,
         total_quantity,
-        JSONB_AGG(JSONB_BUILD_OBJECT('name', category_name, 'id', category_id) ORDER BY category_id) as categories
+        CASE
+            WHEN (SELECT item_id FROM item_categories WHERE item_id = $1) IS NOT NULL 
+                THEN JSONB_AGG(JSONB_BUILD_OBJECT('id', category_id, 'name', category_name) ORDER BY category_id)
+            ELSE NULL
+        END AS categories        
         FROM (
             SELECT 
             items.id, 
@@ -126,13 +130,17 @@ async function getItemById(itemID) {
             categories.category as category_name,
             SUM(variants.price * variants.quantity) as total_value,
             SUM(variants.quantity) as total_quantity,
-            JSONB_AGG(JSONB_BUILD_OBJECT('name', variants.name, 'price', variants.price, 'quantity', variants.quantity) ORDER BY variants.name) AS variants
+            CASE
+                WHEN (SELECT parent_item_id FROM variants WHERE parent_item_id = $1) IS NOT NULL 
+                    THEN JSONB_AGG(JSONB_BUILD_OBJECT('name', variants.name, 'price', variants.price, 'quantity', variants.quantity) ORDER BY variants.name)
+                ELSE NULL
+            END AS variants
             FROM items 
-            INNER JOIN item_categories 
+            LEFT JOIN item_categories 
             ON item_categories.item_id = items.id 
-            INNER JOIN categories 
+            LEFT JOIN categories 
             ON item_categories.category_id = categories.id 
-            INNER JOIN variants 
+            LEFT JOIN variants 
             ON variants.parent_item_id = items.id
             WHERE items.id = $1
             GROUP BY 
@@ -161,8 +169,22 @@ async function getItemById(itemID) {
         total_quantity
         ;
         `;
-		const { rows } = await pool.query(query, [itemID]);
-		return rows[0];
+		const row = (await pool.query(query, [itemID])).rows[0];
+
+		return {
+			id: row.id,
+			name: row.name,
+			quantity: row.quantity,
+			price: row.price,
+			notify: row.notify,
+			notes: row.notes,
+			min_level: row.min_level,
+			variants: row.variants || [],
+			categories: row.categories || [],
+			measurement: row.measurement,
+			total_value: row.total_value || row.price * row.quantity,
+			total_quantity: row.total_quantity || row.quantity,
+		};
 	} catch (error) {
 		console.error("Error retrieving the item. ", error);
 	}
