@@ -57,6 +57,17 @@
       </a>
       <% }) %>
     </div>
+
+    <div class="variants-section">
+      <div class="section-title">Variants:</div>
+      <% item.variants.forEach(variant => { %>
+      <div class="variant-field">
+        <div><span>Name: </span><span><%=variant.name%></span></div>
+        <div><span>Price: </span><span><%=variant.price%></span></div>
+        <div><span>Quantity: </span><span><%=variant.quantity%></span></div>
+      </div>
+      <% }) %>
+    </div>
   </div>
   <%- include('partials/nav') %>
 
