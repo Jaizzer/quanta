@@ -178,12 +178,12 @@ async function getItemById(itemID) {
 			price: row.price,
 			notify: row.notify,
 			notes: row.notes,
-			min_level: row.min_level,
+			minLevel: row.min_level,
 			variants: row.variants || [],
 			categories: row.categories || [],
 			measurement: row.measurement,
-			total_value: row.total_value || row.price * row.quantity,
-			total_quantity: row.total_quantity || row.quantity,
+			totalValue: row.total_value || row.price * row.quantity,
+			totalQuantity: row.total_quantity || row.quantity,
 		};
 	} catch (error) {
 		console.error("Error retrieving the item. ", error);
