@@ -52,7 +52,9 @@
     <div class="categories-section">
       <div class="section-title">Categories:</div>
       <% item.categories.forEach(category => { %>
-      <div class="tag"><%= category.name %></div>
+      <a href="/categories/<%= category.id %>">
+        <div class="tag"><%= category.name %></div>
+      </a>
       <% }) %>
     </div>
   </div>
