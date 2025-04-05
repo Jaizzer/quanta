@@ -173,6 +173,16 @@ CREATE TABLE IF NOT EXISTS item_categories (
 );
 `;
 
+const SQL15 = `
+ALTER TABLE items
+ALTER COLUMN min_level
+SET DEFAULT 0;
+
+ALTER TABLE items
+ALTER COLUMN price
+SET DEFAULT 0;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -198,7 +208,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL14);
+		await client.query(SQL15);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
