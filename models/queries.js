@@ -39,7 +39,7 @@ async function insertItem(item) {
 		if (tags) {
 			tags.forEach(async (tag) => {
 				await pool.query(
-					`INSERT INTO item_categories(item, category) VALUES($1, $2)`,
+					`INSERT INTO item_categories(item_id, category_id) VALUES($1, $2)`,
 					[itemID, tag],
 				);
 			});
