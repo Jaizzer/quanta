@@ -190,8 +190,19 @@ async function getItemById(itemID) {
 	}
 }
 
+async function searchItem(keyword) {
+	try {
+		const query = `SELECT id, name, quantity, measurement FROM items WHERE LOWER(name) LIKE LOWER('%' || $1 || '%')`;
+		const { rows } = await pool.query(query, [keyword]);
+		return rows;
+	} catch (error) {
+		console.error("Error fetching item. ", error);
+	}
+}
+
 module.exports = {
 	insertItem,
 	getAllItems,
 	getItemById,
+	searchItem,
 };

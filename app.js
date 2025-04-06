@@ -41,6 +41,10 @@ app.use("/items", itemsRouter);
 const inventorySummaryRouter = require("./routes/inventorySummaryRouter.js");
 app.use("/inventory-summary", inventorySummaryRouter);
 
+// Search router
+const searchRouter = require("./routes/searchRouter.js");
+app.use("/search", searchRouter);
+
 // Transactions router
 const transactionsRouter = require("./routes/transactionsRouter.js");
 app.use("/transactions", transactionsRouter);
