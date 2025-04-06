@@ -49,6 +49,10 @@ app.use("/search", searchRouter);
 const transactionsRouter = require("./routes/transactionsRouter.js");
 app.use("/transactions", transactionsRouter);
 
+// Notifications router
+const notificationsRouter = require("./routes/notificationsRouter.js");
+app.use("/notifications", notificationsRouter);
+
 // Main error-handling middleware
 app.use((err, req, res, next) => {
 	console.error(err.stack);

@@ -200,9 +200,22 @@ async function searchItem(keyword) {
 	}
 }
 
+async function getLowStockItems() {
+	try {
+		const query = `
+        SELECT id, name, quantity, measurement, min_level FROM items WHERE quantity <= min_level;
+        `;
+		const { rows } = await pool.query(query);
+		return rows;
+	} catch (error) {
+		console.error("Error fetching low-stock items. ", error);
+	}
+}
+
 module.exports = {
 	insertItem,
 	getAllItems,
 	getItemById,
 	searchItem,
+	getLowStockItems,
 };

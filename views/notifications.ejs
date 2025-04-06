@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quanta | <%= title %></title>
+  <script src="/addItem.js" defer></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Notifications</h1>
+  <% if(notifications.length > 0) {%>
+  <%- include('partials/notificationCardContainer', {notifications: notifications}) %>
+  <% } else {%>
+  <div class="no-notification-found-message">You have no notifications today</div>
+  <% } %>
+  <%- include('partials/nav') %>
+</body>
+
+</html>

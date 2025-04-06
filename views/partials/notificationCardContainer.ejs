@@ -1,0 +1,10 @@
+<div class="notifications-container">
+  <% notifications.forEach(notification => { %>
+  <a href="items/<%= notification.itemID %>">
+    <div class="notification-card">
+      <div class="item-image"></div>
+      <div class="message"><%=notification.message%></div>
+    </div>
+  </a>
+  <% }); %>
+</div>
