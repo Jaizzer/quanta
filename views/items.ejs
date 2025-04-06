@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quanta | <%= title %></title>
+  <script src="/addItem.js" defer></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -31,7 +32,7 @@
     </div>
   </div>
   <%- include('partials/itemCardContainer', {items: items}) %>
-  <a href="items/add-item"><button class="add-item-btn">Add Item</button></a>
+  <button class="add-item-btn">Add</button>
   <%- include('partials/nav') %>
 </body>
 
