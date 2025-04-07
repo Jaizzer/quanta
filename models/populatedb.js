@@ -183,6 +183,11 @@ ALTER COLUMN price
 SET DEFAULT 0;
 `;
 
+const SQL16 = `
+ALTER TABLE activity_history
+DROP COLUMN product_type_id;
+`
+
 async function main() {
 	let client;
 	try {
@@ -208,7 +213,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL15);
+		await client.query(SQL16);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
