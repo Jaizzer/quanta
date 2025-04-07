@@ -184,6 +184,14 @@ async function getItemById(req, res, next) {
 	});
 }
 
+async function lowStockGet(req, res, next) {
+	let lowStockItems = (await db.getLowStockItems()) || [];
+	res.render("lowStock", {
+		title: "Low Stock",
+		items: lowStockItems,
+	});
+}
+
 const validateAddItemForm = [
 	body("itemName")
 		.trim()
@@ -233,5 +241,6 @@ module.exports = {
 	getItemById: asyncHandler(getItemById),
 	getAllItems: asyncHandler(getAllItems),
 	addItemGet: asyncHandler(addItemGet),
+	lowStockGet: asyncHandler(lowStockGet),
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
 };
