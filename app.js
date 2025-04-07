@@ -65,6 +65,10 @@ app.use("/user-profile", userProfileRouter);
 const reportsRouter = require("./routes/reportsRouter.js");
 app.use("/reports", reportsRouter);
 
+// Activity History Router
+const activityHistoryRouter = require("./routes/activityHistoryRouter.js");
+app.use("/activity-history", activityHistoryRouter);
+
 // Main error-handling middleware
 app.use((err, req, res, next) => {
 	console.error(err.stack);

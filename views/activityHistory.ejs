@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quanta | <%= title %></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="header">
+    <button class="back" onclick="history.back()">
+      ←
+    </button>
+    <h1>Activity History</h1>
+  </div>
+
+  <div class="activities-container">
+    <% activities.forEach(activity => { %>
+    <a class="activity-card" href="<%= activity.link %>">
+      <div class="image-container"></div>
+      <h2><%= activity.entityName %></h2>
+      <p><%= activity.description %></p>
+      <div class="time-passed"><%=activity.timePassed %></div>
+    </a>
+    <% })%>
+  </div>
+
+  <%- include('partials/nav') %>
+</body>
+
+</html>
