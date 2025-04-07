@@ -295,6 +295,7 @@ async function getAllActivities() {
         ON item_id = items.id
         LEFT JOIN categories
         ON category_id = categories.id
+        ORDER BY activity_history.id DESC
         ;
         `;
 		const { rows } = await pool.query(query);
