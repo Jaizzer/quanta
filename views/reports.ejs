@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quanta | <%= title %></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="header">
+    <button class="back" onclick="history.back()">
+      ←
+    </button>
+    <h1>Reports</h1>
+  </div>
+
+  <a class="report-item" href="/activity-history">
+    <div class="icon-container"></div>
+    <h2>Activity History</h2>
+    <p>Keep tabs on all user's changes to items, tags & more</p>
+  </a>
+
+  <a class="report-item" href="/inventory-summary">
+    <div class="icon-container"></div>
+    <h2>Inventory Summary</h2>
+    <p>Review your inventory's quantity, value, & location at a glance.</p>
+  </a>
+
+  <a class="report-item" href="/items/low-stock">
+    <div class="icon-container"></div>
+    <h2>Low Stock</h2>
+    <p>View all stock items that are low inventory so that you never run out of what you need.</p>
+  </a>
+
+  <a class="report-item" href="/transactions">
+    <div class="icon-container"></div>
+    <h2>Transactions</h2>
+    <p>Monitor all inventory movements, updates, and deletions for efficient team oversight.</p>
+  </a>
+  <%- include('partials/nav') %>
+</body>
+
+</html>

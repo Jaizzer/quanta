@@ -61,6 +61,10 @@ app.use("/menu", menuRouter);
 const userProfileRouter = require("./routes/userProfileRouter.js");
 app.use("/user-profile", userProfileRouter);
 
+// Reports Router
+const reportsRouter = require("./routes/reportsRouter.js");
+app.use("/reports", reportsRouter);
+
 // Main error-handling middleware
 app.use((err, req, res, next) => {
 	console.error(err.stack);
