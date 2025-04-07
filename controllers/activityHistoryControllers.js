@@ -1,21 +1,16 @@
 const asyncHandler = require("express-async-handler");
+const db = require("../models/queries.js");
 
 async function activityHistoryGet(req, res, next) {
-	const activities = [
-		{
-			entityName: "Item 1",
-			description: "Jaizzer created item Item 1 in Items",
-			timePassed: "15m",
-			link: "/items/96",
-		},
-
-		{
-			entityName: "Tag 1",
-			description: "Jaizzer created item Tag 1 ",
-			timePassed: "15m",
-			link: "/tags/96",
-		},
-	];
+	const activities = (await db.getAllActivities()).map((activity) => {
+		// Transform the activity object with link property
+		const { item_id, category_id, description, entity_name } = activity;
+		return {
+			description: description,
+			entityName: entity_name,
+			link: item_id ? `/items/${item_id}` : `/tags?${tag_id}`,
+		};
+	});
 	res.render("activityHistory", {
 		title: "Activity History",
 		activities: activities,
