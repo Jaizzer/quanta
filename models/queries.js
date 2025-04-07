@@ -288,6 +288,7 @@ async function getAllActivities() {
             WHEN categories.category IS NULL THEN items.name
             ELSE categories.category
         END AS entity_name,
+        activity_done_at,
         activity_description AS description
         FROM activity_history
         LEFT JOIN items
