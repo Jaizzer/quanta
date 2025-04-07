@@ -50,6 +50,4 @@ function getTimePassed(date) {
 	} else {
 		return `${seconds}s`;
 	}
-
-	return result;
 }
