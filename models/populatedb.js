@@ -193,6 +193,11 @@ ALTER TABLE activity_history
 ADD COLUMN category_id INTEGER REFERENCES categories(id);
 `;
 
+const SQL18 = `
+ALTER TABLE activity_history
+ADD COLUMN activity_description TEXT;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -218,7 +223,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL17);
+		await client.query(SQL18);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
