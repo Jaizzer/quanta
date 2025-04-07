@@ -53,6 +53,10 @@ app.use("/transactions", transactionsRouter);
 const notificationsRouter = require("./routes/notificationsRouter.js");
 app.use("/notifications", notificationsRouter);
 
+// Menu router
+const menuRouter = require("./routes/menuRouter.js");
+app.use("/menu", menuRouter);
+
 // Main error-handling middleware
 app.use((err, req, res, next) => {
 	console.error(err.stack);

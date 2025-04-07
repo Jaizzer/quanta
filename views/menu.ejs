@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quanta | <%= title %></title>
+  <script src="/addItem.js" defer></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Menu</h1>
+  <div class="user-name-card">
+    <div class="image-container">
+
+    </div>
+    <h2 class="user-name">Jaizzer</h2>
+    <div class="user-email">placeholderemail@email.com</div>
+
+    <div class="menu-options-container">
+      <a href="/user-profile" class="menu-option">
+        <div class="icon-container"></div>
+        <h2>User Profile</h2>
+        <div class="arrow-container">→</div>
+      </a>
+      <a href="/company-details" class="menu-option">
+        <div class="icon-container"></div>
+        <h2>Company Details</h2>
+        <div class="arrow-container">→</div>
+      </a>
+    </div>
+
+    <div class="menu-options-container">
+      <a href="/pick-lists" class="menu-option">
+        <div class="icon-container"></div>
+        <h2>Pick Lists</h2>
+        <div class="arrow-container">→</div>
+      </a>
+      <a href="/addresses" class="menu-option">
+        <div class="icon-container"></div>
+        <h2>Addresses</h2>
+        <div class="arrow-container">→</div>
+      </a>
+    </div>
+
+    <div class="menu-options-container">
+      <a href="/reports" class="menu-option">
+        <div class="icon-container"></div>
+        <h2>Reports</h2>
+        <div class="arrow-container">→</div>
+      </a>
+      <a href="/tags" class="menu-option">
+        <div class="icon-container"></div>
+        <h2>Manage Tags</h2>
+        <div class="arrow-container">→</div>
+      </a>
+    </div>
+  </div>
+
+  <%- include('partials/nav') %>
+</body>
+
+</html>
