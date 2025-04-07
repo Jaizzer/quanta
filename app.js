@@ -57,6 +57,10 @@ app.use("/notifications", notificationsRouter);
 const menuRouter = require("./routes/menuRouter.js");
 app.use("/menu", menuRouter);
 
+// User Profile Router
+const userProfileRouter = require("./routes/userProfileRouter.js");
+app.use("/user-profile", userProfileRouter);
+
 // Main error-handling middleware
 app.use((err, req, res, next) => {
 	console.error(err.stack);

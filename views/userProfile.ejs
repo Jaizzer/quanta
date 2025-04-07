@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quanta | <%= title %></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="header">
+    <button class="back" onclick="history.back()">
+      ←
+    </button>
+    <h1>User Profile</h1>
+  </div>
+
+  <div class="input-field-container">
+    <div class="name-field">
+      <label for="user-name">Name</label>
+      <input type="text" value="<%=name%>" name="name" id="user-name">
+    </div>
+    <div class="email-field">
+      <label for="user-email">Email</label>
+      <input type="text" value="<%=email%>" name="email" id="user-email">
+    </div>
+    <div class="phone-number-field">
+      <label for="user-phone-number">Phone Number</label>
+      <input type="text" value="<%=phoneNumber%>" name="phoneNumber" id="user-phone-number">
+    </div>
+
+    <div class="connected-accounts-container">
+      <div class="connected-account">
+        <div class="icon-container">
+        </div>
+        <% if (googleAccount) {%>
+        <h2>Google Account</h2>
+        <p><%= googleAccount%></p>
+        <% } else {%>
+        <h2>Connect to Google Account</h2>
+        <% }%>
+      </div>
+
+      <div class="connected-account">
+        <div class="icon-container">
+        </div>
+        <% if (appleID) {%>
+        <h2>Apple ID</h2>
+        <p><%= appleID %></p>
+        <% } else {%>
+        <h2>Connect Apple ID</h2>
+        <% }%>
+      </div>
+    </div>
+  </div>
+  <div class="password-management-section">
+    <h2>Password Management</h2>
+    <a href="/password-manager"><button class="set-password-btn">Set Password</button></a>
+  </div>
+  <%- include('partials/nav') %>
+</body>
+
+</html>
