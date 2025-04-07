@@ -62,6 +62,21 @@ async function insertItem(item) {
 				);
 			});
 		}
+
+		// Update activity history
+		await updateActivityHistory({
+			itemID: itemID,
+			categoryID: null,
+			activityDescription: `Create item "${name}".`,
+			activityTypeID: null,
+			reason: null,
+			propertyName: null,
+			formerValueText: null,
+			newValueText: null,
+			formerValueNumber: null,
+			newValueNumber: null,
+		});
+
 		console.log("Item inserted successfully");
 	} catch (error) {
 		console.error("Error inserting the item. ", error);
@@ -209,6 +224,57 @@ async function getLowStockItems() {
 		return rows;
 	} catch (error) {
 		console.error("Error fetching low-stock items. ", error);
+	}
+}
+
+async function updateActivityHistory(activity) {
+	const {
+		itemID,
+		categoryID,
+		activityDescription,
+		activityTypeID,
+		reason,
+		propertyName,
+		formerValueText,
+		newValueText,
+		formerValueNumber,
+		newValueNumber,
+	} = activity;
+
+	try {
+		// Insert the activity values and obtain the result
+		await pool.query(
+			`
+			INSERT INTO activity_history(
+            item_id, 
+            category_id, 
+            activity_type_id, 
+            activity_description,
+            reason, 
+            property_name, 
+            former_value_text, 
+            new_value_text, 
+            former_value_number, 
+            new_value_number) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            ;
+            `,
+			[
+				itemID,
+				categoryID,
+				activityTypeID,
+				activityDescription,
+				reason,
+				propertyName,
+				formerValueText,
+				newValueText,
+				formerValueNumber,
+				newValueNumber,
+			],
+		);
+		console.log("Activity inserted successfully.");
+	} catch (error) {
+		console.error("Error inserting activity.", error);
 	}
 }
 
