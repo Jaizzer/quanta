@@ -186,7 +186,12 @@ SET DEFAULT 0;
 const SQL16 = `
 ALTER TABLE activity_history
 DROP COLUMN product_type_id;
-`
+`;
+
+const SQL17 = `
+ALTER TABLE activity_history
+ADD COLUMN category_id INTEGER REFERENCES categories(id);
+`;
 
 async function main() {
 	let client;
@@ -213,7 +218,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL16);
+		await client.query(SQL17);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
