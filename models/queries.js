@@ -278,10 +278,36 @@ async function updateActivityHistory(activity) {
 	}
 }
 
+async function getAllActivities() {
+	try {
+		const query = `
+        SELECT
+        item_id,
+        category_id,
+        CASE
+            WHEN categories.category IS NULL THEN items.name
+            ELSE categories.category
+        END AS entity_name,
+        activity_description AS description
+        FROM activity_history
+        LEFT JOIN items
+        ON item_id = items.id
+        LEFT JOIN categories
+        ON category_id = categories.id
+        ;
+        `;
+		const { rows } = await pool.query(query);
+		return rows;
+	} catch (error) {
+		console.error("Error fetching activities. ", error);
+	}
+}
+
 module.exports = {
 	insertItem,
 	getAllItems,
 	getItemById,
 	searchItem,
 	getLowStockItems,
+	getAllActivities,
 };
