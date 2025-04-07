@@ -8,7 +8,7 @@ async function activityHistoryGet(req, res, next) {
 		return {
 			description: description,
 			entityName: entity_name,
-			link: item_id ? `/items/${item_id}` : `/tags?${tag_id}`,
+			link: item_id ? `/items/${item_id}` : `/tags?${category_id}`,
 		};
 	});
 	res.render("activityHistory", {
