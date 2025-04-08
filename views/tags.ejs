@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <div class="header">
+    <button class="back" onclick="history.back()">
+      ←
+    </button>
+    <h1>Tags</h1>
+    <button class="edit-tag-btn">Edit</button>
+    <div class="add-tag-btn">Add</div>
+  </div>
+  <form method="GET">
+    <div class="search-field">
+      <label class="search-icon-container" for="search">🔍</label>
+      <input type="text" name="keyword" placeholder="Search" id="search">
+    </div>
+  </form>
+  <button class="sort-tag-button">Sort</button>
+  <% if(tags.length > 0) {%>
+    <% tags.forEach(tag => { %>
+    <a href="/tags/<%=tag.id%>" class="tag-card">
+        <h2 class="tag-name"><%= tag.name %></h2><div class="arrow-container">→</div>
+    </a>
+    <% }) %>
+  <% } else if (keyword) {%>
+  <div class="no-tags-found-message">No tag '<%= keyword %>' found</div>
+  <% } else {%>
+  <div class="search-default-message">
+    <div class="icon-container">
+    </div>
+    <h2>There are currently no tags</h2>
+    <h3>Create a tag</h3>
+  </div>
+  <% }%>
+
+  <%- include('partials/nav') %>
+</body>
+
+</html>

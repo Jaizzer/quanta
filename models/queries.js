@@ -305,6 +305,39 @@ async function getAllActivities() {
 	}
 }
 
+async function getAllTags() {
+	try {
+		const query = `
+        SELECT 
+        id, 
+        category AS name
+        FROM categories
+        ;
+        `;
+		const { rows } = await pool.query(query);
+		return rows;
+	} catch (error) {
+		console.error("Error fetching tags. ", error);
+	}
+}
+
+async function searchTag(keyword) {
+	try {
+		const query = `
+        SELECT 
+        id, 
+        category AS name
+        FROM CATEGORIES 
+        WHERE LOWER(category) LIKE LOWER('%' || $1 || '%')
+        ;
+        `;
+		const { rows } = await pool.query(query, [keyword]);
+		return rows;
+	} catch (error) {
+		console.error("Error fetching tag. ", error);
+	}
+}
+
 module.exports = {
 	insertItem,
 	getAllItems,
@@ -312,4 +345,6 @@ module.exports = {
 	searchItem,
 	getLowStockItems,
 	getAllActivities,
+	getAllTags,
+	searchTag,
 };

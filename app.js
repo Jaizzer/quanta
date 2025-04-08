@@ -69,6 +69,10 @@ app.use("/reports", reportsRouter);
 const activityHistoryRouter = require("./routes/activityHistoryRouter.js");
 app.use("/activity-history", activityHistoryRouter);
 
+// Tags Router
+const tagsRouter = require("./routes/tagsRouter.js");
+app.use("/tags", tagsRouter);
+
 // Main error-handling middleware
 app.use((err, req, res, next) => {
 	console.error(err.stack);
