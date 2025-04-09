@@ -338,6 +338,21 @@ async function searchTag(keyword) {
 	}
 }
 
+async function deleteTag(id) {
+	try {
+		const query = `
+            DELETE
+            FROM categories
+            WHERE id = $1
+            ;
+        `;
+		await pool.query(query, [id]);
+		console.log("Tag deleted successfully.");
+	} catch (error) {
+		console.error("Error deleting tag. ", error);
+	}
+}
+
 module.exports = {
 	insertItem,
 	getAllItems,
@@ -347,4 +362,5 @@ module.exports = {
 	getAllActivities,
 	getAllTags,
 	searchTag,
+	deleteTag,
 };

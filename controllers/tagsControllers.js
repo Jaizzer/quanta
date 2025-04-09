@@ -26,7 +26,14 @@ async function editTagsGet(req, res, next) {
 	});
 }
 
+async function deleteTag(req, res, next) {
+	const { tagID } = req.body;
+	await db.deleteTag(tagID);
+	res.status(200).redirect("/tags/edit");
+}
+
 module.exports = {
 	getAllTags: asyncHandler(getAllTags),
 	editTagsGet: asyncHandler(editTagsGet),
+	deleteTag: asyncHandler(deleteTag),
 };
