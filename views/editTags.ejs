@@ -7,6 +7,7 @@
   <title><%= title %></title>
   <link rel="stylesheet" href="/style.css">
   <script src="/addTag.js" defer></script>
+  <script src="/editTagName.js" defer></script>
 </head>
 
 <body>
@@ -18,7 +19,7 @@
   <% tags.forEach(tag => { %>
   <form action="/tags/delete" method="POST">
     <input type="text" value="<%= tag.id %>" name='tagID' hidden>
-    <div class="tag-name"><%= tag.name %></div>
+    <div class="tag-name" data-id="<%= tag.id %>"><%= tag.name %></div>
     <button class="delete-tag-btn">🗑️</button>
   </form>
   <% }) %>

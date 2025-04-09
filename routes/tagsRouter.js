@@ -3,8 +3,9 @@ const tagsRouter = Router();
 const tagsControllers = require("../controllers/tagsControllers.js");
 
 tagsRouter.get("/", tagsControllers.getAllTags);
-tagsRouter.post("/", tagsControllers.insertTag)
+tagsRouter.post("/", tagsControllers.insertTag);
 tagsRouter.get("/edit", tagsControllers.editTagsGet);
-tagsRouter.post("/delete", tagsControllers.deleteTag)
+tagsRouter.post("/delete", tagsControllers.deleteTag);
+tagsRouter.post("/:id", tagsControllers.updateTagName);
 
 module.exports = tagsRouter;

@@ -38,9 +38,17 @@ async function insertTag(req, res, next) {
 	res.status(200).redirect("/tags");
 }
 
+async function updateTagName(req, res, next) {
+	const tagID = req.params.id;
+	const newTagName = req.body.tagName;
+	await db.updateTagName(tagID, newTagName);
+	res.status(200).redirect("/tags");
+}
+
 module.exports = {
 	getAllTags: asyncHandler(getAllTags),
 	editTagsGet: asyncHandler(editTagsGet),
 	deleteTag: asyncHandler(deleteTag),
 	insertTag: asyncHandler(insertTag),
+	updateTagName: asyncHandler(updateTagName),
 };

@@ -353,6 +353,21 @@ async function deleteTag(id) {
 	}
 }
 
+async function updateTagName(id, newTagName) {
+	try {
+		const query = `
+            UPDATE categories
+            SET category = $2
+            WHERE id = $1
+            ;
+        `;
+		await pool.query(query, [id, newTagName]);
+		console.log("Tag updated successfully.");
+	} catch (error) {
+		console.error("Error updating tag name. ", error);
+	}
+}
+
 async function insertTag(tagName) {
 	try {
 		const query = `
@@ -378,4 +393,5 @@ module.exports = {
 	searchTag,
 	deleteTag,
 	insertTag,
+	updateTagName,
 };
