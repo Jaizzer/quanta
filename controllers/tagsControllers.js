@@ -18,6 +18,15 @@ async function getAllTags(req, res, next) {
 	});
 }
 
+async function editTagsGet(req, res, next) {
+	let tags = await db.getAllTags();
+	res.render("editTags", {
+		title: "Edit Tags",
+		tags: tags,
+	});
+}
+
 module.exports = {
 	getAllTags: asyncHandler(getAllTags),
+	editTagsGet: asyncHandler(editTagsGet),
 };

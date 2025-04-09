@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <div class="header">
+    <button class="back" onclick="history.back()">
+      Cancel
+    </button>
+    <h1>Edit Tags</h1>
+    <button class="done-edit-btn">Done</button>
+  </div>
+  <form action="">
+    <% if(tags.length > 0) {%>
+    <% tags.forEach(tag => { %>
+    <form action="/tags/delete" method="POST">
+      <input type="text" value="<%= tag.id %>" hidden>
+      <div class="tag-name"><%= tag.name %></div>
+      <button class="delete-tag-btn">🗑️</button>
+    </form>
+    <% }) %>
+    <% }  else {%>
+    <div class="search-default-message">
+      <div class="icon-container">
+      </div>
+      <h2>Add tags to easily access items</h2>
+      <a href="/tags/add"><button class="add-tag-btn">Add tag</button></a>
+    </div>
+    <% }%>
+  </form>
+
+  <%- include('partials/nav') %>
+</body>
+
+</html>
