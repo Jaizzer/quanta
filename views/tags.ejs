@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/style.css">
+  <script src="/addTag.js" defer></script>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
     </button>
     <h1>Tags</h1>
     <a href="/tags/edit"><button class="edit-tag-btn">Edit</button></a>
-    <a href="/tags/add"><button class="add-tag-btn">Add</button></a>
+    <button class="add-tag-btn">Add</button>
   </div>
   <form method="GET">
     <div class="search-field">
@@ -25,11 +26,12 @@
   </form>
   <button class="sort-tag-button">Sort</button>
   <% if(tags.length > 0) {%>
-    <% tags.forEach(tag => { %>
-    <a href="/tags/<%=tag.id%>" class="tag-card">
-        <h2 class="tag-name"><%= tag.name %></h2><div class="arrow-container">→</div>
-    </a>
-    <% }) %>
+  <% tags.forEach(tag => { %>
+  <a href="/tags/<%=tag.id%>" class="tag-card">
+    <h2 class="tag-name"><%= tag.name %></h2>
+    <div class="arrow-container">→</div>
+  </a>
+  <% }) %>
   <% } else if (keyword) {%>
   <div class="no-tags-found-message">No tag '<%= keyword %>' found</div>
   <% } else {%>

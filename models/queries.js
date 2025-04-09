@@ -353,6 +353,20 @@ async function deleteTag(id) {
 	}
 }
 
+async function insertTag(tagName) {
+	try {
+		const query = `
+            INSERT INTO CATEGORIES (category) 
+            VALUES ($1)
+            ;
+        `;
+		await pool.query(query, [tagName]);
+		console.log(`Tag ${tagName} added successfully.`);
+	} catch (error) {
+		console.error("Error inserting tag. ", error);
+	}
+}
+
 module.exports = {
 	insertItem,
 	getAllItems,
@@ -363,4 +377,5 @@ module.exports = {
 	getAllTags,
 	searchTag,
 	deleteTag,
+	insertTag,
 };
