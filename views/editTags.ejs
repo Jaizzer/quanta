@@ -14,24 +14,22 @@
     <h1>Edit Tags</h1>
     <a href="/tags"><button class="done-edit-btn">Done</button></a>
   </div>
-  <form action="">
-    <% if(tags.length > 0) {%>
-    <% tags.forEach(tag => { %>
-    <form action="/tags/delete" method="POST">
-      <input type="text" value="<%= tag.id %>" name='tagID' hidden>
-      <div class="tag-name"><%= tag.name %></div>
-      <button class="delete-tag-btn">🗑️</button>
-    </form>
-    <% }) %>
-    <% }  else {%>
-    <div class="search-default-message">
-      <div class="icon-container">
-      </div>
-      <h2>Add tags to easily access items</h2>
-     <button class="add-tag-btn">Add tag</button>
-    </div>
-    <% }%>
+  <% if(tags.length > 0) {%>
+  <% tags.forEach(tag => { %>
+  <form action="/tags/delete" method="POST">
+    <input type="text" value="<%= tag.id %>" name='tagID' hidden>
+    <div class="tag-name"><%= tag.name %></div>
+    <button class="delete-tag-btn">🗑️</button>
   </form>
+  <% }) %>
+  <% }  else {%>
+  <div class="search-default-message">
+    <div class="icon-container">
+    </div>
+    <h2>Add tags to easily access items</h2>
+    <button class="add-tag-btn">Add tag</button>
+  </div>
+  <% }%>
 
   <%- include('partials/nav') %>
 </body>
