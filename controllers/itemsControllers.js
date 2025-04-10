@@ -4,11 +4,11 @@ const getTotalValue = require("./getTotalValue");
 const { body, validationResult } = require("express-validator");
 const db = require("../models/queries");
 
-const tags = [
-	{ id: 1, name: "Tag 1" },
-	{ id: 2, name: "Tag 2" },
-	{ id: 3, name: "Tag 3" },
-];
+// Get the tags from the database
+let tags;
+(async () => {
+	tags = await db.getAllTags();
+})();
 
 async function addItemGet(req, res, next) {
 	res.render("itemAdding", {
