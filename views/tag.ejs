@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/style.css">
-  <script src="/addTag.js" defer></script>
-  <script src="/sortTags.js" defer></script>
+  <script src="/searchTag.js" defer></script>
 </head>
 
 <body>
@@ -16,7 +15,7 @@
       ←
     </button>
     <h1><%= tag.name %></h1>
-    <button class="search-button" <%= tag.items.length === 0 && 'disabled' %>>🔍</button>
+    <button class="search-button" <%= tag.items.length === 0 && !keyword && 'disabled' %>>🔍</button>
   </div>
   <% if (tag.items.length > 0) { %>
   <div class="tag-summary-container">
@@ -38,14 +37,20 @@
     </table>
   </div>
   <%- include('partials/itemCardContainer', {items: tag.items}) %>
-  <% } else {%>
+  <% } else if (tag.items.length === 0 && !keyword) {%>
   <div class="empty-tag-message-container">
     <div class="icon-container"></div>
     <h2>It's empty here</h2>
     <p>Tags will give you an alternative way to group your items so its easier to search for items across your inventory.</p>
     <p>You can add tags by editing items.</p>
   </div>
-  <% } %>
+  <% } else if (tag.items.length === 0 && keyword) { %>
+  <div class="no-result-found-message-container">
+    <div class="icon-container"></div>
+    <h2>No item matching the '<%= keyword%>' keyword</h2>
+    <p>Try using a different keyword.</p>
+  </div>
+  <% }%>
   <%- include('partials/nav') %>
 </body>
 
