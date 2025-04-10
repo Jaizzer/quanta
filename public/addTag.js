@@ -6,7 +6,10 @@ addTagBtn?.addEventListener("click", () => {
 
 	const form = document.createElement("form");
 	form.method = "POST";
-	form.action = "/tags";
+	const currentSortOption = new URLSearchParams(window.location.search)?.get(
+		"sort",
+	);
+	form.action = `/tags${currentSortOption && `?sort=${currentSortOption}`}`;
 	backgroundOverlay.appendChild(form);
 
 	const formTitle = document.createElement("h2");

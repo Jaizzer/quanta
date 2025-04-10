@@ -3,18 +3,42 @@ const db = require("../models/queries");
 
 async function getAllTags(req, res, next) {
 	const keyword = req.query.keyword;
+	const sortOption = req.query.sort;
 	let tags = [];
 
 	if (keyword) {
-		tags = await db.searchTag(keyword);
+		tags = await db.searchTag(keyword, sortOption);
 	} else {
-		tags = await db.getAllTags(keyword);
+		tags = await db.getAllTags(sortOption);
 	}
 
 	res.render("tags", {
 		title: "Tags",
 		tags: tags,
 		keyword: keyword,
+		sortOptions: [
+			{ value: "", name: "Sort By", isSelected: !sortOption },
+			{
+				value: "name-ascending",
+				name: "Name (Ascending)",
+				isSelected: sortOption === "name-ascending",
+			},
+			{
+				value: "name-descending",
+				name: "Name (Descending)",
+				isSelected: sortOption === "name-descending",
+			},
+			{
+				value: "date-added-ascending",
+				name: "Date Created (Oldest to Newest)",
+				isSelected: sortOption === "date-added-ascending",
+			},
+			{
+				value: "date-added-descending",
+				name: "Date Created (Newest to Oldest)",
+				isSelected: sortOption === "date-added-descending",
+			},
+		],
 	});
 }
 
@@ -35,7 +59,10 @@ async function deleteTag(req, res, next) {
 async function insertTag(req, res, next) {
 	const { tagName } = req.body;
 	await db.insertTag(tagName);
-	res.status(200).redirect("/tags");
+
+	// Preserve the previously selected sort option if there is one
+	const { sort } = req.query;
+	res.status(200).redirect(`/tags${sort && `?sort=${sort}`}`);
 }
 
 async function updateTagName(req, res, next) {

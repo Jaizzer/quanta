@@ -305,15 +305,36 @@ async function getAllActivities() {
 	}
 }
 
-async function getAllTags() {
+async function getAllTags(sortOption) {
 	try {
+		let orderByStatement;
+		switch (sortOption) {
+			case "name-ascending":
+				orderByStatement = "ORDER BY category ASC";
+				break;
+			case "name-descending":
+				orderByStatement = "ORDER BY category DESC";
+				break;
+			case "date-added-ascending":
+				orderByStatement = "ORDER BY id ASC";
+				break;
+			case "date-added-descending":
+				orderByStatement = "ORDER BY id DESC";
+				break;
+			default:
+				orderByStatement = "";
+				break;
+		}
+
 		const query = `
-        SELECT 
-        id, 
-        category AS name
-        FROM categories
-        ;
+            SELECT 
+            id, 
+            category AS name
+            FROM categories
+            ${orderByStatement}
+            ;
         `;
+        
 		const { rows } = await pool.query(query);
 		return rows;
 	} catch (error) {

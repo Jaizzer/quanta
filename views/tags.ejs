@@ -7,6 +7,7 @@
   <title><%= title %></title>
   <link rel="stylesheet" href="/style.css">
   <script src="/addTag.js" defer></script>
+  <script src="/sortTags.js" defer></script>
 </head>
 
 <body>
@@ -24,7 +25,13 @@
       <input type="text" name="keyword" placeholder="Search" id="search">
     </div>
   </form>
-  <button class="sort-tag-button">Sort</button>
+  <form action="/tags" method="GET" class="sort-form">
+    <select name="sort">
+      <% sortOptions?.forEach(sortOption => {  %>
+      <option value="<%= sortOption.value %>" <%= !sortOption.value && 'disabled' %> <%= sortOption.isSelected && 'selected' %>><%= sortOption.name %></option>
+      <% })%>
+    </select>
+  </form>
   <% if(tags.length > 0) {%>
   <% tags.forEach(tag => { %>
   <a href="/tags/<%=tag.id%>" class="tag-card">
