@@ -17,7 +17,7 @@ forms?.forEach((form) => {
 		backgroundOverlay.appendChild(warningMessageContainer);
 
 		const warningMessage = document.createElement("div");
-		warningMessage.textContent = `Are you sure you want to delete tag ${tagName}?`;
+		warningMessage.textContent = `Are you sure you want to delete tag '${tagName}'?`;
 		warningMessage.classList.add("warning-message");
 		warningMessageContainer.appendChild(warningMessage);
 
