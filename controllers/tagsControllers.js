@@ -77,7 +77,7 @@ async function getTagByID(req, res, next) {
 	const row = await db.getTagByID(tagID);
 	const tag = {
 		name: row.tag_name,
-		items: row.items,
+		items: row.items || [],
 		totalItemQuantity: row.total_item_quantity,
 		totalDistinctItemQuantity: row.total_distinct_item_quantity,
 		totalValue: row.total_value,

@@ -334,7 +334,7 @@ async function getAllTags(sortOption) {
             ${orderByStatement}
             ;
         `;
-        
+
 		const { rows } = await pool.query(query);
 		return rows;
 	} catch (error) {
@@ -410,8 +410,16 @@ async function getTagByID(id) {
                 tag_name,
                 sum(total_item_quantity) as total_item_quantity,
                 sum(total_value) as total_value,
-                COUNT(*) as total_distinct_item_quantity,
-                JSONB_AGG(JSONB_BUILD_OBJECT('id', item_id, 'name', item_name, 'quantity', total_item_quantity, 'measurement', measurement) ORDER BY item_id) AS items
+                CASE 
+                    WHEN (SELECT COUNT(category_id) FROM item_categories WHERE category_id = $1) <> 0 
+                        THEN COUNT(*) 
+                    ELSE 0
+                END as total_distinct_item_quantity,
+                CASE 
+                    WHEN (SELECT COUNT(category_id) FROM item_categories WHERE category_id = $1) <> 0 
+                        THEN JSONB_AGG(JSONB_BUILD_OBJECT('id', item_id, 'name', item_name, 'quantity', total_item_quantity, 'measurement', measurement) ORDER BY item_id)
+                    ELSE NULL
+                END AS items
             FROM(
                     SELECT item_name,
                         item_id,
@@ -426,19 +434,22 @@ async function getTagByID(id) {
                                 items.measurement AS measurement,
                                 CASE
                                     WHEN(variants.id IS NOT NULL) THEN variants.price
-                                    ELSE items.price
+                                    WHEN (items.price IS NOT NULL) THEN items.price
+                                    ELSE 0
                                 END AS price,
                                 CASE
                                     WHEN(variants.id IS NOT NULL) THEN variants.quantity
-                                    ELSE items.quantity
+                                    WHEN(items.quantity IS NOT NULL) then items.quantity
+                                    ELSE 0
                                 END AS quantity,
                                 CASE
                                     WHEN(variants.id IS NOT NULL) THEN variants.price * variants.quantity
-                                    ELSE items.price * items.quantity
+                                    WHEN (items.price IS NOT NULL AND items.quantity IS NOT NULL) THEN items.price * items.quantity
+                                    ELSE 0
                                 END AS total_value
-                            FROM items
-                                INNER JOIN item_categories ON items.id = item_categories.item_id
-                                INNER JOIN categories ON categories.id = item_categories.category_id
+                            FROM categories
+                                LEFT JOIN item_categories ON categories.id = item_categories.category_id
+                                LEFT JOIN items ON items.id = item_categories.item_id
                                 LEFT JOIN variants ON variants.parent_item_id = items.id
                             WHERE categories.id = $1
                         )
