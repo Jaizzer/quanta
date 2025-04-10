@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/style.css">
   <script src="/addTag.js" defer></script>
   <script src="/editTagName.js" defer></script>
+  <script src="/deleteTag.js" defer></script>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
   <form action="/tags/delete" method="POST">
     <input type="text" value="<%= tag.id %>" name='tagID' hidden>
     <div class="tag-name" data-id="<%= tag.id %>"><%= tag.name %></div>
-    <button class="delete-tag-btn">🗑️</button>
+    <button type="button" class="delete-tag-btn">🗑️</button>
   </form>
   <% }) %>
   <% }  else {%>
