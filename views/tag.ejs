@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/addTag.js" defer></script>
+  <script src="/sortTags.js" defer></script>
+</head>
+
+<body>
+  <div class="header">
+    <button class="back" onclick="history.back()">
+      ←
+    </button>
+    <h1><%= tag.name %></h1>
+    <button class="search-button">🔍</button>
+  </div>
+
+  <div class="tag-summary-container">
+    <table>
+      <thead>
+        <tr>
+          <td>Items</td>
+          <td>Total Qty</td>
+          <td>Total Value</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= tag.totalItemQuantity %></td>
+          <td><%= tag.totalDistinctItemQuantity %></td>
+          <td><%= tag.totalValue %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <%- include('partials/itemCardContainer', {items: tag.items}) %>
+  <%- include('partials/nav') %>
+</body>
+
+</html>

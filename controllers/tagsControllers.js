@@ -72,10 +72,28 @@ async function updateTagName(req, res, next) {
 	res.status(200).redirect("/tags");
 }
 
+async function getTagByID(req, res, next) {
+	const tagID = req.params.id;
+	const row = await db.getTagByID(tagID);
+	const tag = {
+		name: row.tag_name,
+		items: row.items,
+		totalItemQuantity: row.total_item_quantity,
+		totalDistinctItemQuantity: row.total_distinct_item_quantity,
+		totalValue: row.total_value,
+	};
+
+	res.render("tag", {
+		title: tag.name,
+		tag: tag,
+	});
+}
+
 module.exports = {
 	getAllTags: asyncHandler(getAllTags),
 	editTagsGet: asyncHandler(editTagsGet),
 	deleteTag: asyncHandler(deleteTag),
 	insertTag: asyncHandler(insertTag),
 	updateTagName: asyncHandler(updateTagName),
+	getTagByID: asyncHandler(getTagByID),
 };

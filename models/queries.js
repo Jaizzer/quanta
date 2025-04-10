@@ -403,6 +403,59 @@ async function insertTag(tagName) {
 	}
 }
 
+async function getTagByID(id) {
+	try {
+		const query = `
+            SELECT 
+                tag_name,
+                sum(total_item_quantity) as total_item_quantity,
+                sum(total_value) as total_value,
+                COUNT(*) as total_distinct_item_quantity,
+                JSONB_AGG(JSONB_BUILD_OBJECT('id', item_id, 'name', item_name, 'quantity', total_item_quantity, 'measurement', measurement) ORDER BY item_id) AS items
+            FROM(
+                    SELECT item_name,
+                        item_id,
+                        tag_name,
+                        sum(total_value) as total_value,
+                        sum(quantity) as total_item_quantity,
+                        measurement
+                    FROM (
+                            SELECT items.name as item_name,
+                                items.id as item_id,
+                                categories.category as tag_name,
+                                items.measurement AS measurement,
+                                CASE
+                                    WHEN(variants.id IS NOT NULL) THEN variants.price
+                                    ELSE items.price
+                                END AS price,
+                                CASE
+                                    WHEN(variants.id IS NOT NULL) THEN variants.quantity
+                                    ELSE items.quantity
+                                END AS quantity,
+                                CASE
+                                    WHEN(variants.id IS NOT NULL) THEN variants.price * variants.quantity
+                                    ELSE items.price * items.quantity
+                                END AS total_value
+                            FROM items
+                                INNER JOIN item_categories ON items.id = item_categories.item_id
+                                INNER JOIN categories ON categories.id = item_categories.category_id
+                                LEFT JOIN variants ON variants.parent_item_id = items.id
+                            WHERE categories.id = $1
+                        )
+                    GROUP BY item_name,
+                        item_id,
+                        tag_name,
+                        measurement
+                )
+            GROUP BY tag_name;
+        `;
+		const { rows } = await pool.query(query, [id]);
+		return rows[0];
+	} catch (error) {
+		console.error("Error fetching tag. ", error);
+	}
+}
+
 module.exports = {
 	insertItem,
 	getAllItems,
@@ -415,4 +468,5 @@ module.exports = {
 	deleteTag,
 	insertTag,
 	updateTagName,
+	getTagByID,
 };
