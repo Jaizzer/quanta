@@ -49,11 +49,11 @@
         <div class="value"><%= item.totalValue %></div>
       </div>
     </div>
-    <div class="categories-section">
-      <div class="section-title">Categories:</div>
-      <% item.categories.forEach(category => { %>
-      <a href="/categories/<%= category.id %>">
-        <div class="tag"><%= category.name %></div>
+    <div class="tags-section">
+      <div class="section-title">Tags:</div>
+      <% item.tags.forEach(tag => { %>
+      <a href="/tags/<%= tag.id %>">
+        <div class="tag"><%= tag.name %></div>
       </a>
       <% }) %>
     </div>

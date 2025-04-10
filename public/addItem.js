@@ -27,13 +27,13 @@ addBtn.addEventListener("click", () => {
 	});
 	addOptionContainer.appendChild(addItemOption);
 
-	const addCategoryOption = document.createElement("button");
-	addCategoryOption.classList.add("add-option");
-	addCategoryOption.textContent = "Add Category";
-	addCategoryOption.addEventListener("click", () => {
-		window.location.href = "/categories/add-category";
+	const addTagOption = document.createElement("button");
+	addTagOption.classList.add("add-option");
+	addTagOption.textContent = "Add Tag";
+	addTagOption.addEventListener("click", () => {
+		window.location.href = "/tags";
 	});
-	addOptionContainer.appendChild(addCategoryOption);
+	addOptionContainer.appendChild(addTagOption);
 
 	document.body.appendChild(addOptionContainerBackground);
 });

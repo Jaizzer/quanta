@@ -195,7 +195,7 @@ async function getItemById(itemID) {
 			notes: row.notes,
 			minLevel: row.min_level,
 			variants: row.variants || [],
-			categories: row.categories || [],
+			tags: row.categories || [],
 			measurement: row.measurement,
 			totalValue: row.total_value || row.price * row.quantity,
 			totalQuantity: row.total_quantity || row.quantity,
