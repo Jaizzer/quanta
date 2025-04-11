@@ -28,6 +28,14 @@ const form = document.querySelector("form");
 // Clone of the current variant creation section
 let currentVariantCreationSectionCopy;
 
+const initialVariantQuantityField = document.querySelector(".variant-quantity");
+initialVariantQuantityField.addEventListener("input", (e) => {
+	if (!e.target.validity.valid) {
+		e.target.value = "";
+	}
+	addAllVariantQuantity();
+});
+
 variantAddingToggleBtn.addEventListener("click", () => {
 	isVariantCreationEnabled = !isVariantCreationEnabled;
 	variantAddingToggleBtn.textContent = isVariantCreationEnabled
@@ -44,6 +52,10 @@ variantAddingToggleBtn.addEventListener("click", () => {
 
 		// Remove the original variant creation Section
 		form.removeChild(currentVariantCreationSection);
+
+		// Enable the parent quantity input
+		const parentQuantity = document.querySelector("#quantity");
+		parentQuantity.readOnly = false;
 	} else {
 		// Add functionality to the Delete Variant buttons inside the variant creation section's copy
 		let deleteVariantBtns = Array.from(
@@ -58,6 +70,20 @@ variantAddingToggleBtn.addEventListener("click", () => {
 			});
 		});
 
+		// Restore event listener that updates the parent quantity with the sum of all variant quantity
+		Array.from(
+			currentVariantCreationSectionCopy.querySelectorAll(
+				".variant-quantity",
+			),
+		).forEach((variantQuantityInput) => {
+			variantQuantityInput.addEventListener("input", (e) => {
+				if (parseFloat(e.target.value) < 0) {
+					e.target.value = Math.abs(e.target.value);
+				}
+				addAllVariantQuantity();
+			});
+		});
+
 		// Add functionality to the Add variant button inside the variant creation section's copy
 		let addVariantBtn =
 			currentVariantCreationSectionCopy.querySelector(".add-variant-btn");
@@ -67,6 +93,16 @@ variantAddingToggleBtn.addEventListener("click", () => {
 
 		// Restore the variant creation section from a created copy
 		form.appendChild(currentVariantCreationSectionCopy);
+
+		// Update the parent quantity to be the sum of all variant quantity
+		addAllVariantQuantity();
+
+		// Disable the parent quantity input if there are variants
+		// Enable the parent quantity input if all variants have been removed
+		if (document.querySelector(".variant-quantity")) {
+			const parentQuantity = document.querySelector("#quantity");
+			parentQuantity.readOnly = true;
+		}
 	}
 });
 
@@ -76,9 +112,22 @@ function deleteVariantField(e) {
 
 	// Remove the variant field
 	e.target.parentElement.parentElement.removeChild(e.target.parentElement);
+
+	// Update the parent quantity to be the sum of all variant quantity
+	addAllVariantQuantity();
+
+	// Enable the parent quantity input if all variants have been removed
+	if (!document.querySelector(".variant-quantity")) {
+		const parentQuantity = document.querySelector("#quantity");
+		parentQuantity.readOnly = false;
+	}
 }
 
 function addVariant() {
+	// Disable the parent quantity input if variant adding is enabled
+	const parentQuantity = document.querySelector("#quantity");
+	parentQuantity.readOnly = true;
+
 	// Extract the input field name
 	const inputFieldName = lastVariantField.querySelector("input").name;
 
@@ -109,6 +158,15 @@ function addVariant() {
 		newVariantField.removeChild(errorMessageCopiedFromLastVariantField);
 	}
 
+	const variantQuantityField =
+		newVariantField.querySelector(".variant-quantity");
+	variantQuantityField.addEventListener("input", (e) => {
+		if (!e.target.validity.valid) {
+			e.target.value = "";
+		}
+		addAllVariantQuantity();
+	});
+
 	// Add event listener to the new variant field's Delete button
 	const newVariantFieldDeleteBtn = newVariantField.querySelector(
 		".delete-variant-btn",
@@ -129,4 +187,22 @@ function addVariant() {
 
 	// Update the last variant field to be this newly created variant field
 	lastVariantField = newVariantField;
+
+	// Update the parent quantity to be the sum of all variant quantity
+	addAllVariantQuantity();
+}
+
+function addAllVariantQuantity() {
+	const allVariantQuantitySum = Array.from(
+		document.querySelectorAll(".variant-quantity"),
+	)
+		.map((variantQuantityInput) =>
+			variantQuantityInput.value
+				? parseFloat(variantQuantityInput.value)
+				: 0,
+		)
+		.reduce((acc, curr) => acc + curr, 0);
+
+	const parentQuantity = document.querySelector("#quantity");
+	parentQuantity.value = allVariantQuantitySum;
 }

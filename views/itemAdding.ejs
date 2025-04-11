@@ -22,7 +22,7 @@
 
     <div class="quantity-field">
       <label for="quantity">Quantity</label>
-      <input type="number" name="quantity" id="quantity" value="<%= item.quantity %>">
+      <input type="number" name="quantity" id="quantity" value="<%= item.quantity %>" readonly>
       <select name="measurement" id="measurement">
         <option value="unit" <%= item.measurement === 'unit' ? 'selected' : null %>>unit</option>
         <option value="gram" <%= item.measurement === 'gram' ? 'selected' : null%>>g</option>
@@ -68,8 +68,8 @@
       <% item.variants.forEach(variant => { %>
       <div class="variant-field">
         <input type="text" placeholder="Variant" name="<%= variant.id %>" value="<%= variant.name %>" max="25">
-        <input type="number" placeholder="Quantity" name="<%= variant.id %>" value="<%= variant.quantity %>" min="0">
-        <input type="number" placeholder="Price" name="<%= variant.id %>" value="<%= variant.price %>" min="0">
+        <input type="number" class="variant-quantity" placeholder="Quantity" name="<%= variant.id %>" value="<%= variant.quantity %>" min="0">
+        <input type="number" class="variant-price" placeholder="Price" name="<%= variant.id %>" value="<%= variant.price %>" min="0">
         <%- include('partials/formErrorMessage', {errorMessage: variant.error}) %>
         <div class="delete-variant-btn">Delete Variant</div>
       </div>
