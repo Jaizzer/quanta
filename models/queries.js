@@ -147,7 +147,7 @@ async function getItemById(itemID) {
             SUM(variants.quantity) as total_quantity,
             CASE
                 WHEN (SELECT COUNT(parent_item_id) FROM variants WHERE parent_item_id = $1) <> 0
-                    THEN JSONB_AGG(JSONB_BUILD_OBJECT('name', variants.name, 'price', variants.price, 'quantity', variants.quantity) ORDER BY variants.name)
+                    THEN JSONB_AGG(JSONB_BUILD_OBJECT('id', variants.id, 'name', variants.name, 'price', variants.price, 'quantity', variants.quantity) ORDER BY variants.name)
                 ELSE NULL
             END AS variants
             FROM items 
