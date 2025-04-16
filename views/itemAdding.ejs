@@ -67,9 +67,9 @@
       <h2>Item Variants</h2>
       <% item.variants.forEach(variant => { %>
       <div class="variant-field">
-        <input type="text" placeholder="Variant" name="<%= variant.id %>" value="<%= variant.name %>" max="25">
-        <input type="number" class="variant-quantity" placeholder="Quantity" name="<%= variant.id %>" value="<%= variant.quantity %>" min="0">
-        <input type="number" class="variant-price" placeholder="Price" name="<%= variant.id %>" value="<%= variant.price %>" min="0">
+        <input type="text" placeholder="Variant" name="Variant-<%= variant.id %>" value="<%= variant.name %>" max="25">
+        <input type="number" class="variant-quantity" placeholder="Quantity" name="Variant-<%= variant.id %>" value="<%= variant.quantity %>" min="0">
+        <input type="number" class="variant-price" placeholder="Price" name="Variant-<%= variant.id %>" value="<%= variant.price %>" min="0">
         <%- include('partials/formErrorMessage', {errorMessage: variant.error}) %>
         <div class="delete-variant-btn">Delete Variant</div>
       </div>

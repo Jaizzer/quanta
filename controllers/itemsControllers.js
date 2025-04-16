@@ -30,7 +30,7 @@ async function addItemGet(req, res, next) {
 			measurement: "unit",
 			variants: [
 				{
-					id: "Variant-1",
+					id: 1,
 					name: "Variant-1",
 					price: 0,
 					quantity: 0,
