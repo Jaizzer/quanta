@@ -467,6 +467,97 @@ async function getTagByID(id) {
 	}
 }
 
+async function editItem(updatedItem) {
+	try {
+		// Destructure item
+		const {
+			name,
+			price,
+			quantity,
+			measurement,
+			minLevel,
+			notificationStatus,
+			notes,
+			tags,
+			variants,
+			id,
+		} = updatedItem;
+
+		// Create the array of values to be used in inserting item in the database
+		const itemValues = [
+			name,
+			price,
+			quantity,
+			measurement,
+			minLevel,
+			notificationStatus,
+			notes,
+			id,
+		];
+
+		// Insert the item values and obtain the result
+		await pool.query(
+			`
+            UPDATE items 
+            SET 
+            name = $1, 
+            price = $2, 
+            quantity = $3, 
+            measurement = $4, 
+            min_level = $5, 
+            notify = $6, 
+            notes = $7
+            WHERE id = $8;
+            `,
+			itemValues,
+		);
+
+		// Update item tags
+		if (tags) {
+			await pool.query("DELETE FROM item_categories WHERE item_id = $1", [
+				id,
+			]);
+			tags.forEach(async (tag) => {
+				await pool.query(
+					`INSERT INTO item_categories(item_id, category_id) VALUES($1, $2)`,
+					[id, tag],
+				);
+			});
+		}
+
+		// Update item variants
+		if (variants) {
+			await pool.query("DELETE FROM variants WHERE parent_item_id = $1", [
+				id,
+			]);
+			variants.forEach((variant) => {
+				insertItemVariant(
+					id,
+					variant.name,
+					variant.price,
+					variant.quantity,
+				);
+			});
+		}
+
+		// Update activity history
+		await updateActivityHistory({
+			itemID: id,
+			categoryID: null,
+			activityDescription: `Edit item "${name}".`,
+			activityTypeID: null,
+			reason: null,
+			propertyName: null,
+			formerValueText: null,
+			newValueText: null,
+			formerValueNumber: null,
+			newValueNumber: null,
+		});
+	} catch (error) {
+		console.error("Error editing item. ", Error);
+	}
+}
+
 module.exports = {
 	insertItem,
 	getAllItems,
@@ -480,4 +571,5 @@ module.exports = {
 	insertTag,
 	updateTagName,
 	getTagByID,
+	editItem,
 };
