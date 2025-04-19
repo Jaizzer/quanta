@@ -115,79 +115,97 @@ async function getItemById(itemID) {
 	try {
 		const query = `
         SELECT 
-        id, 
-        name,
-        notify,
-        measurement,
-        price,
-        quantity,
-        notes, 
-        min_level,
-        variants,
-        total_value,
-        total_quantity,
-        CASE
-            WHEN (SELECT COUNT(item_id) FROM item_categories WHERE item_id = $1) <> 0 
-                THEN JSONB_AGG(JSONB_BUILD_OBJECT('id', category_id, 'name', category_name) ORDER BY category_id)
-            ELSE NULL
-        END AS categories        
-        FROM (
-            SELECT 
-            items.id, 
-            items.name,
-            items.notify,
-            items.measurement,
-            items.price,
-            items.quantity,
-            items.notes, 
-            items.min_level,
-            categories.id as category_id,
-            categories.category as category_name,
-            SUM(variants.price * variants.quantity) as total_value,
-            SUM(variants.quantity) as total_quantity,
+            id,
+            name,
+            notify,
+            measurement,
+            price,
+            quantity,
+            notes,
+            min_level,
+            variants,
+            total_value,
+            total_quantity,
+            (SELECT activity_done_at FROM activity_history WHERE item_id = $1 ORDER BY activity_done_at LIMIT 1) as updated_at, 
             CASE
-                WHEN (SELECT COUNT(parent_item_id) FROM variants WHERE parent_item_id = $1) <> 0
-                    THEN JSONB_AGG(JSONB_BUILD_OBJECT('id', variants.id, 'name', variants.name, 'price', variants.price, 'quantity', variants.quantity) ORDER BY variants.name)
+                WHEN (
+                    SELECT COUNT(item_id)
+                    FROM item_categories
+                    WHERE item_id = $1
+                ) <> 0 THEN JSONB_AGG(
+                    JSONB_BUILD_OBJECT('id', category_id, 'name', category_name)
+                    ORDER BY category_id
+                )
                 ELSE NULL
-            END AS variants
-            FROM items 
-            LEFT JOIN item_categories 
-            ON item_categories.item_id = items.id 
-            LEFT JOIN categories 
-            ON item_categories.category_id = categories.id 
-            LEFT JOIN variants 
-            ON variants.parent_item_id = items.id
-            WHERE items.id = $1
-            GROUP BY 
-            items.id, 
-            items.name,
-            items.notify,
-            items.measurement,
-            items.price,
-            items.quantity,
-            items.notes,
-            items.min_level,
-            categories.category,
-            categories.id
-        )
+            END AS categories
+        FROM (
+                SELECT items.id,
+                    items.name,
+                    items.notify,
+                    items.measurement,
+                    items.price,
+                    items.quantity,
+                    items.notes,
+                    items.min_level,
+                    categories.id as category_id,
+                    categories.category as category_name,
+                    SUM(variants.price * variants.quantity) as total_value,
+                    SUM(variants.quantity) as total_quantity,
+                    CASE
+                        WHEN (
+                            SELECT COUNT(parent_item_id)
+                            FROM variants
+                            WHERE parent_item_id = $1
+                        ) <> 0 THEN JSONB_AGG(
+                            JSONB_BUILD_OBJECT(
+                                'id',
+                                variants.id,
+                                'name',
+                                variants.name,
+                                'price',
+                                variants.price,
+                                'quantity',
+                                variants.quantity
+                            )
+                            ORDER BY variants.name
+                        )
+                        ELSE NULL
+                    END AS variants
+                FROM items
+                    LEFT JOIN item_categories ON item_categories.item_id = items.id
+                    LEFT JOIN categories ON item_categories.category_id = categories.id
+                    LEFT JOIN variants ON variants.parent_item_id = items.id
+                WHERE items.id = $1
+                GROUP BY items.id,
+                    items.name,
+                    items.notify,
+                    items.measurement,
+                    items.price,
+                    items.quantity,
+                    items.notes,
+                    items.min_level,
+                    categories.category,
+                    categories.id
+            )
         GROUP BY 
-        id, 
-        name,
-        notify,
-        measurement,
-        price,
-        quantity,
-        notes, 
-        min_level,
-        variants,
-        total_value,
-        total_quantity
+            id,
+            name,
+            notify,
+            measurement,
+            price,
+            quantity,
+            notes,
+            min_level,
+            variants,
+            total_value,
+            total_quantity
         ;
         `;
 		const row = (await pool.query(query, [itemID])).rows[0];
 
 		return {
 			id: row.id,
+			updatedAt: `${new Date(row.updated_at).toLocaleTimeString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`,
 			name: row.name,
 			quantity: row.quantity,
 			price: row.price,

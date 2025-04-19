@@ -177,7 +177,6 @@ async function getAllItems(req, res, next) {
 async function getItemById(req, res, next) {
 	const itemId = Number(req.params.id);
 	const item = await db.getItemById(itemId);
-	item.updatedAt = "April 6, 2025";
 	res.render("item", {
 		title: item.name,
 		item: item,
