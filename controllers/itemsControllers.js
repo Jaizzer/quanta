@@ -291,7 +291,7 @@ async function editItemPost(req, res, next) {
 		isThereErrorInNonVariantInputs || isThereErrorInVariantInputs;
 
 	if (isThereAnyError) {
-		return res.status(400).render("itemAdding", {
+		return res.status(400).render("itemEdit", {
 			title: "Add Item",
 			tags: tags,
 			itemNameError:
@@ -337,7 +337,7 @@ async function editItemPost(req, res, next) {
 							(error) => error.path === "quantity",
 						)[0].msg
 					: null,
-			item: item,
+			item: updatedItem,
 		});
 	}
 	await db.editItem(updatedItem);
@@ -394,6 +394,6 @@ module.exports = {
 	addItemGet: asyncHandler(addItemGet),
 	lowStockGet: asyncHandler(lowStockGet),
 	editItemGet: asyncHandler(editItemGet),
-	editItemPost: asyncHandler(editItemPost),
+	editItemPost: [validateAddItemForm, asyncHandler(editItemPost)],
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
 };
