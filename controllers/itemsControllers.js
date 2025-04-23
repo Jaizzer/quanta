@@ -343,6 +343,13 @@ async function editItemPost(req, res, next) {
 	await db.editItem(updatedItem);
 	res.status(200).redirect(`/items/${idOfItemToEdit}`);
 }
+
+async function editItemQuantityGet(req, res, next) {
+    res.render('editItemQuantity', {
+        title: 'Edit Quantity'
+    })
+}
+
 const validateAddItemForm = [
 	body("itemName")
 		.trim()
@@ -395,5 +402,6 @@ module.exports = {
 	lowStockGet: asyncHandler(lowStockGet),
 	editItemGet: asyncHandler(editItemGet),
 	editItemPost: [validateAddItemForm, asyncHandler(editItemPost)],
+    editItemQuantityGet: asyncHandler(editItemQuantityGet),
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
 };
