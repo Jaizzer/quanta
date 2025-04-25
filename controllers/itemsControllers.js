@@ -45,7 +45,7 @@ async function addItemGet(req, res, next) {
 async function addItemPost(req, res, next) {
 	// Create an item object out of the request body's content
 	const item = {
-		name: req.body.itemName,
+		name: req.body.name,
 		price: req.body.price === "" ? null : parseFloat(req.body.price),
 		quantity:
 			req.body.quantity === "" ? null : parseFloat(req.body.quantity),
@@ -116,10 +116,10 @@ async function addItemPost(req, res, next) {
 			itemNameError:
 				isThereErrorInNonVariantInputs &&
 				nonVariantFieldErrors.filter(
-					(error) => error.path === "itemName",
+					(error) => error.path === "name",
 				).length === 1
 					? nonVariantFieldErrors.filter(
-							(error) => error.path === "itemName",
+							(error) => error.path === "name",
 						)[0].msg
 					: null,
 			itemPriceError:
@@ -230,7 +230,7 @@ async function editItemPost(req, res, next) {
 	// Create an updated item object out of the request body's content
 	const updatedItem = {
 		id: idOfItemToEdit,
-		name: req.body.itemName,
+		name: req.body.name,
 		price: req.body.price === "" ? null : parseFloat(req.body.price),
 		quantity:
 			req.body.quantity === "" ? null : parseFloat(req.body.quantity),
@@ -303,10 +303,10 @@ async function editItemPost(req, res, next) {
 			itemNameError:
 				isThereErrorInNonVariantInputs &&
 				nonVariantFieldErrors.filter(
-					(error) => error.path === "itemName",
+					(error) => error.path === "name",
 				).length === 1
 					? nonVariantFieldErrors.filter(
-							(error) => error.path === "itemName",
+							(error) => error.path === "name",
 						)[0].msg
 					: null,
 			itemPriceError:
@@ -361,7 +361,7 @@ async function editItemQuantityGet(req, res, next) {
 }
 
 const validateAddItemForm = [
-	body("itemName")
+	body("name")
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage("Item name must be atleast 1 character"),

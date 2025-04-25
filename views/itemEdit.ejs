@@ -17,7 +17,7 @@
 
   <form id="itemForm" action="" method="POST">
     <div class="item-name-field">
-      <input type="text" name="itemName" id="item-name" placeholder="Enter Item Name" value="<%= item.name %>">
+      <input type="text" name="name" id="item-name" placeholder="Enter Item Name" value="<%= item.name %>">
       <%- include('partials/formErrorMessage', {errorMessage: itemNameError}) %>
     </div>
 
