@@ -3,6 +3,7 @@ const getTotalItemQuantity = require("./getTotalItemQuantity");
 const getTotalValue = require("./getTotalValue");
 const { body, validationResult } = require("express-validator");
 const db = require("../models/queries");
+let _ = require("lodash");
 
 // Get the tags from the database
 let tags;
@@ -223,6 +224,9 @@ async function editItemGet(req, res, next) {
 async function editItemPost(req, res, next) {
 	const idOfItemToEdit = req.params.id;
 
+	// Access the previous version of the item to edit
+	const previousVersionItem = await db.getItemById(idOfItemToEdit);
+
 	// Create an updated item object out of the request body's content
 	const updatedItem = {
 		id: idOfItemToEdit,
@@ -342,6 +346,10 @@ async function editItemPost(req, res, next) {
 			item: updatedItem,
 		});
 	}
+    
+    // Compute all the modifications
+	const modifications = getItemModification(previousVersionItem, updatedItem);
+    
 	await db.editItem(updatedItem);
 	res.status(200).redirect(`/items/${idOfItemToEdit}`);
 }
@@ -404,9 +412,156 @@ module.exports = {
 	lowStockGet: asyncHandler(lowStockGet),
 	editItemGet: asyncHandler(editItemGet),
 	editItemPost: [validateAddItemForm, asyncHandler(editItemPost)],
-    editItemQuantityGet: asyncHandler(editItemQuantityGet),
+	editItemQuantityGet: asyncHandler(editItemQuantityGet),
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
 };
+
+function getItemModification(previousVersion, updatedVersion) {
+	// Identify which item attributes to access
+	const attributes = [
+		"name",
+		"price",
+		"quantity",
+		"measurement",
+        "notes",
+		"notify",
+		"minLevel",
+		"variants",
+		"tags",
+	];
+
+	// Save the item's name before performing the edits
+	const modifications = { itemNameBeforeEdit: previousVersion.name };
+
+    // Loop through all item attributes
+	attributes.forEach((attribute) => {
+		if (attribute !== "variants" && attribute !== "tags") {
+			modifications[attribute] =
+				previousVersion[attribute] !== updatedVersion[attribute]
+					? {
+							previous: previousVersion[attribute],
+							updated: updatedVersion[attribute],
+						}
+					: null;
+		} else {
+			// Get the added tags or variants
+			const addedElements = _.differenceBy(
+				updatedVersion[attribute],
+				previousVersion[attribute],
+				"id",
+			);
+
+			// Get the removed tags or variants
+			const removedElements = _.differenceBy(
+				previousVersion[attribute],
+				updatedVersion[attribute],
+				"id",
+			);
+
+			// Get the modified variants
+			const modifiedElements = [];
+			if (attribute === "variants") {
+				// Get the retained variants
+				const retainedVariantIDs = _.intersectionBy(
+					previousVersion[attribute],
+					updatedVersion[attribute],
+					"id",
+				).map((retainedVariant) => retainedVariant.id);
+
+                // Check if the retained variants were modified
+				retainedVariantIDs?.forEach((retainedVariantID) => {
+                    // Get the previous variant version
+					const previousVariantVersion = previousVersion[
+						attribute
+					].filter((variant) => variant.id === retainedVariantID)[0];
+
+                    // Get the updated variant version
+					const updatedVariantVersion = updatedVersion[
+						attribute
+					].filter((variant) => variant.id === retainedVariantID)[0];
+
+                    // Create the variant modification object
+					const modifiedElement = {
+						name:
+							previousVariantVersion.name !==
+							updatedVariantVersion.name
+								? {
+										previous: previousVariantVersion.name,
+										updated: updatedVariantVersion.name,
+									}
+								: null,
+						price:
+							previousVariantVersion.price !==
+							updatedVariantVersion.price
+								? {
+										previous: previousVariantVersion.price,
+										updated: updatedVariantVersion.price,
+									}
+								: null,
+						quantity:
+							previousVariantVersion.quantity !==
+							updatedVariantVersion.quantity
+								? {
+										previous:
+											previousVariantVersion.quantity,
+										updated: updatedVariantVersion.quantity,
+									}
+								: null,
+					};
+
+                    // Only add the variant modification object if at least one property was modified
+					if (
+						modifiedElement.name !== null ||
+						modifiedElement.price !== null ||
+						modifiedElement.quantity !== null
+					) {
+						modifiedElements.push(modifiedElement);
+					}
+				});
+			}
+
+            // Only assign an object to the variants or tags property if there are either added, removed or modified elements
+			if (
+				addedElements.length !== 0 ||
+				removedElements.length !== 0 ||
+				modifiedElements.length !== 0
+			) {
+				modifications[attribute] =
+					attribute === "variants"
+						? // Include the modified property in 'variants' attribute
+							{
+								added:
+									addedElements.length !== 0
+										? addedElements
+										: null,
+								removed:
+									removedElements.length !== 0
+										? removedElements
+										: null,
+								modified:
+									modifiedElements.length !== 0
+										? modifiedElements
+										: null,
+							}
+						: // Remove the modified property in 'tags' attribute
+							{
+								added:
+									addedElements.length !== 0
+										? addedElements
+										: null,
+								removed:
+									removedElements.length !== 0
+										? removedElements
+										: null,
+							};
+			} else {
+				modifications[attribute] = null;
+			}
+		}
+	});
+
+	return modifications;
+}
 
 function getTagsWithName(tagIDs) {
 	let tagsToReturn = [];
