@@ -235,11 +235,13 @@ async function editItemPost(req, res, next) {
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
 		notify: req.body.notify ? true : false,
 		notes: req.body.notes,
-		// Ensure tag is an array of id number
+		// Ensure tag is an array of tag object containing tag ID and tag name
 		tags: !req.body.tags
 			? []
 			: Array.isArray(req.body.tags)
-				? req.body.tags.map((tagValue) => parseInt(tagValue))
+				? getTagsWithName(
+						req.body.tags.map((tagValue) => parseInt(tagValue)),
+					)
 				: [parseInt(req.body.tags)],
 	};
 
@@ -405,3 +407,18 @@ module.exports = {
     editItemQuantityGet: asyncHandler(editItemQuantityGet),
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
 };
+
+function getTagsWithName(tagIDs) {
+	let tagsToReturn = [];
+	tagIDs?.forEach((tagID) => {
+		tags.forEach((tag) => {
+			if (tag.id === tagID) {
+				tagsToReturn.push({
+					id: tag.id,
+					name: tag.name,
+				});
+			}
+		});
+	});
+	return tagsToReturn;
+}
