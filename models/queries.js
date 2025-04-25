@@ -9,7 +9,7 @@ async function insertItem(item) {
 			quantity,
 			measurement,
 			minLevel,
-			notificationStatus,
+			notify,
 			notes,
 			tags,
 			variants,
@@ -22,7 +22,7 @@ async function insertItem(item) {
 			quantity,
 			measurement,
 			minLevel,
-			notificationStatus,
+			notify,
 			notes,
 		];
 
@@ -499,7 +499,7 @@ async function editItem(updatedItem) {
 			quantity,
 			measurement,
 			minLevel,
-			notificationStatus,
+			notify,
 			notes,
 			tags,
 			variants,
@@ -513,7 +513,7 @@ async function editItem(updatedItem) {
 			quantity,
 			measurement,
 			minLevel,
-			notificationStatus,
+			notify,
 			notes,
 			id,
 		];
