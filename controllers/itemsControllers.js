@@ -54,6 +54,7 @@ async function addItemPost(req, res, next) {
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
 		notes: req.body.notes,
 		notification: req.body.notify ? true : false,
+		variants: getVariantsArray(req),
 		// Ensure tag is an array of id number
 		tags: !req.body.tags
 			? []
@@ -62,48 +63,8 @@ async function addItemPost(req, res, next) {
 				: [parseInt(req.body.tags)],
 	};
 
-	// Access all the variant property names
-	const variantInputNames = Object.keys(req.body).filter((key) =>
-		key.includes("Variant"),
-	);
-
-	// Extract all variants from the request body
-	let variants = variantInputNames.map((variantInputName) => ({
-		id: variantInputName,
-		name: req.body[variantInputName][0],
-		quantity: Math.abs(parseFloat(req.body[variantInputName][1])),
-		price: Math.abs(parseFloat(req.body[variantInputName][2])),
-		error: null,
-	}));
-
-	// Check each variant input for errors
-	let isThereErrorInVariantInputs = false;
-	variants.forEach((currentVariant) => {
-		// Check for duplicates
-		let isCurrentVariantNameNotUnique =
-			variants.filter((variant) => variant.name === currentVariant.name)
-				.length > 1;
-
-		if (isCurrentVariantNameNotUnique) {
-			currentVariant.error = "Variant name must be unique";
-		}
-
-		// Check for empty variant names
-		let isCurrentVariantEmpty = currentVariant.name.trim().length === 0;
-
-		if (isCurrentVariantEmpty) {
-			currentVariant.error = "Variant name must not be empty";
-		}
-
-		// Update whether there is an error with the variant inputs
-		isThereErrorInVariantInputs =
-			isCurrentVariantNameNotUnique || isCurrentVariantEmpty;
-	});
-
-	// Insert the variants inside the item object
-	item.variants = variants;
-
 	// Check for non-variant and variant field errors
+	const isThereErrorInVariantInputs = checkVariantErrors(item.variants);
 	const nonVariantFieldErrors = validationResult(req).array();
 	const isThereErrorInNonVariantInputs = nonVariantFieldErrors.length > 0;
 	const isThereAnyError =
@@ -239,6 +200,7 @@ async function editItemPost(req, res, next) {
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
 		notify: req.body.notify ? true : false,
 		notes: req.body.notes,
+		variants: getVariantsArray(req),
 		// Ensure tag is an array of tag object containing tag ID and tag name
 		tags: !req.body.tags
 			? []
@@ -249,48 +211,10 @@ async function editItemPost(req, res, next) {
 				: [parseInt(req.body.tags)],
 	};
 
-	// Access all the variant property names
-	const variantInputNames = Object.keys(req.body).filter((key) =>
-		key.includes("Variant"),
-	);
-
-	// Extract all variants from the request body
-	let variants = variantInputNames.map((variantInputName) => ({
-		id: parseInt(variantInputName.split("-")[1]),
-		name: req.body[variantInputName][0],
-		quantity: Math.abs(parseFloat(req.body[variantInputName][1])),
-		price: Math.abs(parseFloat(req.body[variantInputName][2])),
-		error: null,
-	}));
-
-	// Check each variant input for errors
-	let isThereErrorInVariantInputs = false;
-	variants.forEach((currentVariant) => {
-		// Check for duplicates
-		let isCurrentVariantNameNotUnique =
-			variants.filter((variant) => variant.name === currentVariant.name)
-				.length > 1;
-
-		if (isCurrentVariantNameNotUnique) {
-			currentVariant.error = "Variant name must be unique";
-		}
-
-		// Check for empty variant names
-		let isCurrentVariantEmpty = currentVariant.name.trim().length === 0;
-
-		if (isCurrentVariantEmpty) {
-			currentVariant.error = "Variant name must not be empty";
-		}
-
-		// Update whether there is an error with the variant inputs
-		isThereErrorInVariantInputs =
-			isCurrentVariantNameNotUnique || isCurrentVariantEmpty;
-	});
-
-	// Insert the variants inside the item object
-	updatedItem.variants = variants;
-
 	// Check for non-variant and variant field errors
+	const isThereErrorInVariantInputs = checkVariantErrors(
+		updatedItem.variants,
+	);
 	const nonVariantFieldErrors = validationResult(req).array();
 	const isThereErrorInNonVariantInputs = nonVariantFieldErrors.length > 0;
 	const isThereAnyError =
@@ -577,3 +501,50 @@ function getTagsWithName(tagIDs) {
 	});
 	return tagsToReturn;
 }
+
+function getVariantsArray(req) {
+	// Access all the variant property names
+	const variantInputNames = Object.keys(req.body).filter((key) =>
+		key.includes("Variant"),
+	);
+
+	// Extract all variants from the request body
+	let variants = variantInputNames.map((variantInputName) => ({
+		id: variantInputName,
+		name: req.body[variantInputName][0],
+		quantity: Math.abs(parseFloat(req.body[variantInputName][1])),
+		price: Math.abs(parseFloat(req.body[variantInputName][2])),
+		error: null,
+	}));
+
+	variants.forEach((currentVariant) => {
+		// Check for duplicates
+		let isCurrentVariantNameNotUnique =
+			variants.filter((variant) => variant.name === currentVariant.name)
+				.length > 1;
+
+		if (isCurrentVariantNameNotUnique) {
+			currentVariant.error = "Variant name must be unique";
+		}
+
+		// Check for empty variant names
+		let isCurrentVariantEmpty = currentVariant.name.trim().length === 0;
+
+		if (isCurrentVariantEmpty) {
+			currentVariant.error = "Variant name must not be empty";
+		}
+	});
+
+	return variants;
+}
+
+function checkVariantErrors(variants) {
+	if (variants) {
+		return variants.reduce(
+			(acc, curr) => !!acc.error || !!curr.error,
+			false,
+		);
+	}
+	return false;
+}
+
