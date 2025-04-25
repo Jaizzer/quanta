@@ -233,8 +233,8 @@ async function editItemPost(req, res, next) {
 		measurement: req.body.measurement,
 		minLevel:
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
+		notify: req.body.notify ? true : false,
 		notes: req.body.notes,
-		notification: req.body.notificationStatus ? true : false,
 		// Ensure tag is an array of id number
 		tags: !req.body.tags
 			? []
