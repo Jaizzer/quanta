@@ -213,7 +213,7 @@ async function getItemById(itemID) {
 			notes: row.notes,
 			minLevel: parseFloat(row.min_level),
 			variants:
-				row.variants.map((variant) => ({
+				row.variants?.map((variant) => ({
 					...variant,
 					price: parseFloat(variant.price),
 					quantity: parseFloat(variant.quantity),
