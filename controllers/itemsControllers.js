@@ -347,9 +347,9 @@ async function editItemPost(req, res, next) {
 }
 
 async function editItemQuantityGet(req, res, next) {
-    res.render('editItemQuantity', {
-        title: 'Edit Quantity'
-    })
+	res.render("editItemQuantity", {
+		title: "Edit Quantity",
+	});
 }
 
 const validateAddItemForm = [
