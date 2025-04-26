@@ -192,10 +192,10 @@ async function editItemPost(req, res, next) {
 			...itemErrors,
 		});
 	}
-    
-    // Compute all the modifications
+
+	// Compute all the modifications
 	const modifications = getItemModification(previousVersionItem, updatedItem);
-    
+
 	await db.editItem(updatedItem);
 	res.status(200).redirect(`/items/${idOfItemToEdit}`);
 }
@@ -269,7 +269,7 @@ function getItemModification(previousVersion, updatedVersion) {
 		"price",
 		"quantity",
 		"measurement",
-        "notes",
+		"notes",
 		"notify",
 		"minLevel",
 		"variants",
@@ -279,7 +279,7 @@ function getItemModification(previousVersion, updatedVersion) {
 	// Save the item's name before performing the edits
 	const modifications = { itemNameBeforeEdit: previousVersion.name };
 
-    // Loop through all item attributes
+	// Loop through all item attributes
 	attributes.forEach((attribute) => {
 		if (attribute !== "variants" && attribute !== "tags") {
 			modifications[attribute] =
@@ -314,19 +314,19 @@ function getItemModification(previousVersion, updatedVersion) {
 					"id",
 				).map((retainedVariant) => retainedVariant.id);
 
-                // Check if the retained variants were modified
+				// Check if the retained variants were modified
 				retainedVariantIDs?.forEach((retainedVariantID) => {
-                    // Get the previous variant version
+					// Get the previous variant version
 					const previousVariantVersion = previousVersion[
 						attribute
 					].filter((variant) => variant.id === retainedVariantID)[0];
 
-                    // Get the updated variant version
+					// Get the updated variant version
 					const updatedVariantVersion = updatedVersion[
 						attribute
 					].filter((variant) => variant.id === retainedVariantID)[0];
 
-                    // Create the variant modification object
+					// Create the variant modification object
 					const modifiedElement = {
 						name:
 							previousVariantVersion.name !==
@@ -355,7 +355,7 @@ function getItemModification(previousVersion, updatedVersion) {
 								: null,
 					};
 
-                    // Only add the variant modification object if at least one property was modified
+					// Only add the variant modification object if at least one property was modified
 					if (
 						modifiedElement.name !== null ||
 						modifiedElement.price !== null ||
@@ -366,7 +366,7 @@ function getItemModification(previousVersion, updatedVersion) {
 				});
 			}
 
-            // Only assign an object to the variants or tags property if there are either added, removed or modified elements
+			// Only assign an object to the variants or tags property if there are either added, removed or modified elements
 			if (
 				addedElements.length !== 0 ||
 				removedElements.length !== 0 ||
