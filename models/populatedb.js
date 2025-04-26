@@ -208,6 +208,10 @@ ALTER TABLE activity_history
 ADD COLUMN activity_type TEXT;
 `;
 
+const SQL21 = `
+DROP TABLE activity_type;
+`
+
 async function main() {
 	let client;
 	try {
@@ -233,7 +237,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL20);
+		await client.query(SQL21);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
