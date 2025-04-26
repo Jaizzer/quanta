@@ -198,6 +198,11 @@ ALTER TABLE activity_history
 ADD COLUMN activity_description TEXT;
 `;
 
+const SQL19 = `
+ALTER TABLE activity_history
+DROP COLUMN activity_type_id, DROP property_name, DROP former_value_text, DROP new_value_text, DROP former_value_number, DROP new_value_number;
+`
+
 async function main() {
 	let client;
 	try {
@@ -223,7 +228,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL18);
+		await client.query(SQL19);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
