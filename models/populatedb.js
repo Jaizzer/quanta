@@ -212,6 +212,11 @@ const SQL21 = `
 DROP TABLE activity_type;
 `
 
+const SQL22 = `
+ALTER TABLE activity_history
+ADD COLUMN previous_quantity DECIMAL(10, 2), ADD COLUMN updated_quantity DECIMAL(10, 2);
+`;
+
 async function main() {
 	let client;
 	try {
@@ -237,7 +242,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL21);
+		await client.query(SQL22);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
