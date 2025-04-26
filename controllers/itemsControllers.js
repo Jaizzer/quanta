@@ -71,53 +71,14 @@ async function addItemPost(req, res, next) {
 		isThereErrorInNonVariantInputs || isThereErrorInVariantInputs;
 
 	if (isThereAnyError) {
+		const itemErrors = isThereErrorInNonVariantInputs
+			? getItemErrors(nonVariantFieldErrors)
+			: null;
 		return res.status(400).render("itemAdding", {
 			title: "Add Item",
 			tags: tags,
-			itemNameError:
-				isThereErrorInNonVariantInputs &&
-				nonVariantFieldErrors.filter(
-					(error) => error.path === "name",
-				).length === 1
-					? nonVariantFieldErrors.filter(
-							(error) => error.path === "name",
-						)[0].msg
-					: null,
-			itemPriceError:
-				isThereErrorInNonVariantInputs &&
-				nonVariantFieldErrors.filter((error) => error.path === "price")
-					.length === 1
-					? nonVariantFieldErrors.filter(
-							(error) => error.path === "price",
-						)[0].msg
-					: null,
-			itemTagError:
-				isThereErrorInNonVariantInputs &&
-				nonVariantFieldErrors.filter((error) => error.path === "tag")
-					.length === 1
-					? nonVariantFieldErrors.filter(
-							(error) => error.path === "tag",
-						)[0].msg
-					: null,
-			itemMinLevelError:
-				isThereErrorInNonVariantInputs &&
-				nonVariantFieldErrors.filter(
-					(error) => error.path === "minLevel",
-				).length === 1
-					? nonVariantFieldErrors.filter(
-							(error) => error.path === "minLevel",
-						)[0].msg
-					: null,
-			itemQuantityError:
-				isThereErrorInNonVariantInputs &&
-				nonVariantFieldErrors.filter(
-					(error) => error.path === "quantity",
-				).length === 1
-					? nonVariantFieldErrors.filter(
-							(error) => error.path === "quantity",
-						)[0].msg
-					: null,
 			item: item,
+			...itemErrors,
 		});
 	}
 
@@ -221,53 +182,14 @@ async function editItemPost(req, res, next) {
 		isThereErrorInNonVariantInputs || isThereErrorInVariantInputs;
 
 	if (isThereAnyError) {
-		return res.status(400).render("itemEdit", {
+		const itemErrors = isThereErrorInNonVariantInputs
+			? getItemErrors(nonVariantFieldErrors)
+			: null;
+		return res.status(400).render("itemAdding", {
 			title: "Add Item",
 			tags: tags,
-			itemNameError:
-				isThereErrorInNonVariantInputs &&
-				nonVariantFieldErrors.filter(
-					(error) => error.path === "name",
-				).length === 1
-					? nonVariantFieldErrors.filter(
-							(error) => error.path === "name",
-						)[0].msg
-					: null,
-			itemPriceError:
-				isThereErrorInNonVariantInputs &&
-				nonVariantFieldErrors.filter((error) => error.path === "price")
-					.length === 1
-					? nonVariantFieldErrors.filter(
-							(error) => error.path === "price",
-						)[0].msg
-					: null,
-			itemTagError:
-				isThereErrorInNonVariantInputs &&
-				nonVariantFieldErrors.filter((error) => error.path === "tag")
-					.length === 1
-					? nonVariantFieldErrors.filter(
-							(error) => error.path === "tag",
-						)[0].msg
-					: null,
-			itemMinLevelError:
-				isThereErrorInNonVariantInputs &&
-				nonVariantFieldErrors.filter(
-					(error) => error.path === "minLevel",
-				).length === 1
-					? nonVariantFieldErrors.filter(
-							(error) => error.path === "minLevel",
-						)[0].msg
-					: null,
-			itemQuantityError:
-				isThereErrorInNonVariantInputs &&
-				nonVariantFieldErrors.filter(
-					(error) => error.path === "quantity",
-				).length === 1
-					? nonVariantFieldErrors.filter(
-							(error) => error.path === "quantity",
-						)[0].msg
-					: null,
 			item: updatedItem,
+			...itemErrors,
 		});
 	}
     
@@ -548,3 +470,22 @@ function checkVariantErrors(variants) {
 	return false;
 }
 
+function getItemErrors(nonVariantFieldErrors) {
+	let itemErrors = {};
+	const itemAttributes = ["name", "price", "tag", "minLevel", "quantity"];
+
+	itemAttributes.forEach((itemAttribute) => {
+		itemErrors[
+			`item${itemAttribute.charAt(0).toUpperCase() + itemAttribute.slice(1)}Error`
+		] =
+			nonVariantFieldErrors.filter(
+				(error) => error.path === itemAttribute,
+			).length === 1
+				? nonVariantFieldErrors.filter(
+						(error) => error.path === itemAttribute,
+					)[0].msg
+				: null;
+	});
+
+	return itemErrors;
+}
