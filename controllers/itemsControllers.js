@@ -281,14 +281,22 @@ function getItemModification(previousVersion, updatedVersion) {
 
 	// Loop through all item attributes
 	attributes.forEach((attribute) => {
-		if (attribute !== "variants" && attribute !== "tags") {
+		if (
+			attribute !== "variants" &&
+			attribute !== "tags" &&
+			attribute !== "notify"
+		) {
 			modifications[attribute] =
 				previousVersion[attribute] !== updatedVersion[attribute]
-					? {
-							previous: previousVersion[attribute],
-							updated: updatedVersion[attribute],
-						}
+					? `Updated ${attribute === "minLevel" ? "Minimum Level" : attribute} from ${previousVersion[attribute]} to ${updatedVersion[attribute]}`
 					: null;
+		} else if (attribute === "notify") {
+			modifications[attribute] =
+				+previousVersion[attribute] > +updatedVersion[attribute]
+					? "Turn off notification."
+					: +previousVersion[attribute] < +updatedVersion[attribute]
+						? "Turn on notification."
+						: null;
 		} else {
 			// Get the added tags or variants
 			const addedElements = _.differenceBy(
