@@ -361,7 +361,7 @@ function getItemModification(previousVersion, updatedVersion) {
 						modifiedElement.price !== null ||
 						modifiedElement.quantity !== null
 					) {
-						modifiedElements.push(modifiedElement);
+						modifiedElements.push({variantNameBeforeEdit: previousVariantVersion.name ,... modifiedElement});
 					}
 				});
 			}
