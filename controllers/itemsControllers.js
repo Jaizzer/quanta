@@ -449,7 +449,7 @@ function getVariantsArray(req) {
 
 	// Extract all variants from the request body
 	let variants = variantInputNames.map((variantInputName) => ({
-		id: variantInputName,
+		id: parseInt(variantInputName.split("-")[1]),
 		name: req.body[variantInputName][0],
 		quantity: Math.abs(parseFloat(req.body[variantInputName][1])),
 		price: Math.abs(parseFloat(req.body[variantInputName][2])),
