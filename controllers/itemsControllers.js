@@ -420,6 +420,12 @@ function getItemModification(previousVersion, updatedVersion) {
 	return modifications;
 }
 
+function joinWithAnd(array) {
+	return array.reduce(
+		(a, b, i, arr) => a + (i < arr.length - 1 ? ", " : " and ") + b,
+	);
+}
+
 function getTagsWithName(tagIDs) {
 	let tagsToReturn = [];
 	tagIDs?.forEach((tagID) => {
