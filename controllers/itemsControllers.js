@@ -369,7 +369,10 @@ function getItemModification(previousVersion, updatedVersion) {
 						modifiedElement.price !== null ||
 						modifiedElement.quantity !== null
 					) {
-						modifiedElements.push({variantNameBeforeEdit: previousVariantVersion.name ,... modifiedElement});
+						modifiedElements.push({
+							variantNameBeforeEdit: previousVariantVersion.name,
+							...modifiedElement,
+						});
 					}
 				});
 			}
