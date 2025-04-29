@@ -386,10 +386,12 @@ function getItemModification(previousVersion, updatedVersion) {
 				modifications[attribute] = {
 					added:
 						addedElements.length !== 0
-							? addedElements.map(
-									(addedElement) =>
-										`Added the ${attribute.substring(0, attribute.length - 1)} ${addedElement.name}${attribute === "variants" ? ` with price ${addedElement.price} and quantity ${addedElement.quantity}.` : "."}`,
-								)
+							? attribute === "variants"
+								? addedElements.map(
+										(addedElement) =>
+											`Added the variant ${addedElement.name}${attribute === "variants" ? ` with price ${addedElement.price} and quantity ${addedElement.quantity}.` : "."}`,
+									)
+								: `Added the tags ${joinWithAnd(addedElements.map((addedElement) => addedElement.name))}.`
 							: null,
 					removed:
 						removedElements.length !== 0
