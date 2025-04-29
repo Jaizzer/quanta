@@ -471,7 +471,7 @@ function getVariantsArray(req) {
 				? Math.abs(parseFloat(req.body[variantInputName][1]))
 				: null,
 		price:
-            // Only convert the price input if it's not empty
+			// Only convert the price input if it's not empty
 			req.body[variantInputName][2] !== ""
 				? Math.abs(parseFloat(req.body[variantInputName][2]))
 				: null,
@@ -501,10 +501,7 @@ function getVariantsArray(req) {
 
 function checkVariantErrors(variants) {
 	if (variants) {
-		return variants.reduce(
-			(acc, curr) => !!acc || !!curr.error,
-			false,
-		);
+		return variants.reduce((acc, curr) => !!acc || !!curr.error, false);
 	}
 	return false;
 }
