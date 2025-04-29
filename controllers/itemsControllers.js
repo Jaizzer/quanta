@@ -463,8 +463,16 @@ function getVariantsArray(req) {
 	let variants = variantInputNames.map((variantInputName) => ({
 		id: parseInt(variantInputName.split("-")[1]),
 		name: req.body[variantInputName][0],
-		quantity: Math.abs(parseFloat(req.body[variantInputName][1])),
-		price: Math.abs(parseFloat(req.body[variantInputName][2])),
+		quantity:
+			// Only convert the quantity input if it's not empty
+			req.body[variantInputName][1] !== ""
+				? Math.abs(parseFloat(req.body[variantInputName][1]))
+				: null,
+		price:
+            // Only convert the price input if it's not empty
+			req.body[variantInputName][2] !== ""
+				? Math.abs(parseFloat(req.body[variantInputName][2]))
+				: null,
 		error: null,
 	}));
 
