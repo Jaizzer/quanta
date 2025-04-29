@@ -492,7 +492,7 @@ function getVariantsArray(req) {
 function checkVariantErrors(variants) {
 	if (variants) {
 		return variants.reduce(
-			(acc, curr) => !!acc.error || !!curr.error,
+			(acc, curr) => !!acc || !!curr.error,
 			false,
 		);
 	}
