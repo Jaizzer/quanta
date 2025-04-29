@@ -52,7 +52,7 @@ async function addItemPost(req, res, next) {
 		measurement: req.body.measurement,
 		minLevel:
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
-		notes: req.body.notes,
+		notes: req.body.notes.trim(),
 		notification: req.body.notify ? true : false,
 		variants: getVariantsArray(req),
 		// Ensure tag is an array of id number
@@ -160,7 +160,7 @@ async function editItemPost(req, res, next) {
 		minLevel:
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
 		notify: req.body.notify ? true : false,
-		notes: req.body.notes,
+		notes: req.body.notes.trim(),
 		variants: getVariantsArray(req),
 		// Ensure tag is an array of tag object containing tag ID and tag name
 		tags: !req.body.tags
