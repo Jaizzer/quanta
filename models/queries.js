@@ -207,21 +207,21 @@ async function getItemById(itemID) {
 			id: row.id,
 			updatedAt: `${new Date(row.updated_at).toLocaleTimeString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`,
 			name: row.name,
-			quantity: parseFloat(row.quantity),
-			price: parseFloat(row.price),
+			quantity: row.quantity ? parseFloat(row.quantity) : null,
+			price: row.price ? parseFloat(row.price) : null,
 			notify: row.notify,
 			notes: row.notes,
-			minLevel: parseFloat(row.min_level),
+			minLevel: row.min_level ? parseFloat(row.min_level) : null,
 			variants:
 				row.variants?.map((variant) => ({
 					...variant,
-					price: parseFloat(variant.price),
-					quantity: parseFloat(variant.quantity),
+					price: !variant.price || parseFloat(variant.price),
+					quantity: !variant.quantity || parseFloat(variant.quantity),
 				})) || [],
 			tags: row.categories || [],
 			measurement: row.measurement,
-			totalValue: row.total_value || row.price * row.quantity,
-			totalQuantity: row.total_quantity || row.quantity,
+			totalValue: row.total_value ? row.price * row.quantity : null,
+			totalQuantity: row.total_quantity ? row.quantity : null,
 		};
 	} catch (error) {
 		console.error("Error retrieving the item. ", error);
