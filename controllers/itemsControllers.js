@@ -281,22 +281,12 @@ function getItemModification(previousVersion, updatedVersion) {
 
 	// Loop through all item attributes
 	attributes.forEach((attribute) => {
-		if (
-			attribute !== "variants" &&
-			attribute !== "tags" &&
-			attribute !== "notify"
-		) {
-			modifications[attribute] =
-				previousVersion[attribute] !== updatedVersion[attribute]
-					? `Updated ${attribute === "minLevel" ? "Minimum Level" : attribute} from ${previousVersion[attribute]} to ${updatedVersion[attribute]}`
-					: null;
-		} else if (attribute === "notify") {
-			modifications[attribute] =
-				+previousVersion[attribute] > +updatedVersion[attribute]
-					? "Turn off notification."
-					: +previousVersion[attribute] < +updatedVersion[attribute]
-						? "Turn on notification."
-						: null;
+		if (attribute !== "variants" && attribute !== "tags") {
+			modifications[attribute] = getAttributeModificationDescription(
+				previousVersion[attribute],
+				updatedVersion[attribute],
+				attribute,
+			);
 		} else {
 			// Get the added tags or variants
 			const addedElements = _.differenceBy(
@@ -334,44 +324,30 @@ function getItemModification(previousVersion, updatedVersion) {
 						attribute
 					].filter((variant) => variant.id === retainedVariantID)[0];
 
-					// Create the variant modification object
-					const modifiedElement = {
-						name:
-							previousVariantVersion.name !==
-							updatedVariantVersion.name
-								? {
-										previous: previousVariantVersion.name,
-										updated: updatedVariantVersion.name,
-									}
-								: null,
-						price:
-							previousVariantVersion.price !==
-							updatedVariantVersion.price
-								? {
-										previous: previousVariantVersion.price,
-										updated: updatedVariantVersion.price,
-									}
-								: null,
-						quantity:
-							previousVariantVersion.quantity !==
-							updatedVariantVersion.quantity
-								? {
-										previous:
-											previousVariantVersion.quantity,
-										updated: updatedVariantVersion.quantity,
-									}
-								: null,
-					};
+					// Create the array of variant modification description
+					const variantModificationDescriptions = [
+						"name",
+						"price",
+						"quantity",
+					]
+						.map((attribute) => {
+							return getAttributeModificationDescription(
+								previousVariantVersion[attribute],
+								updatedVariantVersion[attribute],
+								attribute,
+								`variant ${previousVariantVersion.name}`,
+							);
+						})
+						.filter((element) => element);
 
 					// Only add the variant modification object if at least one property was modified
-					if (
-						modifiedElement.name !== null ||
-						modifiedElement.price !== null ||
-						modifiedElement.quantity !== null
-					) {
+					const isThereModification =
+						variantModificationDescriptions.length !== 0;
+					if (isThereModification) {
 						modifiedElements.push({
 							variantNameBeforeEdit: previousVariantVersion.name,
-							...modifiedElement,
+							variantModifications:
+								variantModificationDescriptions,
 						});
 					}
 				});
@@ -399,30 +375,7 @@ function getItemModification(previousVersion, updatedVersion) {
 							: null,
 					// Only include 'modified' property for 'variants' attribute
 					...(attribute === "variants" && {
-						modified:
-							modifiedElements.length !== 0
-								? modifiedElements.map(
-										(modifiedElement) =>
-											`Modified ${modifiedElement.variantNameBeforeEdit}'s ` +
-											joinWithAnd(
-												Object.keys(modifiedElement)
-													.filter(
-														(element) =>
-															modifiedElement[
-																element
-															] !== null &&
-															element !==
-																"variantNameBeforeEdit",
-													)
-													.map((variantAttribute) => {
-														if (variantAttribute) {
-															return `${variantAttribute} from ${modifiedElement[variantAttribute]?.previous} to ${modifiedElement[variantAttribute]?.updated}`;
-														}
-													}),
-											) +
-											".",
-									)
-								: null,
+						modified: modifiedElements,
 					}),
 				};
 			} else {
@@ -524,4 +477,26 @@ function getItemErrors(nonVariantFieldErrors) {
 	});
 
 	return itemErrors;
+}
+
+function getAttributeModificationDescription(
+	previousValue,
+	newValue,
+	attribute,
+	itemName,
+) {
+	// Don't create a modification description if there's no modification
+	if (previousValue === newValue) {
+		return null;
+	}
+
+	if (attribute === "notify" && previousValue !== newValue) {
+		return `Turned notification ${previousValue ? "off" : "on"}`;
+	} else if (previousValue && newValue) {
+		return `Updated the${itemName ? ` ${itemName}'s` : ""} ${attribute} from ${previousValue} to ${newValue}.`;
+	} else if (!previousValue && newValue) {
+		return `Added a ${attribute === 'minLevel' ? 'minimum level' : attribute} of ${newValue}${itemName ? ` to ${itemName}` : ""}.`;
+	} else if (previousValue && !newValue) {
+		return `Removed the ${attribute}${itemName ? ` from ${itemName}` : ""}.`;
+	}
 }
