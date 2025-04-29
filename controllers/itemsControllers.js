@@ -383,34 +383,46 @@ function getItemModification(previousVersion, updatedVersion) {
 				removedElements.length !== 0 ||
 				modifiedElements.length !== 0
 			) {
-				modifications[attribute] =
-					attribute === "variants"
-						? // Include the modified property in 'variants' attribute
-							{
-								added:
-									addedElements.length !== 0
-										? addedElements
-										: null,
-								removed:
-									removedElements.length !== 0
-										? removedElements
-										: null,
-								modified:
-									modifiedElements.length !== 0
-										? modifiedElements
-										: null,
-							}
-						: // Remove the modified property in 'tags' attribute
-							{
-								added:
-									addedElements.length !== 0
-										? addedElements
-										: null,
-								removed:
-									removedElements.length !== 0
-										? removedElements
-										: null,
-							};
+				modifications[attribute] = {
+					added:
+						addedElements.length !== 0
+							? addedElements.map(
+									(addedElement) =>
+										`Added the ${attribute.substring(0, attribute.length - 1)} ${addedElement.name}${attribute === "variants" ? ` with price ${addedElement.price} and quantity ${addedElement.quantity}.` : "."}`,
+								)
+							: null,
+					removed:
+						removedElements.length !== 0
+							? `Removed the ${removedElements.length > 1 ? attribute : attribute.substring(0, attribute.length - 1)} ${joinWithAnd(removedElements.map((removedElement) => removedElement.name))}.`
+							: null,
+					// Only include 'modified' property for 'variants' attribute
+					...(attribute === "variants" && {
+						modified:
+							modifiedElements.length !== 0
+								? modifiedElements.map(
+										(modifiedElement) =>
+											`Modified ${modifiedElement.variantNameBeforeEdit}'s ` +
+											joinWithAnd(
+												Object.keys(modifiedElement)
+													.filter(
+														(element) =>
+															modifiedElement[
+																element
+															] !== null &&
+															element !==
+																"variantNameBeforeEdit",
+													)
+													.map((variantAttribute) => {
+														if (variantAttribute) {
+															return `${variantAttribute} from ${modifiedElement[variantAttribute]?.previous} to ${modifiedElement[variantAttribute]?.updated}`;
+														}
+													}),
+											) +
+											".",
+									)
+								: null,
+					}),
+				};
 			} else {
 				modifications[attribute] = null;
 			}
