@@ -217,6 +217,14 @@ ALTER TABLE activity_history
 ADD COLUMN previous_quantity DECIMAL(10, 2), ADD COLUMN updated_quantity DECIMAL(10, 2);
 `;
 
+const SQL23 = `
+ALTER TABLE items
+ADD COLUMN parent_item_id INTEGER;
+
+ALTER TABLE items
+ADD FOREIGN KEY (parent_item_id) REFERENCES items(id) ON DELETE CASCADE;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -242,7 +250,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL22);
+		await client.query(SQL23);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
