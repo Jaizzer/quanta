@@ -45,15 +45,15 @@ CREATE TABLE IF NOT EXISTS items (
     return_date DATE,
     image_link TEXT,
     description TEXT,
-    FOREIGN KEY (type) REFERENCES product_types(id)
+    FOREIGN KEY (type) REFERENCES product_types(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS item_categories (
     item INTEGER,
     category INTEGER,
     PRIMARY KEY (item, category),
-    FOREIGN KEY (item) REFERENCES items(id),
-    FOREIGN KEY (category) REFERENCES categories(id)
+    FOREIGN KEY (item) REFERENCES items(id) ON DELETE CASCADE,
+    FOREIGN KEY (category) REFERENCES categories(id) ON DELETE CASCADE
 );
 `;
 
@@ -81,9 +81,9 @@ CREATE TABLE IF NOT EXISTS activity_history (
     former_value_number DECIMAL(10, 2),
     new_value_number DECIMAL(10, 2),
     activity_done_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (item_id) REFERENCES items(id),
-    FOREIGN KEY (product_type_id) REFERENCES product_types(id),
-    FOREIGN KEY (activity_type_id) REFERENCES activity_type(id)
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_type_id) REFERENCES product_types(id) ON DELETE CASCADE,
+    FOREIGN KEY (activity_type_id) REFERENCES activity_type(id) ON DELETE CASCADE
 );
 `;
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS attributes (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     item_id INTEGER,
     name TEXT,
-    FOREIGN KEY (item_id) REFERENCES items(id)
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS options (
@@ -112,8 +112,8 @@ CREATE TABLE IF NOT EXISTS options (
     name TEXT,
     price DECIMAL(10, 2),
     quantity DECIMAL(10, 2),
-    FOREIGN KEY (attribute_id) REFERENCES attributes(id),
-    FOREIGN KEY (item_id) REFERENCES items(id)
+    FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 );
 `;
 
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS variants (
     parent_item_id INTEGER,
     price DECIMAL(10, 2) DEFAULT 0,
     quantity DECIMAL(10, 2) DEFAULT 0,
-    FOREIGN KEY (parent_item_id) REFERENCES items(id)
+    FOREIGN KEY (parent_item_id) REFERENCES items(id) ON DELETE CASCADE
 );
 `;
 
@@ -201,7 +201,7 @@ ADD COLUMN activity_description TEXT;
 const SQL19 = `
 ALTER TABLE activity_history
 DROP COLUMN activity_type_id, DROP property_name, DROP former_value_text, DROP new_value_text, DROP former_value_number, DROP new_value_number;
-`
+`;
 
 const SQL20 = `
 ALTER TABLE activity_history
@@ -210,7 +210,7 @@ ADD COLUMN activity_type TEXT;
 
 const SQL21 = `
 DROP TABLE activity_type;
-`
+`;
 
 const SQL22 = `
 ALTER TABLE activity_history
