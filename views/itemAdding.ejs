@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/style.css">
-  <script src="/enableItemVariantCreation.js" defer></script>
+  <script src="/addVariants.js" defer></script>
 </head>
 
 <body>
@@ -62,26 +62,8 @@
         <%= item.notes %>
       </textarea>
     </div>
-    <% if (item.variants.length > 0) {%>
-    <div class="variant-creation-container">
-      <h2>Item Variants</h2>
-      <% item.variants.forEach(variant => { %>
-      <div class="variant-field">
-        <input type="text" placeholder="Variant" name="Variant-<%= variant.id %>" value="<%= variant.name %>" max="25">
-        <input type="number" class="variant-quantity" placeholder="Quantity" name="Variant-<%= variant.id %>" value="<%= variant.quantity %>" min="0">
-        <input type="number" class="variant-price" placeholder="Price" name="Variant-<%= variant.id %>" value="<%= variant.price %>" min="0">
-        <%- include('partials/formErrorMessage', {errorMessage: variant.error}) %>
-        <div class="delete-variant-btn">Delete Variant</div>
-      </div>
-      <%})%>
-      <div class="add-variant-btn">Add Variant</div>
-    </div>
-    <% }%>
   </form>
-
-  <button class="variant-adding-toggle-btn">Disable Item Variant</button>
   <%- include('partials/nav') %>
-
 </body>
 
 </html>
