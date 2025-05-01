@@ -210,7 +210,7 @@ const validateAddItemForm = [
 	body("name")
 		.trim()
 		.isLength({ min: 1 })
-		.withMessage("Item name must be atleast 1 character"),
+		.withMessage("Item name must not be empty."),
 
 	body("quantity")
 		.optional({ values: "falsy" })
