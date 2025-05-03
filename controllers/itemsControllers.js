@@ -409,7 +409,7 @@ function getVariantsArray(req) {
 	// Extract all variants from the request body
 	let variants = variantInputNames.map((variantInputName) => ({
 		id: parseInt(variantInputName.split("-")[1]),
-		name: req.body[variantInputName][0],
+		name: req.body[variantInputName][0]?.trim(),
 		quantity:
 			// Only convert the quantity input if it's not empty
 			req.body[variantInputName][1] !== ""
