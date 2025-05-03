@@ -46,7 +46,7 @@ async function addItemPost(req, res, next) {
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
 		notes: req.body.notes.trim(),
 		notification: req.body.notify ? true : false,
-		variants: getVariantsArray(req),
+		variants: req.body?.variantStatus ? getVariantsArray(req) : [],
 		// Ensure tag is an array of id number
 		tags: !req.body.tags
 			? []
