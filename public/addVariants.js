@@ -1,6 +1,33 @@
 const isVariantsEnabled = false;
 const itemNameInput = document.querySelector("#item-name");
-document.body.appendChild(createItemHasVariantsCheckbox());
+document.querySelector("form")?.appendChild(createItemHasVariantsCheckbox());
+
+// Access the variants data that is returned from the backend if they exist
+const variantInputsDataString = document.querySelector(".variant-inputs-data")
+	?.dataset?.variantInputsData;
+const variantInputsData = variantInputsDataString
+	? JSON.parse(variantInputsDataString)
+	: null;
+// Delete the element containing the data since the data is already retrieved
+document
+	.querySelector(".variant-inputs-data")
+	?.parentElement?.removeChild(
+		document.querySelector(".variant-inputs-data"),
+	);
+
+// Append the variant inputs inside the item creation form
+const itemCreationForm = document.querySelector("form");
+variantInputsData.forEach((variantInputData, index) => {
+	itemCreationForm?.appendChild(
+		createVariantInputSection(
+			`Variant ${index + 1}`,
+			variantInputData.name,
+			variantInputData.price,
+			variantInputData.quantity,
+			true,
+		),
+	);
+});
 
 // Variable to store the body element of the item creation page
 let itemCreationBody;
@@ -93,7 +120,9 @@ function createAddVariantButtonSection() {
 				document.body,
 			);
 			document.body.appendChild(createVariantAddingHeadingSection());
-			document.body.appendChild(createVariantCreationContainer());
+			document.body.appendChild(
+				createVariantCreationContainer(variantInputsData),
+			);
 		} else {
 			// Just load the previously save variantCreationBody if it exists
 			document.body.parentElement.replaceChild(
@@ -121,12 +150,18 @@ function createAddVariantButtonSection() {
 				variantInputSection.querySelector(".variant-name-input").value,
 		);
 		addVariantContainer.appendChild(createVariantList(variantNames));
+	} else if (variantInputsData) {
+		// Create variant list from the variant inputs data returned by the backend
+		const variantNames = variantInputsData.map(
+			(variantInputData) => variantInputData.name,
+		);
+		addVariantContainer.appendChild(createVariantList(variantNames));
 	}
 
 	return addVariantContainer;
 }
 
-function createVariantCreationContainer() {
+function createVariantCreationContainer(variantInputsData) {
 	const container = document.createElement("div");
 	container.classList.add("variant-creation-container");
 	const addVariantBtn = document.createElement("button");
@@ -151,12 +186,34 @@ function createVariantCreationContainer() {
 		saveBtn.disabled = false;
 	});
 	container.appendChild(addVariantBtn);
+
+	// Creation input elements if there is a provided variant Inputs Data
+	if (variantInputsData) {
+		variantInputsData.forEach((variantInputData, index) => {
+			container.appendChild(
+				createVariantInputSection(
+					`Variant ${index + 1}`,
+					variantInputData.name,
+					variantInputData.price,
+					variantInputData.quantity,
+				),
+			);
+		});
+	}
+
 	return container;
 }
 
-function createVariantInputSection(label) {
+function createVariantInputSection(
+	label,
+	name = "",
+	price = "",
+	quantity = "",
+	hidden = false,
+) {
 	const mainContainer = document.createElement("div");
 	mainContainer.classList.add("variant-input-section");
+	mainContainer.hidden = hidden;
 
 	const variantInputSectionLabel = document.createElement("h2");
 	variantInputSectionLabel.classList.add("variant-input-section-label");
@@ -190,6 +247,7 @@ function createVariantInputSection(label) {
 
 	const variantNameInput = document.createElement("input");
 	variantNameInput.name = label;
+	variantNameInput.value = name;
 	variantNameInput.classList.add("variant-name-input");
 	variantNameInput.placeholder = "Name";
 	variantNameInput.addEventListener("focus", () => {
@@ -203,6 +261,7 @@ function createVariantInputSection(label) {
 
 	const variantPriceInput = document.createElement("input");
 	variantPriceInput.name = label;
+	variantPriceInput.value = price;
 	variantPriceInput.placeholder = "Price";
 	variantPriceInput.min = 0;
 	variantPriceInput.type = "number";
@@ -217,6 +276,7 @@ function createVariantInputSection(label) {
 
 	const variantQuantityInput = document.createElement("input");
 	variantQuantityInput.name = label;
+	variantQuantityInput.value = quantity;
 	variantQuantityInput.placeholder = "Quantity";
 	variantQuantityInput.min = 0;
 	variantQuantityInput.type = "number";
@@ -253,7 +313,9 @@ function createVariantAddingHeadingSection() {
 	const saveBtn = document.createElement("button");
 	saveBtn.type = "submit";
 	saveBtn.textContent = "Save";
-	saveBtn.disabled = true;
+	saveBtn.disabled =
+		variantCreationBody?.querySelectorAll(".variant-input-section") ||
+		false;
 	saveBtn.classList.add("save-btn");
 
 	saveBtn.addEventListener("click", () => {
