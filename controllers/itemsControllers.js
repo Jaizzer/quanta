@@ -150,7 +150,7 @@ async function editItemPost(req, res, next) {
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
 		notify: req.body.notify ? true : false,
 		notes: req.body.notes.trim(),
-		variants: getVariantsArray(req),
+		variants: req.body?.variantStatus ? getVariantsArray(req) : null,
 		// Ensure tag is an array of tag object containing tag ID and tag name
 		tags: !req.body.tags
 			? []
