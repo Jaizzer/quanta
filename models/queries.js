@@ -216,7 +216,9 @@ async function getItemById(itemID) {
 				row.variants?.map((variant) => ({
 					...variant,
 					price: variant.price ? parseFloat(variant.price) : null,
-					quantity: variant.quantity ? parseFloat(variant.quantity) : null,
+					quantity: variant.quantity
+						? parseFloat(variant.quantity)
+						: null,
 				})) || [],
 			tags: row.categories || [],
 			measurement: row.measurement,
