@@ -44,6 +44,7 @@ function createItemHasVariantsCheckbox() {
 	const checkBox = document.createElement("input");
 	checkBox.type = "checkbox";
 	checkBox.id = "enable-variants-checkbox";
+	checkBox.name = "variantStatus";
 
 	// Create the checkbox label
 	const checkBoxLabel = document.createElement("label");
