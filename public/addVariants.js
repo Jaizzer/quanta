@@ -50,8 +50,14 @@ function createItemHasVariantsCheckbox() {
 	const checkBoxLabel = document.createElement("label");
 	checkBoxLabel.textContent = "This item has variants";
 	checkBoxLabel.htmlFor = checkBox.id;
+	checkBox.checked = variantInputsData?.length !== 0 || false;
 	container.appendChild(checkBoxLabel);
 	container.appendChild(checkBox);
+
+	// Render the add variant button section if the checkbox is already checked
+	if (checkBox.checked) {
+		checkBox.parentElement.appendChild(createAddVariantButtonSection());
+	}
 
 	checkBox.addEventListener("change", (e) => {
 		// Check if the add variant button section already exists in the DOM
