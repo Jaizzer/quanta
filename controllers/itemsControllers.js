@@ -29,15 +29,7 @@ async function addItemGet(req, res, next) {
 			tags: [],
 			notes: "",
 			measurement: "unit",
-			variants: [
-				{
-					id: 1,
-					name: "Variant-1",
-					price: 0,
-					quantity: 0,
-					error: null,
-				},
-			],
+			variants: [],
 		},
 	});
 }
