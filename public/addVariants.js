@@ -54,37 +54,18 @@ function createItemHasVariantsCheckbox() {
 	container.appendChild(checkBox);
 
 	checkBox.addEventListener("change", (e) => {
-		// Check first if the item name is not empty
-		const isItemNameEmpty = itemNameInput.value.trim() === "";
+		// Check if the add variant button section already exists in the DOM
+		const isThereAlreadyAddVariantButtonSection = document.querySelector(
+			".add-variant-button-container",
+		);
 
-		// Only allow checkbox change if the item name is not empty
-		if (!isItemNameEmpty) {
-			// Check if the add variant button section already exists in the DOM
-			const isThereAlreadyAddVariantButtonSection =
-				document.querySelector(".add-variant-button-container");
-
-			// Remove the add variant button section
-			if (isThereAlreadyAddVariantButtonSection) {
-				e.target.parentElement.removeChild(
-					isThereAlreadyAddVariantButtonSection,
-				);
-			} else {
-				e.target.parentElement.appendChild(
-					createAddVariantButtonSection(),
-				);
-			}
-		} else {
-			// Display error message next to item name
-			insertAnErrorNextToAnElement(
-				itemNameInput,
-				"Item name must not be empty.",
+		// Remove the add variant button section
+		if (isThereAlreadyAddVariantButtonSection) {
+			e.target.parentElement.removeChild(
+				isThereAlreadyAddVariantButtonSection,
 			);
-
-			// Focus on the item name input
-			itemNameInput.focus();
-
-			// Prevent checkbox change
-			e.target.checked = !e.target.checked;
+		} else {
+			e.target.parentElement.appendChild(createAddVariantButtonSection());
 		}
 	});
 
