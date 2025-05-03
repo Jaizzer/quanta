@@ -55,14 +55,11 @@ async function addItemPost(req, res, next) {
 				: [parseInt(req.body.tags)],
 	};
 
-	// Check for non-variant and variant field errors
-	const isThereErrorInVariantInputs = checkVariantErrors(item.variants);
+	// Check for non-variant field errors
 	const nonVariantFieldErrors = validationResult(req).array();
 	const isThereErrorInNonVariantInputs = nonVariantFieldErrors.length > 0;
-	const isThereAnyError =
-		isThereErrorInNonVariantInputs || isThereErrorInVariantInputs;
 
-	if (isThereAnyError) {
+	if (isThereErrorInNonVariantInputs) {
 		const itemErrors = isThereErrorInNonVariantInputs
 			? getItemErrors(nonVariantFieldErrors)
 			: null;
@@ -164,16 +161,11 @@ async function editItemPost(req, res, next) {
 				: [parseInt(req.body.tags)],
 	};
 
-	// Check for non-variant and variant field errors
-	const isThereErrorInVariantInputs = checkVariantErrors(
-		updatedItem.variants,
-	);
+	// Check for non-variant field errors
 	const nonVariantFieldErrors = validationResult(req).array();
 	const isThereErrorInNonVariantInputs = nonVariantFieldErrors.length > 0;
-	const isThereAnyError =
-		isThereErrorInNonVariantInputs || isThereErrorInVariantInputs;
 
-	if (isThereAnyError) {
+	if (isThereErrorInNonVariantInputs) {
 		const itemErrors = isThereErrorInNonVariantInputs
 			? getItemErrors(nonVariantFieldErrors)
 			: null;
@@ -419,35 +411,8 @@ function getVariantsArray(req) {
 			req.body[variantInputName][2] !== ""
 				? Math.abs(parseFloat(req.body[variantInputName][2]))
 				: null,
-		error: null,
 	}));
-
-	variants.forEach((currentVariant) => {
-		// Check for duplicates
-		let isCurrentVariantNameNotUnique =
-			variants.filter((variant) => variant.name === currentVariant.name)
-				.length > 1;
-
-		if (isCurrentVariantNameNotUnique) {
-			currentVariant.error = "Variant name must be unique";
-		}
-
-		// Check for empty variant names
-		let isCurrentVariantEmpty = currentVariant.name.trim().length === 0;
-
-		if (isCurrentVariantEmpty) {
-			currentVariant.error = "Variant name must not be empty";
-		}
-	});
-
 	return variants;
-}
-
-function checkVariantErrors(variants) {
-	if (variants) {
-		return variants.reduce((acc, curr) => !!acc || !!curr.error, false);
-	}
-	return false;
 }
 
 function getItemErrors(nonVariantFieldErrors) {
