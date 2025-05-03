@@ -13,6 +13,7 @@ async function insertItem(item) {
 			notes,
 			tags,
 			variants,
+			parentItemID,
 		} = item;
 
 		// Create the array of values to be used in inserting item in the database
@@ -24,11 +25,12 @@ async function insertItem(item) {
 			minLevel,
 			notify,
 			notes,
+			parentItemID,
 		];
 
 		// Insert the item values and obtain the result
 		const result = await pool.query(
-			"INSERT INTO items(name, price, quantity, measurement, min_level, notify, notes) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+			"INSERT INTO items(name, price, quantity, measurement, min_level, notify, notes, parent_item_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
 			itemValues,
 		);
 
@@ -46,7 +48,7 @@ async function insertItem(item) {
 		} else {
 			// Default to 1 if no tags were submitted
 			await pool.query(
-				`INSERT INTO item_categories(item, category) VALUES($1, $2)`,
+				`INSERT INTO item_categories(item_id, category_id) VALUES($1, $2)`,
 				[itemID, 1],
 			);
 		}
@@ -54,12 +56,7 @@ async function insertItem(item) {
 		// Insert item variants
 		if (variants) {
 			variants.forEach((variant) => {
-				insertItemVariant(
-					itemID,
-					variant.name,
-					variant.price,
-					variant.quantity,
-				);
+				insertItem({ ...variant, parentItemID: itemID });
 			});
 		}
 
