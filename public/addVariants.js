@@ -1,6 +1,8 @@
-const isVariantsEnabled = false;
-const itemNameInput = document.querySelector("#item-name");
-document.querySelector("form")?.appendChild(createItemHasVariantsCheckbox());
+// Variable to store the body element of the item creation page
+let itemCreationBody;
+
+// Variable to store the body element of the variant creation page
+let variantCreationBody;
 
 // Access the variants data that is returned from the backend if they exist
 const variantInputsDataString = document.querySelector(".variant-inputs-data")
@@ -15,6 +17,10 @@ document
 		document.querySelector(".variant-inputs-data"),
 	);
 
+const isVariantsEnabled = false;
+const itemNameInput = document.querySelector("#item-name");
+document.querySelector("form")?.appendChild(createItemHasVariantsCheckbox());
+
 // Append the variant inputs inside the item creation form
 const itemCreationForm = document.querySelector("form");
 variantInputsData.forEach((variantInputData, index) => {
@@ -28,12 +34,6 @@ variantInputsData.forEach((variantInputData, index) => {
 		),
 	);
 });
-
-// Variable to store the body element of the item creation page
-let itemCreationBody;
-
-// Variable to store the body element of the variant creation page
-let variantCreationBody;
 
 function createItemHasVariantsCheckbox() {
 	// Create the main container
