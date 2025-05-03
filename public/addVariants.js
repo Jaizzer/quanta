@@ -35,9 +35,6 @@ let itemCreationBody;
 // Variable to store the body element of the variant creation page
 let variantCreationBody;
 
-// Variable to store the variant input sections
-let variantInputSections = [];
-
 function createItemHasVariantsCheckbox() {
 	// Create the main container
 	const container = document.createElement("div");
