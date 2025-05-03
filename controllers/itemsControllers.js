@@ -411,6 +411,12 @@ function getVariantsArray(req) {
 			req.body[variantInputName][2] !== ""
 				? Math.abs(parseFloat(req.body[variantInputName][2]))
 				: null,
+		// Ensure tag is an array of id number
+		tags: !req.body.tags
+			? []
+			: Array.isArray(req.body.tags)
+				? req.body.tags.map((tagValue) => parseInt(tagValue))
+				: [parseInt(req.body.tags)],
 	}));
 	return variants;
 }
