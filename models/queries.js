@@ -230,6 +230,7 @@ async function getItemById(itemID) {
 						),
 					)
 				: null,
+			parent: row.parent,
 			maximumPrice: row.variants
 				? Math.max(
 						row.variants.map((variant) =>
