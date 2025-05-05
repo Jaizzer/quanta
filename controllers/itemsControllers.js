@@ -256,7 +256,6 @@ function trackItemChanges(previousVersion, updatedVersion) {
 		"notes",
 		"notify",
 		"minLevel",
-		"variants",
 		"tags",
 	];
 
@@ -265,102 +264,38 @@ function trackItemChanges(previousVersion, updatedVersion) {
 
 	// Loop through all item attributes
 	attributes.forEach((attribute) => {
-		if (attribute !== "variants" && attribute !== "tags") {
+		if (attribute !== "tags") {
 			modifications[attribute] = getAttributeModificationDescription(
 				previousVersion[attribute],
 				updatedVersion[attribute],
 				attribute,
 			);
 		} else {
-			// Get the added tags or variants
-			const addedElements = _.differenceBy(
+			// Get the added tags
+			const addedTags = _.differenceBy(
 				updatedVersion[attribute],
 				previousVersion[attribute],
 				"id",
 			);
 
-			// Get the removed tags or variants
-			const removedElements = _.differenceBy(
+			// Get the removed tags
+			const removedTags = _.differenceBy(
 				previousVersion[attribute],
 				updatedVersion[attribute],
 				"id",
 			);
 
-			// Get the modified variants
-			const modifiedElements = [];
-			if (attribute === "variants") {
-				// Get the retained variants
-				const retainedVariantIDs = _.intersectionBy(
-					previousVersion[attribute],
-					updatedVersion[attribute],
-					"id",
-				).map((retainedVariant) => retainedVariant.id);
-
-				// Check if the retained variants were modified
-				retainedVariantIDs?.forEach((retainedVariantID) => {
-					// Get the previous variant version
-					const previousVariantVersion = previousVersion[
-						attribute
-					].filter((variant) => variant.id === retainedVariantID)[0];
-
-					// Get the updated variant version
-					const updatedVariantVersion = updatedVersion[
-						attribute
-					].filter((variant) => variant.id === retainedVariantID)[0];
-
-					// Create the array of variant modification description
-					const variantModificationDescriptions = [
-						"name",
-						"price",
-						"quantity",
-					]
-						.map((attribute) => {
-							return getAttributeModificationDescription(
-								previousVariantVersion[attribute],
-								updatedVariantVersion[attribute],
-								attribute,
-								`variant ${previousVariantVersion.name}`,
-							);
-						})
-						.filter((element) => element);
-
-					// Only add the variant modification object if at least one property was modified
-					const isThereModification =
-						variantModificationDescriptions.length !== 0;
-					if (isThereModification) {
-						modifiedElements.push({
-							variantNameBeforeEdit: previousVariantVersion.name,
-							variantModifications:
-								variantModificationDescriptions,
-						});
-					}
-				});
-			}
-
-			// Only assign an object to the variants or tags property if there are either added, removed or modified elements
-			if (
-				addedElements.length !== 0 ||
-				removedElements.length !== 0 ||
-				modifiedElements.length !== 0
-			) {
+			// Only assign value to the 'tags' property if there are either added or removed tags
+			if (addedTags.length !== 0 || removedTags.length !== 0) {
 				modifications[attribute] = {
 					added:
-						addedElements.length !== 0
-							? attribute === "variants"
-								? addedElements.map(
-										(addedElement) =>
-											`Added the variant ${addedElement.name}${attribute === "variants" ? ` with price ${addedElement.price} and quantity ${addedElement.quantity}.` : "."}`,
-									)
-								: `Added the tags ${joinWithAnd(addedElements.map((addedElement) => addedElement.name))}.`
+						addedTags.length !== 0
+							? `Added the tags ${joinWithAnd(addedTags.map((addedElement) => addedElement.name))}.`
 							: null,
 					removed:
-						removedElements.length !== 0
-							? `Removed the ${removedElements.length > 1 ? attribute : attribute.substring(0, attribute.length - 1)} ${joinWithAnd(removedElements.map((removedElement) => removedElement.name))}.`
+						removedTags.length !== 0
+							? `Removed the ${removedTags.length > 1 ? attribute : attribute.substring(0, attribute.length - 1)} ${joinWithAnd(removedTags.map((removedElement) => removedElement.name))}.`
 							: null,
-					// Only include 'modified' property for 'variants' attribute
-					...(attribute === "variants" && {
-						modified: modifiedElements,
-					}),
 				};
 			} else {
 				modifications[attribute] = null;
