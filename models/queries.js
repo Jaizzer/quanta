@@ -229,7 +229,7 @@ async function getItemById(itemID) {
 			measurement: row.measurement,
 			minimumPrice: row.variants
 				? Math.min(
-						row.variants.map((variant) =>
+						...row.variants.map((variant) =>
 							variant.price ? parseFloat(variant.price) : null,
 						),
 					)
@@ -237,7 +237,7 @@ async function getItemById(itemID) {
 			parent: row.parent,
 			maximumPrice: row.variants
 				? Math.max(
-						row.variants.map((variant) =>
+						...row.variants.map((variant) =>
 							variant.price ? parseFloat(variant.price) : null,
 						),
 					)
