@@ -265,15 +265,23 @@ function trackItemChanges(previousVersion, updatedVersion) {
 	// Loop through all item attributes
 	attributes.forEach((attribute) => {
 		if (attribute !== "tags") {
-			modifications[attribute] = {
-				description: [
-					getAttributeModificationDescription(
-						previousVersion[attribute],
-						updatedVersion[attribute],
-						attribute,
-					),
-				],
-			};
+			const isThereAnyChanges =
+				previousVersion[attribute] !== updatedVersion[attribute];
+			if (isThereAnyChanges) {
+				modifications[attribute] = {
+					previousValue: previousVersion[attribute],
+					updatedValue: updatedVersion[attribute],
+					description: [
+						getAttributeModificationDescription(
+							previousVersion[attribute],
+							updatedVersion[attribute],
+							attribute,
+						),
+					],
+				};
+			} else {
+				modifications[attribute] = null;
+			}
 		} else {
 			// Get the added tags
 			const addedTags = _.differenceBy(
@@ -292,6 +300,8 @@ function trackItemChanges(previousVersion, updatedVersion) {
 			// Only assign value to the 'tags' property if there are either added or removed tags
 			if (addedTags.length !== 0 || removedTags.length !== 0) {
 				modifications[attribute] = {
+					previousValue: previousVersion[attribute],
+					updatedValue: updatedVersion[attribute],
 					description: [
 						addedTags.length !== 0
 							? `Added the tags ${joinWithAnd(addedTags.map((addedElement) => addedElement.name))}.`
@@ -300,7 +310,7 @@ function trackItemChanges(previousVersion, updatedVersion) {
 						removedTags.length !== 0
 							? `Removed the ${removedTags.length > 1 ? attribute : attribute.substring(0, attribute.length - 1)} ${joinWithAnd(removedTags.map((removedElement) => removedElement.name))}.`
 							: null,
-					],
+					].filter((description) => description !== null),
 				};
 			} else {
 				modifications[attribute] = null;
