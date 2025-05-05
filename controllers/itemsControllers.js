@@ -177,8 +177,11 @@ async function editItemPost(req, res, next) {
 		});
 	}
 
-	// Compute all the modifications
-	const modifications = trackItemChanges(previousVersionItem, updatedItem);
+	// Compute all the updateSummary
+	const updateSummary = getItemUpdateSummary(
+		previousVersionItem,
+		updatedItem,
+	);
 
 	await db.editItem(updatedItem);
 	res.status(200).redirect(`/items/${idOfItemToEdit}`);
@@ -246,7 +249,7 @@ module.exports = {
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
 };
 
-function trackItemChanges(previousVersion, updatedVersion) {
+function getItemUpdateSummary(previousVersion, updatedVersion) {
 	// Identify which item attributes to access
 	const attributes = [
 		"name",
@@ -260,7 +263,7 @@ function trackItemChanges(previousVersion, updatedVersion) {
 	];
 
 	// Save the item's name before performing the edits
-	const modifications = { itemNameBeforeEdit: previousVersion.name };
+	const updateSummary = { itemNameBeforeEdit: previousVersion.name };
 
 	// Loop through all item attributes
 	attributes.forEach((attribute) => {
@@ -268,11 +271,11 @@ function trackItemChanges(previousVersion, updatedVersion) {
 			const isThereAnyChanges =
 				previousVersion[attribute] !== updatedVersion[attribute];
 			if (isThereAnyChanges) {
-				modifications[attribute] = {
+				updateSummary[attribute] = {
 					previousValue: previousVersion[attribute],
 					updatedValue: updatedVersion[attribute],
 					description: [
-						getAttributeModificationDescription(
+						getAttributeupdateDescription(
 							previousVersion[attribute],
 							updatedVersion[attribute],
 							attribute,
@@ -280,7 +283,7 @@ function trackItemChanges(previousVersion, updatedVersion) {
 					],
 				};
 			} else {
-				modifications[attribute] = null;
+				updateSummary[attribute] = null;
 			}
 		} else {
 			// Get the added tags
@@ -299,7 +302,7 @@ function trackItemChanges(previousVersion, updatedVersion) {
 
 			// Only assign value to the 'tags' property if there are either added or removed tags
 			if (addedTags.length !== 0 || removedTags.length !== 0) {
-				modifications[attribute] = {
+				updateSummary[attribute] = {
 					previousValue: previousVersion[attribute],
 					updatedValue: updatedVersion[attribute],
 					description: [
@@ -313,12 +316,12 @@ function trackItemChanges(previousVersion, updatedVersion) {
 					].filter((description) => description !== null),
 				};
 			} else {
-				modifications[attribute] = null;
+				updateSummary[attribute] = null;
 			}
 		}
 	});
 
-	return modifications;
+	return updateSummary;
 }
 
 function joinWithAnd(array) {
@@ -395,13 +398,13 @@ function getItemErrors(nonVariantFieldErrors) {
 	return itemErrors;
 }
 
-function getAttributeModificationDescription(
+function getAttributeUpdateDescription(
 	previousValue,
 	newValue,
 	attribute,
 	itemName,
 ) {
-	// Don't create a modification description if there's no modification
+	// Don't create a update description if there's no update
 	if (previousValue === newValue) {
 		return null;
 	}
