@@ -173,7 +173,11 @@ async function getItemById(itemID) {
                                 'id',
                                 variants.id,
                                 'name',
-                                variants.name
+                                variants.name,
+                                'price',
+                                variants.price,
+                                'quantity',
+                                variants.quantity
                             )
                             ORDER BY variants.name
                         )
