@@ -99,15 +99,18 @@ async function insertItemVariant(
 
 async function getAllItems() {
 	try {
-        // Only return the items which are not a parent item
+		// Only return the items which are not a parent item
 		const { rows } = await pool.query(`
             SELECT 
-            id, 
-            name, 
-            quantity, 
-            measurement 
-            FROM items 
-            WHERE id 
+            items_x.id, 
+            items_x.name, 
+            items_x.quantity, 
+            items_x.measurement,
+            items_y.name as parent_item_name
+            FROM items AS items_x
+            LEFT JOIN items AS items_y
+            ON items_x.parent_item_id = items_y.id
+            WHERE items_x.id 
             NOT IN (
                 SELECT 
                 parent_item_id 
@@ -115,7 +118,14 @@ async function getAllItems() {
                 WHERE parent_item_id IS NOT NULL
             )
             ;`);
-		return rows;
+
+		return rows.map((row) => ({
+			id: row.id,
+			name: row.name,
+			quantity: row.quantity,
+			measurement: row.measurement,
+			parentItemName: row.parent_item_name,
+		}));
 	} catch (error) {
 		console.error("Error getting the items. ", error);
 	}
