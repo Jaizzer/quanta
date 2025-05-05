@@ -411,6 +411,10 @@ function getVariantsArray(req) {
 			req.body[variantInputName][2] !== ""
 				? Math.abs(parseFloat(req.body[variantInputName][2]))
 				: null,
+		measurement: req.body.measurement,
+		minLevel:
+			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
+		notification: req.body.notify ? true : false,
 		// Ensure tag is an array of id number
 		tags: !req.body.tags
 			? []
