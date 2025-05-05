@@ -25,7 +25,7 @@ async function addItemGet(req, res, next) {
 			price: 0,
 			quantity: 0,
 			minLevel: 0,
-			notification: false,
+			notify: false,
 			tags: [],
 			notes: "",
 			measurement: "unit",
@@ -45,7 +45,7 @@ async function addItemPost(req, res, next) {
 		minLevel:
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
 		notes: req.body.notes.trim(),
-		notification: req.body.notify ? true : false,
+		notify: req.body.notify ? true : false,
 		variants: req.body?.variantStatus ? getVariantsArray(req) : [],
 		// Ensure tag is an array of id number
 		tags: !req.body.tags
@@ -414,7 +414,7 @@ function getVariantsArray(req) {
 		measurement: req.body.measurement,
 		minLevel:
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
-		notification: req.body.notify ? true : false,
+		notify: req.body.notify ? true : false,
 		// Ensure tag is an array of id number
 		tags: !req.body.tags
 			? []
@@ -457,7 +457,7 @@ function getAttributeModificationDescription(
 	}
 
 	if (attribute === "notify" && previousValue !== newValue) {
-		return `Turned notification ${previousValue ? "off" : "on"}`;
+		return `Turned notify ${previousValue ? "off" : "on"}`;
 	} else if (previousValue && newValue) {
 		return `Updated the${itemName ? ` ${itemName}'s` : ""} ${attribute} from ${previousValue} to ${newValue}.`;
 	} else if (!previousValue && newValue) {
