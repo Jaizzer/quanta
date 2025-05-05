@@ -31,7 +31,7 @@
       </div>
       <div class="price-range">
         <div class="icon-container"></div>
-        <div class="value">$<%= item.minimumPrice %>-$<%= item.maximumPrice %></div>
+        <div class="value"><%= `${item.maximumPrice === item.minimumPrice ? `$${item.maximumPrice}` : `$${item.minimumPrice} - ${item.maximumPrice}`}` %></div>
       </div>
     </div>
     <% }%>
