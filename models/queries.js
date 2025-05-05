@@ -579,7 +579,7 @@ async function editItem(updatedItem) {
 			tags.forEach(async (tag) => {
 				await pool.query(
 					`INSERT INTO item_categories(item_id, category_id) VALUES($1, $2)`,
-					[id, tag],
+					[id, tag.id],
 				);
 			});
 		}
