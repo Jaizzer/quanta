@@ -18,7 +18,23 @@
     </a>
   </div>
   <div class="item-container">
-    <h2><%= item.name %></h2>
+    <h2><%= item.parent?.name || item.name %></h2>
+    <% if (item.variants.length !== 0) {%>
+    <div class="item-summary">
+      <div class="variant-count">
+        <div class="icon-container"></div>
+        <div class="value"><%= item.variants.length %></div>
+      </div>
+      <div class="total-quantity">
+        <div class="icon-container"></div>
+        <div class="value"><%= item.totalQuantity %></div>
+      </div>
+      <div class="price-range">
+        <div class="icon-container"></div>
+        <div class="value">$<%= item.minimumPrice %>-$<%= item.maximumPrice %></div>
+      </div>
+    </div>
+    <% }%>
     <div class="item-details">
       <div class="update-date">
         <div class="title">Updated at:</div>
@@ -28,6 +44,15 @@
         <a href="/activity-history/<%=item.id%>"><button class="history-button">View History</button></a>
       </div>
     </div>
+
+    <% if (item.parent) {%>
+    <div class="variant-name-section">
+      <a class="parent-item-link" href="/items/<%= item.parent.id %>"><%= item.parent.name %></a>
+      <div class="variant-name">
+        <%= item.name %>
+      </div>
+    </div>
+    <% }%>
 
     <div class="item-stats">
       <div class="quantity">
@@ -44,10 +69,7 @@
         <div class="value"><%= item.price %></div>
       </div>
 
-      <div class="total-value">
-        <div class="title">Total Value:</div>
-        <div class="value"><%= item.totalValue %></div>
-      </div>
+
     </div>
     <div class="tags-section">
       <div class="section-title">Tags:</div>
@@ -58,16 +80,14 @@
       <% }) %>
     </div>
 
+    <% if (item.variants.length !== 0) {%>
     <div class="variants-section">
-      <div class="section-title">Variants:</div>
-      <% item.variants.forEach(variant => { %>
-      <div class="variant-field">
-        <div><span>Name: </span><span><%=variant.name%></span></div>
-        <div><span>Price: </span><span><%=variant.price%></span></div>
-        <div><span>Quantity: </span><span><%=variant.quantity%></span></div>
-      </div>
-      <% }) %>
+      <div class="variant-section-label">Item Variants</div>
+      <a href="/items/add-variant"><button class="add-variant-btn">+ Add Variant</button></a>
+      <%- include('partials/itemCardContainer', {items: item.variants}) %>
     </div>
+    <% }%>
+  </div>
   </div>
   <%- include('partials/nav') %>
 
