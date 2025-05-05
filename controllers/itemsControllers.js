@@ -178,7 +178,7 @@ async function editItemPost(req, res, next) {
 	}
 
 	// Compute all the modifications
-	const modifications = getItemModification(previousVersionItem, updatedItem);
+	const modifications = trackItemChanges(previousVersionItem, updatedItem);
 
 	await db.editItem(updatedItem);
 	res.status(200).redirect(`/items/${idOfItemToEdit}`);
@@ -246,7 +246,7 @@ module.exports = {
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
 };
 
-function getItemModification(previousVersion, updatedVersion) {
+function trackItemChanges(previousVersion, updatedVersion) {
 	// Identify which item attributes to access
 	const attributes = [
 		"name",
