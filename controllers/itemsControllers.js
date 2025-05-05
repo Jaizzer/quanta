@@ -158,7 +158,7 @@ async function editItemPost(req, res, next) {
 				? getTagsWithName(
 						req.body.tags.map((tagValue) => parseInt(tagValue)),
 					)
-				: [parseInt(req.body.tags)],
+				: getTagsWithName([parseInt(req.body.tags)]),
 	};
 
 	// Check for non-variant field errors
