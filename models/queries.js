@@ -14,6 +14,7 @@ async function insertItem(item) {
 			tags,
 			variants,
 			parentItemID,
+			parentItemName,
 		} = item;
 
 		// Create the array of values to be used in inserting item in the database
@@ -56,7 +57,11 @@ async function insertItem(item) {
 		// Insert item variants
 		if (variants) {
 			variants.forEach((variant) => {
-				insertItem({ ...variant, parentItemID: itemID });
+				insertItem({
+					...variant,
+					parentItemID: itemID,
+					parentItemName: name,
+				});
 			});
 		}
 
