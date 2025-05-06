@@ -22,7 +22,7 @@
 
     <div class="quantity-field">
       <label for="quantity">Quantity</label>
-      <input type="number" name="quantity" id="quantity" value="<%= item.quantity %>" readonly>
+      <input type="number" name="quantity" id="quantity" value="<%= item.quantity %>">
       <a href="/items/edit-quantity/<%= item.id %>"><button  type="button" class="edit-item-quantity-btn">+/-</button></a>
       <select name="measurement" id="measurement">
         <option value="unit" <%= item.measurement === 'unit' ? 'selected' : null %>>unit</option>
