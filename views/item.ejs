@@ -58,7 +58,7 @@
     <div class="item-stats">
       <div class="quantity">
         <div class="title">Quantity:</div>
-        <div class="value"><%= item.quantity %></div>
+        <div class="value"><%= `${item.quantity} ${item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` %></div>
       </div>
       <div class="min-level">
         <div class="title">Min Level:</div>
