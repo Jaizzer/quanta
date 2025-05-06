@@ -287,6 +287,54 @@ async function addVariantGet(req, res, next) {
 	}
 }
 
+async function addVariantPost(req, res, next) {
+	// Get the parent item
+	const parentID = req.params.id;
+	const parentItem = await db.getItemById(parentID);
+
+	// Create an item object out of the request body's content
+	const item = {
+		parent: {
+			id: parentItem.id,
+			name: parentItem.name,
+		},
+		name: req.body.name,
+		price: req.body.price === "" ? null : parseFloat(req.body.price),
+		quantity:
+			req.body.quantity === "" ? null : parseFloat(req.body.quantity),
+		measurement: req.body.measurement,
+		minLevel:
+			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
+		note: req.body.note.trim(),
+		notify: req.body.notify ? true : false,
+		variants: req.body?.variantStatus ? getVariantsArray(req) : [],
+		// Ensure tag is an array of id number
+		tags: !req.body.tags
+			? []
+			: Array.isArray(req.body.tags)
+				? req.body.tags.map((tagValue) => parseInt(tagValue))
+				: [parseInt(req.body.tags)],
+	};
+
+	// Check for non-variant field errors
+	const nonVariantFieldErrors = validationResult(req).array();
+	const isThereErrorInNonVariantInputs = nonVariantFieldErrors.length > 0;
+
+	if (isThereErrorInNonVariantInputs) {
+		const itemErrors = isThereErrorInNonVariantInputs
+			? getItemErrors(nonVariantFieldErrors)
+			: null;
+		return res.status(400).render("itemVariantAdding", {
+			title: "Add Variant",
+			tags: tags,
+			item: item,
+			...itemErrors,
+		});
+	}
+	await db.insertItem(item);
+	res.status(200).redirect(`/items/${parentItem.id}`);
+}
+
 const validateAddItemForm = [
 	body("name")
 		.trim()
@@ -343,6 +391,7 @@ module.exports = {
 	editItemQuantityPost: asyncHandler(editItemQuantityPost),
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
 	addVariantGet: asyncHandler(addVariantGet),
+	addVariantPost: [validateAddItemForm, asyncHandler(addVariantPost)],
 };
 
 function getItemUpdateSummary(previousVersion, updatedVersion) {
