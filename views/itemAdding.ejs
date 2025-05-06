@@ -57,10 +57,10 @@
       <%- include('partials/formErrorMessage', {errorMessage: itemTagError}) %>
     </div>
 
-    <div class=" notes-field">
-      <label for="notes">Notes:</label>
-      <textarea name="notes" id="notes">
-        <%= item.notes %>
+    <div class=" note-field">
+      <label for="note">note:</label>
+      <textarea name="note" id="note">
+        <%= item.note %>
       </textarea>
     </div>
     <div class="variant-inputs-data" hidden data-variant-inputs-data=<%=JSON.stringify(item.variants)%>></div>

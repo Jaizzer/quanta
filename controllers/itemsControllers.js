@@ -27,7 +27,7 @@ async function addItemGet(req, res, next) {
 			minLevel: 0,
 			notify: false,
 			tags: [],
-			notes: "",
+			note: "",
 			measurement: "unit",
 			variants: [],
 		},
@@ -44,7 +44,7 @@ async function addItemPost(req, res, next) {
 		measurement: req.body.measurement,
 		minLevel:
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
-		notes: req.body.notes.trim(),
+		note: req.body.note.trim(),
 		notify: req.body.notify ? true : false,
 		variants: req.body?.variantStatus ? getVariantsArray(req) : [],
 		// Ensure tag is an array of id number
@@ -149,7 +149,7 @@ async function editItemPost(req, res, next) {
 		minLevel:
 			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
 		notify: req.body.notify ? true : false,
-		notes: req.body.notes.trim(),
+		note: req.body.note.trim(),
 		variants: req.body?.variantStatus ? getVariantsArray(req) : null,
 		// Ensure tag is an array of tag object containing tag ID and tag name
 		tags: !req.body.tags
@@ -266,7 +266,7 @@ function getItemUpdateSummary(previousVersion, updatedVersion) {
 		"price",
 		"quantity",
 		"measurement",
-		"notes",
+		"note",
 		"notify",
 		"minLevel",
 		"tags",

@@ -10,7 +10,7 @@ async function insertItem(item) {
 			measurement,
 			minLevel,
 			notify,
-			notes,
+			note,
 			tags,
 			variants,
 			parentItemID,
@@ -25,13 +25,13 @@ async function insertItem(item) {
 			measurement,
 			minLevel,
 			notify,
-			notes,
+			note,
 			parentItemID,
 		];
 
 		// Insert the item values and obtain the result
 		const result = await pool.query(
-			"INSERT INTO items(name, price, quantity, measurement, min_level, notify, notes, parent_item_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+			"INSERT INTO items(name, price, quantity, measurement, min_level, notify, note, parent_item_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
 			itemValues,
 		);
 
@@ -149,7 +149,7 @@ async function getItemById(itemID) {
                         items_x.notify,
                         items_x.price,
                         items_x.min_level,
-                        items_x.notes,
+                        items_x.note,
                         (
                             SELECT activity_done_at
                             FROM activity_history
@@ -188,7 +188,7 @@ async function getItemById(itemID) {
                         items_x.notify,
                         items_x.price,
                         items_x.min_level,
-                        items_x.notes,
+                        items_x.note,
                         parent,
                         updated_at
                 ) AS items_x
@@ -200,7 +200,7 @@ async function getItemById(itemID) {
                 items_x.notify,
                 items_x.price,
                 items_x.min_level,
-                items_x.notes,
+                items_x.note,
                 items_x.updated_at,
                 items_x.parent,
                 items_x.categories;
@@ -214,7 +214,7 @@ async function getItemById(itemID) {
 			quantity: row.quantity ? parseFloat(row.quantity) : null,
 			price: row.price ? parseFloat(row.price) : null,
 			notify: row.notify,
-			notes: row.notes,
+			note: row.note,
 			minLevel: row.min_level ? parseFloat(row.min_level) : null,
 			variants:
 				row.variants?.map((variant) => ({
@@ -621,7 +621,7 @@ async function editItem(updatedItem, updateSummary) {
 			measurement,
 			minLevel,
 			notify,
-			notes,
+			note,
 			tags,
 			id,
 		} = updatedItem;
@@ -634,7 +634,7 @@ async function editItem(updatedItem, updateSummary) {
 			measurement,
 			minLevel,
 			notify,
-			notes,
+			note,
 			id,
 		];
 
@@ -649,7 +649,7 @@ async function editItem(updatedItem, updateSummary) {
             measurement = $4, 
             min_level = $5, 
             notify = $6, 
-            notes = $7
+            note = $7
             WHERE id = $8;
             `,
 			itemValues,
