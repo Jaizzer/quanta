@@ -230,6 +230,11 @@ ALTER TABLE activity_history
 ADD COLUMN previous_name_before_edit TEXT;
 `;
 
+const SQL25 = `
+ALTER TABLE activity_history
+RENAME COLUMN previous_name_before_edit to name_before_update;
+`
+
 async function main() {
 	let client;
 	try {
@@ -255,7 +260,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL24);
+		await client.query(SQL25);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
