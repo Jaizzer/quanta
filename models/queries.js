@@ -63,15 +63,7 @@ async function insertItem(item) {
 		// Update activity history
 		await updateActivityHistory({
 			itemID: itemID,
-			categoryID: null,
-			activityDescription: `Create item "${name}".`,
-			activityTypeID: null,
-			reason: null,
-			propertyName: null,
-			formerValueText: null,
-			newValueText: null,
-			formerValueNumber: null,
-			newValueNumber: null,
+			activityType: "Create",
 		});
 
 		console.log("Item inserted successfully");
@@ -287,50 +279,149 @@ async function getLowStockItems() {
 }
 
 async function updateActivityHistory(activity) {
-	const {
-		itemID,
-		categoryID,
-		activityDescription,
-		activityTypeID,
-		reason,
-		propertyName,
-		formerValueText,
-		newValueText,
-		formerValueNumber,
-		newValueNumber,
-	} = activity;
-
 	try {
-		// Insert the activity values and obtain the result
-		await pool.query(
-			`
-			INSERT INTO activity_history(
-            item_id, 
-            category_id, 
-            activity_type_id, 
-            activity_description,
-            reason, 
-            property_name, 
-            former_value_text, 
-            new_value_text, 
-            former_value_number, 
-            new_value_number) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-            ;
-            `,
-			[
-				itemID,
-				categoryID,
-				activityTypeID,
-				activityDescription,
-				reason,
-				propertyName,
-				formerValueText,
-				newValueText,
-				formerValueNumber,
-				newValueNumber,
-			],
-		);
+		const { itemID, categoryID, activityType, reason, updateSummary } =
+			activity;
+
+		if (activityType === "Create") {
+			const activityDescription = `Added ${updateSummary.name} to ${updateSummary.entityType}.`;
+			await pool.query(
+				`
+                    INSERT INTO activity_history(
+                        item_id, 
+                        category_id, 
+                        activity_type, 
+                        activity_description,
+                        name_before_update
+                    ) 
+                    VALUES ($1, $2, $3, $4, $5)
+                    ;
+                    `,
+				[
+					itemID,
+					categoryID,
+					activityType,
+					activityDescription,
+					updateSummary.name,
+				],
+			);
+		} else if (activityType === "Delete") {
+			const activityDescription = `Removed ${updateSummary.name} from ${updateSummary.entityType}.`;
+
+			await pool.query(
+				`
+                    INSERT INTO activity_history (
+                        item_id, 
+                        category_id, 
+                        activity_type, 
+                        activity_description,
+                        name_before_update
+                    ) 
+                    VALUES ($1, $2, $3, $4, $5)
+                    ;
+                    `,
+				[
+					itemID,
+					categoryID,
+					activityType,
+					activityDescription,
+					updateSummary.name,
+				],
+			);
+		} else if (activityType === "Update" && itemID) {
+			// Create description for item updates
+
+			// Get all attributes
+			const attributes = Object.keys(updateSummary).filter(
+				(attribute) => attribute !== "itemNameBeforeEdit",
+			);
+
+			// Update the database
+			attributes.forEach(async (attribute) => {
+				// Check if the current attribute has updates
+				const isThereAnUpdateForThisAttribute =
+					updateSummary[attribute] !== null;
+
+				// Save the update in the activity history if the attribute was updated
+				if (isThereAnUpdateForThisAttribute) {
+					// Save the quantity differently than other attributes comprising of: activity description, previous quantity and updated quantity
+					if (attribute === "quantity") {
+						await pool.query(
+							`
+                            INSERT INTO activity_history (
+                                item_id, 
+                                activity_type, 
+                                activity_description,
+                                reason, 
+                                previous_quantity,
+                                updated_quantity,
+                                name_before_update
+                            ) 
+                            VALUES ($1, $2, $3, $4, $5, $6, $7)
+                            ;
+                    `,
+							[
+								itemID,
+								activityType,
+								updateSummary[attribute].description[0],
+								reason || "Update",
+								updateSummary[attribute].previousValue,
+								updateSummary[attribute].updatedValue,
+								updateSummary["itemNameBeforeEdit"],
+							],
+						);
+					} else {
+						// Save the other non-quantity attributes
+						updateSummary[attribute].description.forEach(
+							async (description) => {
+								await pool.query(
+									`
+                                INSERT INTO activity_history (
+                                    item_id, 
+                                    activity_type, 
+                                    activity_description,
+                                    name_before_update
+                                ) 
+                                VALUES ($1, $2, $3, $4)
+                                ;
+                        `,
+									[
+										itemID,
+										activityType,
+										description,
+										updateSummary["itemNameBeforeEdit"],
+									],
+								);
+							},
+						);
+					}
+				}
+			});
+		} else if (activityType === "Update" && categoryID) {
+			// Create description for category updates
+
+			const activityDescription = `Renamed the category '${updateSummary.previousName}' to ${updateSummary.newName}`;
+			await pool.query(
+				`
+                    INSERT INTO activity_history (
+                    item_id, 
+                    category_id, 
+                    activity_type, 
+                    activity_description,
+                    name_before_update
+                    ) 
+                    VALUES ($1, $2, $3, $4, $5)
+                    ;
+                    `,
+				[
+					itemID,
+					categoryID,
+					activityType,
+					activityDescription,
+					updateSummary.previousName,
+				],
+			);
+		}
 		console.log("Activity inserted successfully.");
 	} catch (error) {
 		console.error("Error inserting activity.", error);
@@ -602,15 +693,8 @@ async function editItem(updatedItem, updateSummary) {
 		// Update activity history
 		await updateActivityHistory({
 			itemID: id,
-			categoryID: null,
-			activityDescription: `Edit item "${name}".`,
-			activityTypeID: null,
-			reason: null,
-			propertyName: null,
-			formerValueText: null,
-			newValueText: null,
-			formerValueNumber: null,
-			newValueNumber: null,
+			activityType: "Update",
+			updateSummary: updateSummary,
 		});
 	} catch (error) {
 		console.error("Error editing item. ", Error);
