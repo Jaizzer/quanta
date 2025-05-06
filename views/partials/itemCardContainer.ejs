@@ -7,7 +7,9 @@
       <% if (item.parentItemName) { %>
         <div class="variant-name"><%= item.name %></div>
       <% } %>
+      <% if (item.quantity) {%>
       <div class="item-quantity"><%= item.quantity %><%= item.quantity <= 1 ? ' unit' : ' units' %></div>
+      <% }%>
     </div>
   </a>
   <% }); %>
