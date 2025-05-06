@@ -69,6 +69,12 @@ async function insertItem(item) {
 		await updateActivityHistory({
 			itemID: itemID,
 			activityType: "Create",
+			updateSummary: {
+				name: name,
+				groupName: parentItemName
+					? `${parentItemName}'s variants`
+					: "items",
+			},
 		});
 
 		console.log("Item inserted successfully");
