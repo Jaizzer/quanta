@@ -272,7 +272,7 @@ async function updateActivityHistory(activity) {
 			activity;
 
 		if (activityType === "Create") {
-			const activityDescription = `Added ${updateSummary.name} to ${updateSummary.entityType}.`;
+			const activityDescription = `Added ${updateSummary.name} to ${updateSummary.groupName}.`;
 			await pool.query(
 				`
                     INSERT INTO activity_history(
@@ -294,7 +294,7 @@ async function updateActivityHistory(activity) {
 				],
 			);
 		} else if (activityType === "Delete") {
-			const activityDescription = `Removed ${updateSummary.name} from ${updateSummary.entityType}.`;
+			const activityDescription = `Removed ${updateSummary.name} from ${updateSummary.groupName}.`;
 
 			await pool.query(
 				`
