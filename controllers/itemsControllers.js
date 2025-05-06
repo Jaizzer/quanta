@@ -420,7 +420,7 @@ function getAttributeUpdateDescription(
 	}
 
 	if (attribute === "notify" && previousValue !== newValue) {
-		return `Turned notify ${previousValue ? "off" : "on"}`;
+		return `Turned notification ${previousValue ? "off" : "on"}`;
 	} else if (previousValue && newValue) {
 		return `Updated the${itemName ? ` ${itemName}'s` : ""} ${attribute} from ${previousValue} to ${newValue}.`;
 	} else if (!previousValue && newValue) {
