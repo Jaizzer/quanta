@@ -5,7 +5,7 @@
       <div class="item-image"></div>
       <h3 class="item-name"><%= item.parentItemName || item.name %></h3>
       <% if (item.parentItemName) { %>
-        <div class="variant-name"><%= item.name %></div>
+      <div class="variant-name"><%= item.name %></div>
       <% } %>
       <% if (item.quantity) {%>
       <div class="item-quantity"><%= item.quantity %><%= item.quantity <= 1 ? ' unit' : ' units' %></div>
