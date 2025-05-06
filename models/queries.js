@@ -13,8 +13,7 @@ async function insertItem(item) {
 			note,
 			tags,
 			variants,
-			parentItemID,
-			parentItemName,
+			parent
 		} = item;
 
 		// Create the array of values to be used in inserting item in the database
@@ -26,7 +25,7 @@ async function insertItem(item) {
 			minLevel,
 			notify,
 			note,
-			parentItemID,
+			parent?.id,
 		];
 
 		// Insert the item values and obtain the result
@@ -59,8 +58,10 @@ async function insertItem(item) {
 			variants.forEach((variant) => {
 				insertItem({
 					...variant,
-					parentItemID: itemID,
-					parentItemName: name,
+					parent: {
+                        id: itemID,
+                        name: name
+                    }
 				});
 			});
 		}
@@ -71,8 +72,8 @@ async function insertItem(item) {
 			activityType: "Create",
 			updateSummary: {
 				name: name,
-				groupName: parentItemName
-					? `${parentItemName}'s variants`
+				groupName: parent?.name
+					? `${parent?.name}'s variants`
 					: "items",
 			},
 		});
