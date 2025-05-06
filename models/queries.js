@@ -675,7 +675,7 @@ async function editItem(updatedItem, updateSummary) {
 			updateSummary: updateSummary,
 		});
 	} catch (error) {
-		console.error("Error editing item. ", Error);
+		console.error("Error editing item. ", error);
 	}
 }
 
