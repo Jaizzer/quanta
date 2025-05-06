@@ -225,6 +225,11 @@ ALTER TABLE items
 ADD FOREIGN KEY (parent_item_id) REFERENCES items(id) ON DELETE CASCADE;
 `;
 
+const SQL24 = `
+ALTER TABLE activity_history
+ADD COLUMN previous_name_before_edit TEXT;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -250,7 +255,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL23);
+		await client.query(SQL24);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
