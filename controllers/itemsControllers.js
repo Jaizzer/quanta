@@ -198,8 +198,22 @@ async function editItemPost(req, res, next) {
 }
 
 async function editItemQuantityGet(req, res, next) {
+	const idOfItemToEdit = req.params.id;
+	const item = await db.getItemById(idOfItemToEdit);
 	res.render("editItemQuantity", {
 		title: "Edit Quantity",
+		item: item,
+		reasons: [
+			"Consumed",
+			"Damaged",
+			"Inventory Count Adjustment",
+			"Picked",
+			"Restocked",
+			"Returned",
+			"Sold",
+			"Stocktake",
+			"Stolen",
+		],
 	});
 }
 

@@ -12,8 +12,49 @@
 <body>
   <div class="actions">
     <button class="cancel" onclick="history.back()">x</button>
-    <h1>Edit Item Quantity</h1>
+    <h1>Update Quantity</h1>
   </div>
+
+  <div class="item-card">
+    <div class="image-container"></div>
+    <div class="item-name"><%= item.name %></div>
+    <% if (item.quantity) {%>
+    <div class="item-quantity"><%= item.quantity %><%= item.quantity <= 1 ? ' unit' : ' units' %></div>
+    <% }%>
+  </div>
+
+  <form action="/items/edit-quantity/<%= item.id %>" method="POST">
+    <div class="item-quantity-editing-section">
+      <div class="controller">
+        <div class="controller-label">Adjust Quantity</div>
+        <button type="button" class="subtract-button">-</button>
+        <div class="current-adjustment-value">0</div>
+        <button type="button" class="add-button">+</button>
+      </div>
+
+      <div class="new-quantity-input">
+        <label for="new-quantity-input">New Quantity</label>
+        <input type="text" id="new-quantity-input">
+      </div>
+
+      <div class="quantity-update-reason-section">
+
+      </div>
+
+    </div>
+
+    <div class="tag-field">
+      <div>Reason</div>
+      <% reasons.forEach(reason => { %>
+      <label><input type="checkbox" name="reasons" class="reason-checkbox" /><%= reason %></label>
+      <% }) %>
+    </div>
+    <button class="update-button" type="submit">Update </button>
+
+  </form>
+
+
+
   <%- include('partials/nav') %>
 
 </body>
