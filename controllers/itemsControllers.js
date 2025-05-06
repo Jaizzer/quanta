@@ -275,7 +275,7 @@ function getItemUpdateSummary(previousVersion, updatedVersion) {
 					previousValue: previousVersion[attribute],
 					updatedValue: updatedVersion[attribute],
 					description: [
-						getAttributeupdateDescription(
+						getAttributeUpdateDescription(
 							previousVersion[attribute],
 							updatedVersion[attribute],
 							attribute,
