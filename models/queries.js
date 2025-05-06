@@ -72,23 +72,6 @@ async function insertItem(item) {
 	}
 }
 
-async function insertItemVariant(
-	variantParentID,
-	variantName,
-	variantPrice,
-	variantQuantity,
-) {
-	try {
-		await pool.query(
-			`INSERT INTO variants(parent_item_id, name, price, quantity) VALUES($1, $2, $3, $4)`,
-			[variantParentID, variantName, variantPrice, variantQuantity],
-		);
-		console.log("Variant inserted successfully.");
-	} catch (error) {
-		console.error("Error inserting the variant. ", error);
-	}
-}
-
 async function getAllItems() {
 	try {
 		// Only return the items which are not a parent item
@@ -629,7 +612,6 @@ async function editItem(updatedItem, updateSummary) {
 			notify,
 			notes,
 			tags,
-			variants,
 			id,
 		} = updatedItem;
 
@@ -671,21 +653,6 @@ async function editItem(updatedItem, updateSummary) {
 				await pool.query(
 					`INSERT INTO item_categories(item_id, category_id) VALUES($1, $2)`,
 					[id, tag.id],
-				);
-			});
-		}
-
-		// Update item variants
-		if (variants) {
-			await pool.query("DELETE FROM variants WHERE parent_item_id = $1", [
-				id,
-			]);
-			variants.forEach((variant) => {
-				insertItemVariant(
-					id,
-					variant.name,
-					variant.price,
-					variant.quantity,
 				);
 			});
 		}
