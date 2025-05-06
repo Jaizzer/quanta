@@ -424,7 +424,7 @@ function getAttributeUpdateDescription(
 	} else if (previousValue && newValue) {
 		return `Updated the${itemName ? ` ${itemName}'s` : ""} ${attribute} from ${previousValue} to ${newValue}.`;
 	} else if (!previousValue && newValue) {
-		return `Added a ${attribute === "minLevel" ? "minimum level" : attribute} of ${newValue}${itemName ? ` to ${itemName}` : ""}.`;
+		return `Added a ${attribute === "minLevel" ? "minimum level" : attribute} with the value of ${newValue}${itemName ? ` to ${itemName}` : ""}.`;
 	} else if (previousValue && !newValue) {
 		return `Removed the ${attribute}${itemName ? ` from ${itemName}` : ""}.`;
 	}
