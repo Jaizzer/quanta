@@ -183,7 +183,17 @@ async function editItemPost(req, res, next) {
 		updatedItem,
 	);
 
-	await db.editItem(updatedItem);
+	// Check if there are updates
+	const isThereUpdates = Object.keys(updateSummary)
+		.filter((attribute) => attribute !== "itemNameBeforeEdit")
+		.map((attribute) => updateSummary[attribute])
+		.reduce((acc, curr) => acc || curr !== null, false);
+
+	// Edit the item if there are updates
+	if (isThereUpdates) {
+		await db.editItem(updatedItem, updateSummary);
+	}
+
 	res.status(200).redirect(`/items/${idOfItemToEdit}`);
 }
 
