@@ -249,6 +249,44 @@ async function editItemQuantityPost(req, res, next) {
 	res.status(200).redirect(`/items/${idOfItemToEdit}`);
 }
 
+async function addVariantGet(req, res, next) {
+	// Check first if the parent item exists
+	const parentID = req.params.id;
+	const parentItem = await db.getItemById(parentID);
+
+	if (parentItem) {
+		res.render("itemVariantAdding", {
+			title: "Add Variant",
+			tags: tags,
+			itemNameError: null,
+			itemPriceError: null,
+			itemTagError: null,
+			itemMinLevelError: null,
+			itemQuantityError: null,
+			item: {
+				parent: {
+					id: parentID,
+					name: parentItem.name,
+				},
+				name: "Variant",
+				price: 0,
+				quantity: 0,
+				minLevel: 0,
+				notify: false,
+				tags: [],
+				note: "",
+				measurement: "unit",
+				variants: [],
+			},
+		});
+	} else {
+		res.render("error", {
+			title: "Add Variant",
+			message: "Parent item does not exist.",
+		});
+	}
+}
+
 const validateAddItemForm = [
 	body("name")
 		.trim()
@@ -304,6 +342,7 @@ module.exports = {
 	editItemQuantityGet: asyncHandler(editItemQuantityGet),
 	editItemQuantityPost: asyncHandler(editItemQuantityPost),
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
+	addVariantGet: asyncHandler(addVariantGet),
 };
 
 function getItemUpdateSummary(previousVersion, updatedVersion) {
