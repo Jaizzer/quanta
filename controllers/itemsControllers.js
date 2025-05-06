@@ -217,6 +217,38 @@ async function editItemQuantityGet(req, res, next) {
 	});
 }
 
+async function editItemQuantityPost(req, res, next) {
+	const idOfItemToEdit = req.params.id;
+	const itemToEdit = await db.getItemById(idOfItemToEdit);
+	const previousQuantity = itemToEdit.quantity;
+
+	const newQuantity =
+		req.body.newQuantity.trim() !== ""
+			? parseFloat(req.body.newQuantity)
+			: 0;
+	const reason = req.body.reason;
+
+	const updateSummary = {
+		itemNameBeforeEdit: itemToEdit.name,
+		quantity: {
+			description: [
+				`Updated the quantity from ${previousQuantity} to ${newQuantity}.`,
+			],
+			previousValue: previousQuantity,
+			updatedValue: newQuantity,
+		},
+	};
+
+	const isThereQuantityUpdate = newQuantity !== previousQuantity;
+
+	// Edit the item only if there's an update
+	if (isThereQuantityUpdate) {
+		await db.updateItemQuantity(itemToEdit.id, reason, updateSummary);
+	}
+
+	res.status(200).redirect(`/items/${idOfItemToEdit}`);
+}
+
 const validateAddItemForm = [
 	body("name")
 		.trim()
@@ -270,6 +302,7 @@ module.exports = {
 	editItemGet: asyncHandler(editItemGet),
 	editItemPost: [validateAddItemForm, asyncHandler(editItemPost)],
 	editItemQuantityGet: asyncHandler(editItemQuantityGet),
+	editItemQuantityPost: asyncHandler(editItemQuantityPost),
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
 };
 

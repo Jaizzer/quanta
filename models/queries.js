@@ -679,6 +679,31 @@ async function editItem(updatedItem, updateSummary) {
 	}
 }
 
+async function updateItemQuantity(itemID, reason, updateSummary) {
+	try {
+		// Update the item quantity
+		await pool.query(
+			`
+            UPDATE items 
+            SET 
+            quantity = $1
+            WHERE id = $2;
+            `,
+			[updateSummary.quantity.updatedValue, itemID],
+		);
+
+		// Update activity history
+		await updateActivityHistory({
+			itemID,
+			reason,
+			updateSummary,
+			activityType: "Update",
+		});
+	} catch (error) {
+		console.error("Error updating the item quantity. ", error);
+	}
+}
+
 module.exports = {
 	insertItem,
 	getAllItems,
@@ -693,4 +718,5 @@ module.exports = {
 	updateTagName,
 	getTagByID,
 	editItem,
+	updateItemQuantity,
 };
