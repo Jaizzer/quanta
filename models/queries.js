@@ -154,7 +154,7 @@ async function getItemById(itemID) {
                             SELECT activity_done_at
                             FROM activity_history
                             WHERE item_id = $1
-                            ORDER BY activity_done_at
+                            ORDER BY activity_done_at DESC
                             LIMIT 1
                         ) as updated_at,
                         CASE
