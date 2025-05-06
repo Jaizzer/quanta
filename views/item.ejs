@@ -82,7 +82,7 @@
     <% if (item.variants.length !== 0) {%>
     <div class="variants-section">
       <div class="variant-section-label">Item Variants</div>
-      <a href="/items/add-variant"><button class="add-variant-btn">+ Add Variant</button></a>
+      <a href="/items/add-variant/<%= item.id %>"><button class="add-variant-btn">+ Add Variant</button></a>
       <%- include('partials/itemCardContainer', {items: item.variants}) %>
     </div>
     <% }%>
