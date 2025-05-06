@@ -526,7 +526,7 @@ async function getTagByID(id) {
 	}
 }
 
-async function editItem(updatedItem) {
+async function editItem(updatedItem, updateSummary) {
 	try {
 		// Destructure item
 		const {
