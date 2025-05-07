@@ -87,6 +87,12 @@
       <% }%>
     </div>
   </div>
+
+  <form action="/items/delete" method="POST">
+    <input type="text" value="<%= item.id %>" name='itemID' hidden>
+    <button type="submit">Delete Item</button>
+  </form>
+
   </div>
   <%- include('partials/nav') %>
 
