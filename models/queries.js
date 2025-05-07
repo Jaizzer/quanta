@@ -567,9 +567,23 @@ async function insertTag(tagName) {
 		const query = `
             INSERT INTO CATEGORIES (category) 
             VALUES ($1)
+            RETURNING *
             ;
         `;
-		await pool.query(query, [tagName]);
+		const result = await pool.query(query, [tagName]);
+
+		// Get the newly inserted tag's ID
+		const tagID = result.rows[0].id;
+
+		// Update activity history
+		await updateActivityHistory({
+			tagID: tagID,
+			activityType: "Create",
+			updateSummary: {
+				name: tagName,
+				groupName: 'tags'
+			},
+		});
 		console.log(`Tag ${tagName} added successfully.`);
 	} catch (error) {
 		console.error("Error inserting tag. ", error);
