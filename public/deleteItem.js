@@ -8,7 +8,6 @@ forms?.forEach((form) => {
 
 	// Render warning message before deleting the item
 	deleteItemBtn.addEventListener("click", () => {
-		console.log(itemName, deleteItemBtn);
 		const backgroundOverlay = document.createElement("div");
 		backgroundOverlay.classList.add("background-overlay");
 		document.body.appendChild(backgroundOverlay);
