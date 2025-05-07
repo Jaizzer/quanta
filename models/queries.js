@@ -118,6 +118,34 @@ async function getAllItems() {
 	}
 }
 
+async function deleteItem(item) {
+	try {
+		const { id, name, parent } = item;
+		const query = `
+            DELETE
+            FROM items
+            WHERE id = $1
+            ;
+        `;
+		await pool.query(query, [id]);
+
+		// Update activity history
+		await updateActivityHistory({
+			itemID: id,
+			activityType: "Delete",
+			updateSummary: {
+				name: name,
+				groupName: parent?.name
+					? `${parent?.name}'s variants`
+					: "items",
+			},
+		});
+		console.log("Item deleted successfully.");
+	} catch (error) {
+		console.error("Error deleting tag. ", error);
+	}
+}
+
 async function getItemById(itemID) {
 	try {
 		const query = `
@@ -720,4 +748,5 @@ module.exports = {
 	getTagByID,
 	editItem,
 	updateItemQuantity,
+	deleteItem,
 };

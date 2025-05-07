@@ -380,6 +380,21 @@ const validateAddItemForm = [
 	}),
 ];
 
+async function editItemsGet(req, res, next) {
+	const items = await db.getAllItems();
+	res.render("editItems", {
+		title: "Edit Items",
+		items: items,
+	});
+}
+
+async function deleteItem(req, res, next) {
+	const { itemID } = req.body;
+	const item = await db.getItemById(itemID);
+	await db.deleteItem(item);
+	res.status(200).redirect("/items/edit-items");
+}
+
 module.exports = {
 	getItemById: asyncHandler(getItemById),
 	getAllItems: asyncHandler(getAllItems),
@@ -392,6 +407,8 @@ module.exports = {
 	addItemPost: [validateAddItemForm, asyncHandler(addItemPost)],
 	addVariantGet: asyncHandler(addVariantGet),
 	addVariantPost: [validateAddItemForm, asyncHandler(addVariantPost)],
+	editItemsGet: asyncHandler(editItemsGet),
+	deleteItem: asyncHandler(deleteItem),
 };
 
 function getItemUpdateSummary(previousVersion, updatedVersion) {

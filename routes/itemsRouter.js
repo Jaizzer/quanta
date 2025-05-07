@@ -11,7 +11,9 @@ itemsRouter.post('/edit-quantity/:id', itemsControllers.editItemQuantityPost);
 itemsRouter.get("/edit/:id", itemsControllers.editItemGet);
 itemsRouter.get("/add-variant/:id", itemsControllers.addVariantGet);
 itemsRouter.post("/add-variant/:id", itemsControllers.addVariantPost);
+itemsRouter.get("/edit-items", itemsControllers.editItemsGet)
 itemsRouter.post("/edit/:id", itemsControllers.editItemPost);
+itemsRouter.post("/delete", itemsControllers.deleteItem)
 itemsRouter.get("/:id", itemsControllers.getItemById);
 
 module.exports = itemsRouter;
