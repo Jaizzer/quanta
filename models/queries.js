@@ -13,7 +13,7 @@ async function insertItem(item) {
 			note,
 			tags,
 			variants,
-			parent
+			parent,
 		} = item;
 
 		// Create the array of values to be used in inserting item in the database
@@ -59,9 +59,9 @@ async function insertItem(item) {
 				insertItem({
 					...variant,
 					parent: {
-                        id: itemID,
-                        name: name
-                    }
+						id: itemID,
+						name: name,
+					},
 				});
 			});
 		}
