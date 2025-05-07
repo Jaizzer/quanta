@@ -62,7 +62,7 @@ async function insertTag(req, res, next) {
 
 	// Preserve the previously selected sort option if there is one
 	const { sort } = req.query;
-	res.status(200).redirect(`/tags${sort && `?sort=${sort}`}`);
+	res.status(200).redirect(`/tags${sort ? `?sort=${sort}` : ""}`);
 }
 
 async function updateTagName(req, res, next) {
