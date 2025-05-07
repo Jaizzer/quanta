@@ -16,7 +16,7 @@
   </div>
   <% if(items.length > 0) {%>
   <% items.forEach(item => { %>
-  <form action="/items/delete" method="POST">
+  <form action="/items/edit-items-delete" method="POST">
     <input type="text" value="<%= item.id %>" name='itemID' hidden>
     <div class="item-name" data-id="<%= item.id %>"><%= item.name %></div>
     <button type="button" class="delete-item-btn">🗑️</button>
