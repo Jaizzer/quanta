@@ -581,7 +581,7 @@ async function insertTag(tagName) {
 			activityType: "Create",
 			updateSummary: {
 				name: tagName,
-				groupName: 'tags'
+				groupName: "tags",
 			},
 		});
 		console.log(`Tag ${tagName} added successfully.`);
