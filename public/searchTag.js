@@ -36,6 +36,12 @@ function renderSearchBar(e) {
 	closeBtn.textContent = "x";
 	closeBtn.classList.add("close-btn");
 	closeBtn.addEventListener("click", () => {
+		// Go back to the tag page if the tag is in item search mode through the 'keyword' query in the URL
+		const isTagInItemSearchMode = window.location.href.includes("keyword");
+		if (isTagInItemSearchMode) {
+			document.querySelector("form")?.submit();
+		}
+
 		form.parentElement.removeChild(form);
 
 		// Render the search tag button when the search bar is closed
