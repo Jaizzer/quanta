@@ -4,6 +4,10 @@ searchTagBtn.addEventListener("click", (e) => {
 	renderSearchBar(e);
 });
 
+// Click the search bar by default
+const clickEvent = new Event("click");
+searchTagBtn.dispatchEvent(clickEvent);
+
 function renderSearchBar(e) {
 	// Access the container
 	const container = e.target.parentElement;
