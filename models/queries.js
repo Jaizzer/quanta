@@ -559,13 +559,25 @@ async function deleteTag(tag) {
 
 async function updateTagName(id, newTagName) {
 	try {
+		const currentTagName = (await getTagByID(id))?.tag_name;
 		const query = `
             UPDATE categories
             SET category = $2
             WHERE id = $1
             ;
         `;
+
 		await pool.query(query, [id, newTagName]);
+
+		// Update activity history
+		await updateActivityHistory({
+			categoryID: id,
+			activityType: "Update",
+			updateSummary: {
+				previousName: currentTagName,
+				newName: newTagName,
+			},
+		});
 		console.log("Tag updated successfully.");
 	} catch (error) {
 		console.error("Error updating tag name. ", error);
