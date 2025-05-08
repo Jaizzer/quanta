@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const db = require("../models/queries");
 
 async function getNotifications(req, res, next) {
-	let lowStockItems = (await db.getLowStockItems()) || [];
+	let lowStockItems = (await db.getLowStockItems(true)) || [];
 	const notifications = lowStockItems.map((lowStockItem) => ({
 		itemID: lowStockItem.id,
 		message: `${lowStockItem.name} ${
