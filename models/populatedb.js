@@ -246,6 +246,51 @@ DROP COLUMN item_id;
 ALTER TABLE activity_history
 ADD COLUMN item_id INTEGER;
 `;
+
+const SQL28 = `
+ALTER TABLE items
+DROP COLUMN sku;
+
+ALTER TABLE items
+DROP COLUMN barcode;
+
+ALTER TABLE items
+DROP COLUMN cost;
+
+ALTER TABLE items
+DROP COLUMN length;
+
+ALTER TABLE items
+DROP COLUMN width;
+
+ALTER TABLE items
+DROP COLUMN height;
+
+ALTER TABLE items
+DROP COLUMN brand;
+
+ALTER TABLE items
+DROP COLUMN color;
+
+ALTER TABLE items
+DROP COLUMN material;
+
+ALTER TABLE items
+DROP COLUMN country_of_origin;
+
+ALTER TABLE items
+DROP COLUMN return_date;
+
+ALTER TABLE items
+DROP COLUMN image_link;
+
+ALTER TABLE items
+DROP COLUMN description;
+
+ALTER TABLE items
+DROP COLUMN are_attributes_enabled;
+`
+
 async function main() {
 	let client;
 	try {
@@ -271,7 +316,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL27);
+		await client.query(SQL28);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
