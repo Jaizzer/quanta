@@ -15,7 +15,7 @@
       ←
     </button>
     <h1><%= tag.name %></h1>
-    <% if (tag.items.length > 0 ) {%>
+    <% if (tag.items.length > 0 || keyword) {%>
     <form method="GET" class="search-form">
       <div class="search-field">
         <label class="search-icon-container" for="search">🔍</label>
