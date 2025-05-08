@@ -307,7 +307,7 @@ async function updateActivityHistory(activity) {
 			activity;
 
 		if (activityType === "Create") {
-			const activityDescription = `Added ${updateSummary.name} to ${updateSummary.groupName}.`;
+			const activityDescription = `Added '${updateSummary.name}' to ${updateSummary.groupName}.`;
 			await pool.query(
 				`
                     INSERT INTO activity_history(
@@ -329,7 +329,7 @@ async function updateActivityHistory(activity) {
 				],
 			);
 		} else if (activityType === "Delete") {
-			const activityDescription = `Removed ${updateSummary.name} from ${updateSummary.groupName}.`;
+			const activityDescription = `Removed '${updateSummary.name}' from ${updateSummary.groupName}.`;
 
 			await pool.query(
 				`
@@ -423,7 +423,7 @@ async function updateActivityHistory(activity) {
 		} else if (activityType === "Update" && categoryID) {
 			// Create description for category updates
 
-			const activityDescription = `Renamed the category '${updateSummary.previousName}' to ${updateSummary.newName}`;
+			const activityDescription = `Renamed the category '${updateSummary.previousName}' to '${updateSummary.newName}'`;
 			await pool.query(
 				`
                     INSERT INTO activity_history (

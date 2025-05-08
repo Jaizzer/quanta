@@ -232,7 +232,7 @@ async function editItemQuantityPost(req, res, next) {
 		itemNameBeforeEdit: itemToEdit.name,
 		quantity: {
 			description: [
-				`Updated the quantity from ${previousQuantity} to ${newQuantity}.`,
+				`Updated the quantity from '${previousQuantity}' to '${newQuantity}'.`,
 			],
 			previousValue: previousQuantity,
 			updatedValue: newQuantity,
