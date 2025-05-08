@@ -541,6 +541,16 @@ async function deleteTag(tag) {
             ;
         `;
 		await pool.query(query, [tag.tag_id]);
+
+		// Update activity history
+		await updateActivityHistory({
+			tagID: tag.tag_id,
+			activityType: "Delete",
+			updateSummary: {
+				name: tag.tag_name,
+				groupName: "tags",
+			},
+		});
 		console.log("Tag deleted successfully.");
 	} catch (error) {
 		console.error("Error deleting tag. ", error);
