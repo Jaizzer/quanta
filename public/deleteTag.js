@@ -8,6 +8,12 @@ forms?.forEach((form) => {
 
 	// Render warning message before deleting the tag
 	deleteTagBtn.addEventListener("click", () => {
+		// Remove the current popup if there are any
+		const currentPopUp = document.querySelector(".background-overlay");
+		if (currentPopUp) {
+			currentPopUp.parentElement.removeChild(currentPopUp);
+		}
+
 		const backgroundOverlay = document.createElement("div");
 		backgroundOverlay.classList.add("background-overlay");
 		document.body.appendChild(backgroundOverlay);
