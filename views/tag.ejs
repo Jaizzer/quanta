@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/style.css">
-  <script src="/searchTag.js" defer></script>
+  <script src="/cancelTagSearch.js" defer></script>
 </head>
 
 <body>
@@ -15,7 +15,12 @@
       ←
     </button>
     <h1><%= tag.name %></h1>
-    <button class="search-button" <%= tag.items.length === 0 && !keyword && 'disabled' %>>🔍</button>
+    <form method="GET" class="search-form">
+      <div class="search-field">
+        <label class="search-icon-container" for="search">🔍</label>
+        <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
+      </div>
+    </form>
   </div>
   <% if (tag.items.length > 0) { %>
   <div class="tag-summary-container">
