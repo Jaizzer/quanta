@@ -603,46 +603,98 @@ async function insertTag(tagName) {
 async function getTagByID(id) {
 	try {
 		const query = `
-            SELECT 
+            SELECT
                 tag_id,
                 tag_name,
-                SUM(quantity) as total_item_quantity,
-                SUM(total_value) as total_value,
-                COUNT(*) as total_distinct_item_quantity,
-                JSONB_AGG(
-                    JSONB_BUILD_OBJECT(
-                        'id',
-                        id,
-                        'name',
-                        name,
-                        'price',
-                        price,
-                        'quantity',
-                        quantity,
-                        'measurement',
-                        measurement
+                CASE
+                    WHEN (
+                        SELECT COUNT(*)
+                        FROM item_categories
+                        WHERE category_id = $1
+                            AND item_categories.item_id NOT IN (
+                                SELECT parent_item_id
+                                FROM items
+                                WHERE parent_item_id IS NOT NULL
+                            )
+                    ) <> 0 THEN SUM(quantity)
+                    ELSE 0
+                END AS total_item_quantity,
+                CASE
+                    WHEN (
+                        SELECT COUNT(*)
+                        FROM item_categories
+                        WHERE category_id = $1
+                            AND item_categories.item_id NOT IN (
+                                SELECT parent_item_id
+                                FROM items
+                                WHERE parent_item_id IS NOT NULL
+                            )
+                    ) <> 0 THEN SUM(total_value)
+                    ELSE 0
+                END AS total_value,
+                CASE
+                    WHEN (
+                        SELECT COUNT(*)
+                        FROM item_categories
+                        WHERE category_id = $1
+                            AND item_categories.item_id NOT IN (
+                                SELECT parent_item_id
+                                FROM items
+                                WHERE parent_item_id IS NOT NULL
+                            )
+                    ) <> 0 THEN COUNT(*)
+                    ELSE 0
+                END AS total_distinct_item_quantity,
+                CASE
+                    WHEN (
+                        SELECT COUNT(*)
+                        FROM item_categories
+                        WHERE category_id = $1
+                            AND item_categories.item_id NOT IN (
+                                SELECT parent_item_id
+                                FROM items
+                                WHERE parent_item_id IS NOT NULL
+                            )
+                    ) <> 0 THEN JSONB_AGG(
+                        JSONB_BUILD_OBJECT(
+                            'id',
+                            item_id,
+                            'name',
+                            name,
+                            'price',
+                            price,
+                            'quantity',
+                            quantity,
+                            'measurement',
+                            measurement
+                        )
                     )
-                ) as items
+                    ELSE NULL
+                END AS items
             FROM (
-                    SELECT items.name,
-                        items.id,
-                        items.quantity,
-                        items.price,
-                        items.measurement,
-                        items.price * items.quantity as total_value,
+                    SELECT y.name,
+                        y.item_id,
+                        y.quantity,
+                        y.price,
+                        y.measurement,
+                        y.price * y.quantity as total_value,
                         categories.id as tag_id,
                         categories.category as tag_name
-                    FROM item_categories
-                        INNER JOIN items ON item_categories.item_id = items.id
-                        INNER JOIN categories ON item_categories.category_id = categories.id
+                    FROM categories
+                        LEFT JOIN (
+                            SELECT *
+                            FROM item_categories
+                                INNER JOIN (
+                                    SELECT *
+                                    FROM items
+                                    WHERE id NOT IN (
+                                            SELECT parent_item_id
+                                            FROM items
+                                            WHERE parent_item_id IS NOT NULL
+                                        )
+                                ) as items ON item_categories.item_id = items.id
+                        ) as y ON y.category_id = categories.id
                     WHERE categories.id = $1
-                        AND NOT(
-                            (
-                                SELECT x.parent_item_id
-                                FROM items as x
-                                WHERE items.id = x.parent_item_id
-                            ) IS NOT NULL
-                        )
                 )
             GROUP BY 
                 tag_id,
