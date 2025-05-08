@@ -52,7 +52,8 @@ async function editTagsGet(req, res, next) {
 
 async function deleteTag(req, res, next) {
 	const { tagID } = req.body;
-	await db.deleteTag(tagID);
+    const tag = await db.getTagByID(tagID)
+	await db.deleteTag(tag);
 	res.status(200).redirect("/tags/edit");
 }
 

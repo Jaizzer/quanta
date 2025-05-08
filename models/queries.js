@@ -532,7 +532,7 @@ async function searchTag(keyword) {
 	}
 }
 
-async function deleteTag(id) {
+async function deleteTag(tag) {
 	try {
 		const query = `
             DELETE
@@ -540,7 +540,7 @@ async function deleteTag(id) {
             WHERE id = $1
             ;
         `;
-		await pool.query(query, [id]);
+		await pool.query(query, [tag.tag_id]);
 		console.log("Tag deleted successfully.");
 	} catch (error) {
 		console.error("Error deleting tag. ", error);
