@@ -812,6 +812,92 @@ async function updateItemQuantity(itemID, reason, updateSummary) {
 	}
 }
 
+async function getAllTransactions() {
+	try {
+		// Update the item quantity
+		const { rows } = await pool.query(
+			`
+                SELECT 
+                    id AS transaction_id,
+                    item_id,
+                    reason,
+                    name_before_update AS item_name_before_update,
+                    previous_quantity,
+                    updated_quantity,
+                    CASE
+                        WHEN previous_quantity IS NULL THEN updated_quantity
+                        WHEN updated_quantity IS NULL then previous_quantity
+                        ELSE updated_quantity - previous_quantity
+                    END AS quantity_change,
+                    activity_done_at as date_updated
+                FROM activity_history
+                WHERE NOT (
+                        previous_quantity IS NULL
+                        AND updated_quantity IS NULL
+                    );
+            `,
+		);
+
+		return rows.map((row) => ({
+			transactionID: row.transaction_id,
+			itemID: row.item_id,
+			itemName: row.item_name_before_update,
+			reason: row.reason,
+			quantityChange:
+				parseFloat(row.quantity_change) > 0
+					? `+${row.quantity_change}`
+					: row.quantity_change,
+			dateUpdated: `${new Date(row.date_updated).toLocaleTimeString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`,
+		}));
+	} catch (error) {
+		console.error("Error retrieving the transactions. ", error);
+	}
+}
+
+async function getTransactionByID(id) {
+	try {
+		// Update the item quantity
+		const { rows } = await pool.query(
+			`
+               SELECT 
+                    id AS transaction_id,
+                    item_id,
+                    reason,
+                    name_before_update AS item_name_before_update,
+                    previous_quantity,
+                    updated_quantity,
+                    CASE
+                        WHEN previous_quantity IS NULL THEN updated_quantity
+                        WHEN updated_quantity IS NULL then previous_quantity
+                        ELSE updated_quantity - previous_quantity
+                    END AS quantity_change,
+                    activity_done_at as date_updated
+                FROM activity_history
+                WHERE id = $1
+                    AND NOT (
+                        previous_quantity IS NULL
+                        AND updated_quantity IS NULL
+                    )
+            `,
+			[id],
+		);
+
+		return {
+			transactionID: rows[0].transaction_id,
+			itemID: rows[0].item_id,
+			itemName: rows[0].item_name_before_update,
+			reason: rows[0].reason,
+			quantityChange:
+				parseFloat(rows[0].quantity_change) > 0
+					? `+${rows[0].quantity_change}`
+					: rows[0].quantity_change,
+			dateUpdated: `${new Date(rows[0].date_updated).toLocaleTimeString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`,
+		};
+	} catch (error) {
+		console.error("Error retrieving the transactions. ", error);
+	}
+}
+
 module.exports = {
 	insertItem,
 	getAllItems,
@@ -828,4 +914,6 @@ module.exports = {
 	editItem,
 	updateItemQuantity,
 	deleteItem,
+	getAllTransactions,
+	getTransactionByID,
 };

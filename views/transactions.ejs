@@ -18,12 +18,12 @@
 
   <div class="transactions-container">
     <% transactions.forEach(transaction => { %>
-    <a class="transaction-card" href="/transactions/<%= transaction.id %>">
+    <a class="transaction-card" href="/transactions/<%= transaction.transactionID %>">
       <div class="transaction-header">
         <div class="transaction-type">
           <%= transaction.type %><%= transaction.reason ? ` (${transaction.reason})` : '' %>
         </div>
-        <div class="transaction-date"><%= transaction.date %></div>
+        <div class="transaction-date"><%= transaction.dateUpdated %></div>
       </div>
       <div class="transaction-item">
         <div class="item-name"><%= transaction.itemName %></div>

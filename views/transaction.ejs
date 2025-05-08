@@ -22,14 +22,14 @@
 
       <div class="transaction-date">
         <div class="title">Date:</div>
-        <div class="value"><%= transaction.date %></div>
+        <div class="value"><%= transaction.dateUpdated %></div>
       </div>
 
       <div class="transaction-change">
         <div class="title">Change:</div>
         <div class="value"><%= transaction.quantityChange %></div>
       </div>
-      <a class="transaction-item" href="/items/<%= transaction.itemId %>">
+      <a class="transaction-item" href="/items/<%= transaction.itemID %>">
         <div class="item-name"><%= transaction.itemName %></div>
       </a>
     </div>
