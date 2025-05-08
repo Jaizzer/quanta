@@ -289,24 +289,45 @@ async function searchItem(keyword) {
 	}
 }
 
-async function getLowStockItems() {
+async function getLowStockItems(isNotificationEnabledOnly) {
 	try {
-		const query = `
-        SELECT 
-            id,
-            name,
-            quantity,
-            measurement,
-            min_level,
-            notify
-        FROM items
-        WHERE quantity <= min_level
-            AND id NOT IN (
-                SELECT parent_item_id
+		let query;
+		if (isNotificationEnabledOnly) {
+			query = `
+                SELECT 
+                    id,
+                    name,
+                    quantity,
+                    measurement,
+                    min_level,
+                    notify
                 FROM items
-                WHERE parent_item_id IS NOT NULL
-            );
+                WHERE quantity <= min_level
+                    AND id NOT IN (
+                        SELECT parent_item_id
+                        FROM items
+                        WHERE parent_item_id IS NOT NULL
+                    )
+                    AND notify = TRUE;
+            `;
+		} else {
+			query = `
+                SELECT 
+                    id,
+                    name,
+                    quantity,
+                    measurement,
+                    min_level,
+                    notify
+                FROM items
+                WHERE quantity <= min_level
+                    AND id NOT IN (
+                        SELECT parent_item_id
+                        FROM items
+                        WHERE parent_item_id IS NOT NULL
+                    );
         `;
+		}
 		const { rows } = await pool.query(query);
 		return rows;
 	} catch (error) {
