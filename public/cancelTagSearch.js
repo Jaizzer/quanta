@@ -1,10 +1,10 @@
 const searchBar = document.querySelector("#search");
 
-if (searchBar.value.trim() !== "") {
-	searchBar.parentElement.appendChild(createCancelTagSearchButton());
+if (searchBar?.value.trim() !== "") {
+	searchBar?.parentElement.appendChild(createCancelTagSearchButton());
 }
 
-searchBar.addEventListener("input", (e) => {
+searchBar?.addEventListener("input", (e) => {
 	const cancelTagSearchButton = document.querySelector(
 		".cancel-tag-search-button",
 	);
