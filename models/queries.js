@@ -834,7 +834,8 @@ async function getAllTransactions() {
                 WHERE NOT (
                         previous_quantity IS NULL
                         AND updated_quantity IS NULL
-                    );
+                    )
+                ORDER BY date_updated DESC;
             `,
 		);
 
