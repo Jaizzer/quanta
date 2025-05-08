@@ -169,7 +169,7 @@ async function editItemPost(req, res, next) {
 		const itemErrors = isThereErrorInNonVariantInputs
 			? getItemErrors(nonVariantFieldErrors)
 			: null;
-		return res.status(400).render("itemAdding", {
+		return res.status(400).render("itemEdit", {
 			title: "Add Item",
 			tags: tags,
 			item: updatedItem,
