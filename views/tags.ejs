@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/style.css">
   <script src="/addTag.js" defer></script>
   <script src="/sortTags.js" defer></script>
+  <script src="/cancelTagSearch.js" defer></script>
 </head>
 
 <body>
@@ -19,10 +20,10 @@
     <a href="/tags/edit"><button class="edit-tag-btn">Edit</button></a>
     <button class="add-tag-btn">Add</button>
   </div>
-  <form method="GET">
+  <form method="GET" class="search-form">
     <div class="search-field">
       <label class="search-icon-container" for="search">🔍</label>
-      <input type="text" name="keyword" placeholder="Search" id="search">
+      <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
     </div>
   </form>
   <form action="/tags" method="GET" class="sort-form">

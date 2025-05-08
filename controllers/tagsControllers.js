@@ -47,12 +47,13 @@ async function editTagsGet(req, res, next) {
 	res.render("editTags", {
 		title: "Edit Tags",
 		tags: tags,
+		keyword: keyword ? keyword : "",
 	});
 }
 
 async function deleteTag(req, res, next) {
 	const { tagID } = req.body;
-    const tag = await db.getTagByID(tagID)
+	const tag = await db.getTagByID(tagID);
 	await db.deleteTag(tag);
 	res.status(200).redirect("/tags/edit");
 }
