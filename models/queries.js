@@ -292,7 +292,20 @@ async function searchItem(keyword) {
 async function getLowStockItems() {
 	try {
 		const query = `
-        SELECT id, name, quantity, measurement, min_level FROM items WHERE quantity <= min_level;
+        SELECT 
+            id,
+            name,
+            quantity,
+            measurement,
+            min_level,
+            notify
+        FROM items
+        WHERE quantity <= min_level
+            AND id NOT IN (
+                SELECT parent_item_id
+                FROM items
+                WHERE parent_item_id IS NOT NULL
+            );
         `;
 		const { rows } = await pool.query(query);
 		return rows;
