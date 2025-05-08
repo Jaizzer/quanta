@@ -15,12 +15,14 @@
       ←
     </button>
     <h1><%= tag.name %></h1>
+    <% if (tag.items.length > 0 ) {%>
     <form method="GET" class="search-form">
       <div class="search-field">
         <label class="search-icon-container" for="search">🔍</label>
         <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
       </div>
     </form>
+    <% }%>
   </div>
   <% if (tag.items.length > 0) { %>
   <div class="tag-summary-container">
