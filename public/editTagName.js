@@ -43,7 +43,7 @@ tagNames?.forEach((tagName) =>
 		saveButton.addEventListener("click", () => {
 			// Render error message if input is not alpha numeric or empty
 			const tagName = input.value;
-			const isTagNameAlpha = /^[a-zA-Z]*$/.test(tagName);
+			const isTagNameAlpha = /^\w+([\s-_]\w+)*$/.test(tagName);
 			const isTagNameEmpty = input.value.trim() === "";
 			input.setCustomValidity(
 				isTagNameEmpty
