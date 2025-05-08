@@ -23,7 +23,7 @@ function renderSearchBar(e) {
 	container.appendChild(form);
 
 	const input = document.createElement("input");
-    input.name = 'keyword'
+	input.name = "keyword";
 	input.placeholder = "Search";
 	const searchIcon = document.createElement("label");
 	searchIcon.textContent = "🔍";
@@ -52,4 +52,11 @@ function renderSearchBar(e) {
 		container.appendChild(newSearchTagBtn);
 	});
 	form.appendChild(closeBtn);
+
+    // Don't submit the form if the search query is empty
+	form.addEventListener("submit", (e) => {
+		if (input.value.trim() === "") {
+			e.preventDefault();
+		}
+	});
 }
