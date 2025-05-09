@@ -37,18 +37,18 @@ async function insertItem(item) {
 		// Get the newly inserted item's ID
 		const itemID = result.rows[0].id;
 
-		// Insert item into item_categories table with the item's id and tag id
+		// Insert item into item_tags table with the item's id and tag id
 		if (tags) {
 			tags.forEach(async (tag) => {
 				await pool.query(
-					`INSERT INTO item_categories(item_id, category_id) VALUES($1, $2)`,
+					`INSERT INTO item_tags(item_id, tag_id) VALUES($1, $2)`,
 					[itemID, tag],
 				);
 			});
 		} else {
 			// Default to 1 if no tags were submitted
 			await pool.query(
-				`INSERT INTO item_categories(item_id, category_id) VALUES($1, $2)`,
+				`INSERT INTO item_tags(item_id, tag_id) VALUES($1, $2)`,
 				[itemID, 1],
 			);
 		}
@@ -197,18 +197,18 @@ async function getItemById(itemID) {
                         CASE
                             WHEN (
                                 SELECT COUNT(item_id)
-                                FROM item_categories
+                                FROM item_tags
                                 WHERE item_id = $1
                             ) <> 0 THEN JSONB_AGG(
-                                JSONB_BUILD_OBJECT('id', categories.id, 'name', categories.category)
-                                ORDER BY categories.id
+                                JSONB_BUILD_OBJECT('id', tags.id, 'name', tags.tag)
+                                ORDER BY tags.id
                             )
                             ELSE NULL
-                        END AS categories
+                        END AS tags
                     FROM items AS items_x
                         LEFT JOIN items AS items_y ON items_x.parent_item_id = items_y.id
-                        LEFT JOIN item_categories ON item_categories.item_id = items_x.id
-                        LEFT JOIN categories ON item_categories.category_id = categories.id
+                        LEFT JOIN item_tags ON item_tags.item_id = items_x.id
+                        LEFT JOIN tags ON item_tags.tag_id = tags.id
                     WHERE items_x.id = $1
                     GROUP BY items_x.id,
                         items_x.name,
@@ -232,7 +232,7 @@ async function getItemById(itemID) {
                 items_x.note,
                 items_x.updated_at,
                 items_x.parent,
-                items_x.categories;
+                items_x.tags;
         `;
 		const row = (await pool.query(query, [itemID])).rows[0];
 
@@ -253,7 +253,7 @@ async function getItemById(itemID) {
 						? parseFloat(variant.quantity)
 						: null,
 				})) || [],
-			tags: row.categories || [],
+			tags: row.tags || [],
 			measurement: row.measurement,
 			minimumPrice: row.variants
 				? Math.min(
@@ -337,7 +337,7 @@ async function getLowStockItems(isNotificationEnabledOnly) {
 
 async function updateActivityHistory(activity) {
 	try {
-		const { itemID, categoryID, activityType, reason, updateSummary } =
+		const { itemID, tagID, activityType, reason, updateSummary } =
 			activity;
 
 		if (activityType === "Create") {
@@ -346,7 +346,7 @@ async function updateActivityHistory(activity) {
 				`
                     INSERT INTO activity_history(
                         item_id, 
-                        category_id, 
+                        tag_id, 
                         activity_type, 
                         activity_description,
                         name_before_update
@@ -356,7 +356,7 @@ async function updateActivityHistory(activity) {
                     `,
 				[
 					itemID,
-					categoryID,
+					tagID,
 					activityType,
 					activityDescription,
 					updateSummary.name,
@@ -369,7 +369,7 @@ async function updateActivityHistory(activity) {
 				`
                     INSERT INTO activity_history (
                         item_id, 
-                        category_id, 
+                        tag_id, 
                         activity_type, 
                         activity_description,
                         name_before_update
@@ -379,7 +379,7 @@ async function updateActivityHistory(activity) {
                     `,
 				[
 					itemID,
-					categoryID,
+					tagID,
 					activityType,
 					activityDescription,
 					updateSummary.name,
@@ -454,15 +454,15 @@ async function updateActivityHistory(activity) {
 					}
 				}
 			});
-		} else if (activityType === "Update" && categoryID) {
-			// Create description for category updates
+		} else if (activityType === "Update" && tagID) {
+			// Create description for tag updates
 
-			const activityDescription = `Renamed the category '${updateSummary.previousName}' to '${updateSummary.newName}'`;
+			const activityDescription = `Renamed the tag '${updateSummary.previousName}' to '${updateSummary.newName}'`;
 			await pool.query(
 				`
                     INSERT INTO activity_history (
                     item_id, 
-                    category_id, 
+                    tag_id, 
                     activity_type, 
                     activity_description,
                     name_before_update
@@ -472,7 +472,7 @@ async function updateActivityHistory(activity) {
                     `,
 				[
 					itemID,
-					categoryID,
+					tagID,
 					activityType,
 					activityDescription,
 					updateSummary.previousName,
@@ -490,18 +490,18 @@ async function getAllActivities() {
 		const query = `
         SELECT
         item_id,
-        category_id,
+        tag_id,
         CASE
-            WHEN categories.category IS NULL THEN items.name
-            ELSE categories.category
+            WHEN tags.tag IS NULL THEN items.name
+            ELSE tags.tag
         END AS entity_name,
         activity_done_at,
         activity_description AS description
         FROM activity_history
         LEFT JOIN items
         ON item_id = items.id
-        LEFT JOIN categories
-        ON category_id = categories.id
+        LEFT JOIN tags
+        ON tag_id = tags.id
         ORDER BY activity_history.id DESC
         ;
         `;
@@ -517,10 +517,10 @@ async function getAllTags(sortOption) {
 		let orderByStatement;
 		switch (sortOption) {
 			case "name-ascending":
-				orderByStatement = "ORDER BY category ASC";
+				orderByStatement = "ORDER BY tag ASC";
 				break;
 			case "name-descending":
-				orderByStatement = "ORDER BY category DESC";
+				orderByStatement = "ORDER BY tag DESC";
 				break;
 			case "date-added-ascending":
 				orderByStatement = "ORDER BY id ASC";
@@ -536,8 +536,8 @@ async function getAllTags(sortOption) {
 		const query = `
             SELECT 
             id, 
-            category AS name
-            FROM categories
+            tag AS name
+            FROM tags
             ${orderByStatement}
             ;
         `;
@@ -554,9 +554,9 @@ async function searchTag(keyword) {
 		const query = `
         SELECT 
         id, 
-        category AS name
+        tag AS name
         FROM CATEGORIES 
-        WHERE LOWER(category) LIKE LOWER('%' || $1 || '%')
+        WHERE LOWER(tag) LIKE LOWER('%' || $1 || '%')
         ;
         `;
 		const { rows } = await pool.query(query, [keyword]);
@@ -570,7 +570,7 @@ async function deleteTag(tag) {
 	try {
 		const query = `
             DELETE
-            FROM categories
+            FROM tags
             WHERE id = $1
             ;
         `;
@@ -595,8 +595,8 @@ async function updateTagName(id, newTagName) {
 	try {
 		const currentTagName = (await getTagByID(id))?.tag_name;
 		const query = `
-            UPDATE categories
-            SET category = $2
+            UPDATE tags
+            SET tag = $2
             WHERE id = $1
             ;
         `;
@@ -605,7 +605,7 @@ async function updateTagName(id, newTagName) {
 
 		// Update activity history
 		await updateActivityHistory({
-			categoryID: id,
+			tagID: id,
 			activityType: "Update",
 			updateSummary: {
 				previousName: currentTagName,
@@ -621,7 +621,7 @@ async function updateTagName(id, newTagName) {
 async function insertTag(tagName) {
 	try {
 		const query = `
-            INSERT INTO CATEGORIES (category) 
+            INSERT INTO CATEGORIES (tag) 
             VALUES ($1)
             RETURNING *
             ;
@@ -655,9 +655,9 @@ async function getTagByID(id) {
                 CASE
                     WHEN (
                         SELECT COUNT(*)
-                        FROM item_categories
-                        WHERE category_id = $1
-                            AND item_categories.item_id NOT IN (
+                        FROM item_tags
+                        WHERE tag_id = $1
+                            AND item_tags.item_id NOT IN (
                                 SELECT parent_item_id
                                 FROM items
                                 WHERE parent_item_id IS NOT NULL
@@ -668,9 +668,9 @@ async function getTagByID(id) {
                 CASE
                     WHEN (
                         SELECT COUNT(*)
-                        FROM item_categories
-                        WHERE category_id = $1
-                            AND item_categories.item_id NOT IN (
+                        FROM item_tags
+                        WHERE tag_id = $1
+                            AND item_tags.item_id NOT IN (
                                 SELECT parent_item_id
                                 FROM items
                                 WHERE parent_item_id IS NOT NULL
@@ -681,9 +681,9 @@ async function getTagByID(id) {
                 CASE
                     WHEN (
                         SELECT COUNT(*)
-                        FROM item_categories
-                        WHERE category_id = $1
-                            AND item_categories.item_id NOT IN (
+                        FROM item_tags
+                        WHERE tag_id = $1
+                            AND item_tags.item_id NOT IN (
                                 SELECT parent_item_id
                                 FROM items
                                 WHERE parent_item_id IS NOT NULL
@@ -694,9 +694,9 @@ async function getTagByID(id) {
                 CASE
                     WHEN (
                         SELECT COUNT(*)
-                        FROM item_categories
-                        WHERE category_id = $1
-                            AND item_categories.item_id NOT IN (
+                        FROM item_tags
+                        WHERE tag_id = $1
+                            AND item_tags.item_id NOT IN (
                                 SELECT parent_item_id
                                 FROM items
                                 WHERE parent_item_id IS NOT NULL
@@ -724,12 +724,12 @@ async function getTagByID(id) {
                         y.price,
                         y.measurement,
                         y.price * y.quantity as total_value,
-                        categories.id as tag_id,
-                        categories.category as tag_name
-                    FROM categories
+                        tags.id as tag_id,
+                        tags.tag as tag_name
+                    FROM tags
                         LEFT JOIN (
                             SELECT *
-                            FROM item_categories
+                            FROM item_tags
                                 INNER JOIN (
                                     SELECT *
                                     FROM items
@@ -738,9 +738,9 @@ async function getTagByID(id) {
                                             FROM items
                                             WHERE parent_item_id IS NOT NULL
                                         )
-                                ) as items ON item_categories.item_id = items.id
-                        ) as y ON y.category_id = categories.id
-                    WHERE categories.id = $1
+                                ) as items ON item_tags.item_id = items.id
+                        ) as y ON y.tag_id = tags.id
+                    WHERE tags.id = $1
                 )
             GROUP BY 
                 tag_id,
@@ -799,12 +799,12 @@ async function editItem(updatedItem, updateSummary) {
 
 		// Update item tags
 		if (tags) {
-			await pool.query("DELETE FROM item_categories WHERE item_id = $1", [
+			await pool.query("DELETE FROM item_tags WHERE item_id = $1", [
 				id,
 			]);
 			tags.forEach(async (tag) => {
 				await pool.query(
-					`INSERT INTO item_categories(item_id, category_id) VALUES($1, $2)`,
+					`INSERT INTO item_tags(item_id, tag_id) VALUES($1, $2)`,
 					[id, tag.id],
 				);
 			});

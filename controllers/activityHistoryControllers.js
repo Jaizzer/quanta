@@ -7,7 +7,7 @@ async function activityHistoryGet(req, res, next) {
 		// Transform the activity object with link property
 		const {
 			item_id,
-			category_id,
+			tag_id,
 			description,
 			entity_name,
 			activity_done_at,
@@ -15,7 +15,7 @@ async function activityHistoryGet(req, res, next) {
 		return {
 			description: description,
 			entityName: entity_name,
-			link: item_id ? `/items/${item_id}` : `/tags?${category_id}`,
+			link: item_id ? `/items/${item_id}` : `/tags?${tag_id}`,
 			timePassed: getTimePassed(activity_done_at),
 		};
 	});

@@ -1,6 +1,6 @@
 const addBtn = document.querySelector(".add-item-btn");
 
-// Render the item/category adder component when add button is clicked
+// Render the item/tag adder component when add button is clicked
 addBtn.addEventListener("click", () => {
 	const addOptionContainerBackground = document.createElement("div");
 	addOptionContainerBackground.classList.add(

@@ -17,12 +17,12 @@ VALUES
     ('Non-Stocked Product'),
     ('Service');
 
-CREATE TABLE IF NOT EXISTS categories (
+CREATE TABLE IF NOT EXISTS tags (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    category TEXT NOT NULL
+    tag TEXT NOT NULL
 );
 
-INSERT INTO categories (category)
+INSERT INTO tags (tag)
 VALUES
     ('Uncategorized');
 
@@ -48,12 +48,12 @@ CREATE TABLE IF NOT EXISTS items (
     FOREIGN KEY (type) REFERENCES product_types(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS item_categories (
+CREATE TABLE IF NOT EXISTS item_tags (
     item INTEGER,
-    category INTEGER,
-    PRIMARY KEY (item, category),
+    tag INTEGER,
+    PRIMARY KEY (item, tag),
     FOREIGN KEY (item) REFERENCES items(id) ON DELETE CASCADE,
-    FOREIGN KEY (category) REFERENCES categories(id) ON DELETE CASCADE
+    FOREIGN KEY (tag) REFERENCES tags(id) ON DELETE CASCADE
 );
 `;
 
@@ -140,12 +140,12 @@ ALTER TABLE items
 ADD COLUMN notes TEXT`;
 
 const SQL11 = `
-INSERT INTO categories (category)
+INSERT INTO tags (tag)
 VALUES
-    ('Category 1'),  
-    ('Category 2'),
-    ('Category 4'),
-    ('Category 3');`;
+    ('Tag 1'),  
+    ('Tag 2'),
+    ('Tag 4'),
+    ('Tag 3');`;
 
 const SQL12 = `
 CREATE TABLE IF NOT EXISTS variants (
@@ -163,13 +163,13 @@ ADD COLUMN name TEXT NOT NULL;
 `;
 
 const SQL14 = `
-DROP TABLE item_categories;
-CREATE TABLE IF NOT EXISTS item_categories (
+DROP TABLE item_tags;
+CREATE TABLE IF NOT EXISTS item_tags (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     item_id INTEGER,
-    category_id INTEGER,
+    tag_id INTEGER,
     FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
 );
 `;
 
@@ -190,7 +190,7 @@ DROP COLUMN product_type_id;
 
 const SQL17 = `
 ALTER TABLE activity_history
-ADD COLUMN category_id INTEGER REFERENCES categories(id);
+ADD COLUMN tag_id INTEGER REFERENCES tags(id);
 `;
 
 const SQL18 = `
@@ -289,7 +289,25 @@ DROP COLUMN description;
 
 ALTER TABLE items
 DROP COLUMN are_attributes_enabled;
-`
+`;
+
+const SQL29 = `
+ALTER TABLE activity_history
+RENAME COLUMN category_id to tag_id;
+
+ALTER TABLE categories
+RENAME COLUMN category to tag;
+
+ALTER TABLE categories
+RENAME TO tags;
+
+
+ALTER TABLE item_categories
+RENAME COLUMN category_id to tag_id;
+
+ALTER TABLE item_categories
+RENAME TO item_tags;
+`;
 
 async function main() {
 	let client;
@@ -316,7 +334,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL28);
+		await client.query(SQL29);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
