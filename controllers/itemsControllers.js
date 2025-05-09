@@ -89,20 +89,19 @@ async function getItemById(req, res, next) {
 	const itemId = Number(req.params.id);
 	const item = await db.getItemById(itemId);
 
-    // Render the item page if the item exists
+	// Render the item page if the item exists
 	if (item) {
 		res.render("item", {
 			title: item.name,
 			item: item,
 		});
 	} else {
-        // Render an error page if the item does not exist.
-        res.render("error", {
-            title: 
-            "Item Not Found",
-            message: "The item does not exist."
-        })
-    }
+		// Render an error page if the item does not exist.
+		res.render("error", {
+			title: "Item Not Found",
+			message: "The item does not exist.",
+		});
+	}
 }
 
 async function lowStockGet(req, res, next) {
