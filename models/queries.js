@@ -827,7 +827,13 @@ async function getTagByID(id) {
                 tag_name;
         `;
 		const { rows } = await pool.query(query, [id]);
-		return rows[0];
+		return {
+			name: rows[0].tag_name,
+			items: rows[0].items || [],
+			totalItemQuantity: rows[0].total_item_quantity,
+			totalDistinctItemQuantity: rows[0].total_distinct_item_quantity,
+			totalValue: rows[0].total_value,
+		};
 	} catch (error) {
 		console.error("Error fetching tag. ", error);
 	}

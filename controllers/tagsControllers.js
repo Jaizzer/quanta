@@ -78,18 +78,14 @@ async function updateTagName(req, res, next) {
 async function getTagByID(req, res, next) {
 	const tagID = req.params.id;
 	const keyword = req.query.keyword;
-	const row = await db.getTagByID(tagID);
-	const tag = {
-		name: row.tag_name,
-		items: keyword
-			? row.items?.filter((item) =>
-					item.name.toUpperCase().includes(keyword?.toUpperCase()),
-				)
-			: row.items || [],
-		totalItemQuantity: row.total_item_quantity,
-		totalDistinctItemQuantity: row.total_distinct_item_quantity,
-		totalValue: row.total_value,
-	};
+	const tag = await db.getTagByID(tagID);
+
+	// Filter the items if there is search keyword
+	if (keyword) {
+		tag.items = tag.items?.filter((item) =>
+			item.name.toUpperCase().includes(keyword?.toUpperCase()),
+		);
+	}
 
 	res.render("tag", {
 		title: tag.name,
