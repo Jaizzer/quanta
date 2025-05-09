@@ -727,7 +727,7 @@ async function updateTagName(id, newTagName) {
 async function insertTag(tagName) {
 	try {
 		const query = `
-            INSERT INTO CATEGORIES (tag) 
+            INSERT INTO tags (tag) 
             VALUES ($1)
             RETURNING *
             ;
