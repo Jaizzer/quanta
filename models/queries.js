@@ -384,9 +384,9 @@ async function getLowStockItems(isNotificationEnabledOnly) {
 		return rows.map((row) => ({
 			id: row.id,
 			name: row.name,
-			quantity: row.quantity,
+			quantity: row.quantity !== null ? parseFloat(row.quantity) : null,
 			measurement: row.measurement,
-			minLevel: row.min_level,
+			minLevel: row.min_level !== null ? parseFloat(row.min_level) : null,
 			notify: row.notify,
 		}));
 	} catch (error) {
