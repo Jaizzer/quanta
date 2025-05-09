@@ -661,7 +661,7 @@ async function searchTag(keyword) {
         SELECT 
         id, 
         tag AS name
-        FROM CATEGORIES 
+        FROM tags 
         WHERE LOWER(tag) LIKE LOWER('%' || $1 || '%')
         ;
         `;
