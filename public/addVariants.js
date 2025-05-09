@@ -84,10 +84,10 @@ function createAddVariantButtonSection() {
 	addVariantContainer.classList.add("add-variant-button-container");
 
 	// Create the add variant button
-	const addVariantBtn = document.createElement("button");
-	addVariantBtn.type = "button";
-	addVariantBtn.textContent = "+Add";
-	addVariantBtn.addEventListener("click", () => {
+	const addVariantButton = document.createElement("button");
+	addVariantButton.type = "button";
+	addVariantButton.textContent = "+Add";
+	addVariantButton.addEventListener("click", () => {
 		// Clear the variant list if it exists inside the item creation form
 		removeVariantList();
 
@@ -116,7 +116,7 @@ function createAddVariantButtonSection() {
 			);
 		}
 	});
-	addVariantContainer.appendChild(addVariantBtn);
+	addVariantContainer.appendChild(addVariantButton);
 
 	// Create the add variant button label
 	const addVariantLabel = document.createElement("div");
@@ -149,11 +149,11 @@ function createAddVariantButtonSection() {
 function createVariantCreationContainer(variantInputsData) {
 	const container = document.createElement("div");
 	container.classList.add("variant-creation-container");
-	const addVariantBtn = document.createElement("button");
-	addVariantBtn.textContent = "+Add Variant";
-	addVariantBtn.type = "button";
-	addVariantBtn.classList.add("add-variant-btn");
-	addVariantBtn.addEventListener("click", () => {
+	const addVariantButton = document.createElement("button");
+	addVariantButton.textContent = "+Add Variant";
+	addVariantButton.type = "button";
+	addVariantButton.classList.add("add-variant-button");
+	addVariantButton.addEventListener("click", () => {
 		let variantCount =
 			Array.from(document.querySelectorAll(".variant-input-section"))
 				.length || 0;
@@ -167,10 +167,10 @@ function createVariantCreationContainer(variantInputsData) {
 		container.appendChild(variantInputSection);
 
 		// Enable the save button since there is already at least 1 variant
-		const saveBtn = document.querySelector(".save-btn");
-		saveBtn.disabled = false;
+		const saveButton = document.querySelector(".save-button");
+		saveButton.disabled = false;
 	});
-	container.appendChild(addVariantBtn);
+	container.appendChild(addVariantButton);
 
 	// Creation input elements if there is a provided variant Inputs Data
 	if (variantInputsData) {
@@ -205,13 +205,13 @@ function createVariantInputSection(
 	variantInputSectionLabel.textContent = label;
 	mainContainer.appendChild(variantInputSectionLabel);
 
-	const deleteVariantInputSectionBtn = document.createElement("button");
-	deleteVariantInputSectionBtn.textContent = "🗑️";
-	deleteVariantInputSectionBtn.type = "button";
-	deleteVariantInputSectionBtn.classList.add(
-		"delete-variant-input-section-btn",
+	const deleteVariantInputSectionButton = document.createElement("button");
+	deleteVariantInputSectionButton.textContent = "🗑️";
+	deleteVariantInputSectionButton.type = "button";
+	deleteVariantInputSectionButton.classList.add(
+		"delete-variant-input-section-button",
 	);
-	deleteVariantInputSectionBtn.addEventListener("click", () => {
+	deleteVariantInputSectionButton.addEventListener("click", () => {
 		// Remove the variant input section from the DOM
 		mainContainer.parentElement.removeChild(mainContainer);
 
@@ -224,11 +224,11 @@ function createVariantInputSection(
 				.length !== 0;
 
 		if (!isThereAnyVariantLeft) {
-			const saveBtn = document.querySelector(".save-btn");
-			saveBtn.disabled = true;
+			const saveButton = document.querySelector(".save-button");
+			saveButton.disabled = true;
 		}
 	});
-	mainContainer.appendChild(deleteVariantInputSectionBtn);
+	mainContainer.appendChild(deleteVariantInputSectionButton);
 
 	const variantNameInput = document.createElement("input");
 	variantNameInput.name = label;
@@ -282,28 +282,28 @@ function createVariantAddingHeadingSection() {
 	const headingSection = document.createElement("div");
 	headingSection.classList.add("heading-section");
 
-	const arrowBtn = document.createElement("button");
-	arrowBtn.type = "button";
-	arrowBtn.textContent = "←";
-	arrowBtn.classList.add("back-btn");
-	arrowBtn.addEventListener("click", () => {
+	const arrowButton = document.createElement("button");
+	arrowButton.type = "button";
+	arrowButton.textContent = "←";
+	arrowButton.classList.add("back-button");
+	arrowButton.addEventListener("click", () => {
 		document.replaceChild(itemCreationBody, document.body);
 	});
-	headingSection.appendChild(arrowBtn);
+	headingSection.appendChild(arrowButton);
 
 	const headingText = document.createElement("h1");
 	headingText.textContent = "Variants and Options";
 	headingSection.appendChild(headingText);
 
-	const saveBtn = document.createElement("button");
-	saveBtn.type = "submit";
-	saveBtn.textContent = "Save";
-	saveBtn.disabled =
+	const saveButton = document.createElement("button");
+	saveButton.type = "submit";
+	saveButton.textContent = "Save";
+	saveButton.disabled =
 		variantCreationBody?.querySelectorAll(".variant-input-section") ||
 		false;
-	saveBtn.classList.add("save-btn");
+	saveButton.classList.add("save-button");
 
-	saveBtn.addEventListener("click", () => {
+	saveButton.addEventListener("click", () => {
 		triggerErrors();
 
 		// Check if there are existing errors
@@ -350,7 +350,7 @@ function createVariantAddingHeadingSection() {
 			);
 		}
 	});
-	headingSection.appendChild(saveBtn);
+	headingSection.appendChild(saveButton);
 
 	return headingSection;
 }

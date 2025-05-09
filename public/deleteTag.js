@@ -1,13 +1,13 @@
 const forms = document.querySelectorAll("form");
 forms?.forEach((form) => {
 	// Access the delete button
-	const deleteTagBtn = form.querySelector(".delete-tag-btn");
+	const deleteTagButton = form.querySelector(".delete-tag-button");
 
 	// Get the tag name
 	const tagName = form.querySelector(".tag-name")?.textContent;
 
 	// Render warning message before deleting the tag
-	deleteTagBtn.addEventListener("click", () => {
+	deleteTagButton.addEventListener("click", () => {
 		// Remove the current popup if there are any
 		const currentPopUp = document.querySelector(".background-overlay");
 		if (currentPopUp) {
@@ -27,20 +27,20 @@ forms?.forEach((form) => {
 		warningMessage.classList.add("warning-message");
 		warningMessageContainer.appendChild(warningMessage);
 
-		const cancelBtn = document.createElement("button");
-		cancelBtn.textContent = "Cancel";
-		cancelBtn.classList.add("cancel-btn");
-		cancelBtn.addEventListener("click", () => {
+		const cancelButton = document.createElement("button");
+		cancelButton.textContent = "Cancel";
+		cancelButton.classList.add("cancel-button");
+		cancelButton.addEventListener("click", () => {
 			backgroundOverlay.parentElement.removeChild(backgroundOverlay);
 		});
-		warningMessageContainer.appendChild(cancelBtn);
+		warningMessageContainer.appendChild(cancelButton);
 
-		const saveBtn = document.createElement("button");
-		saveBtn.textContent = "Yes";
-		saveBtn.classList.add("save-btn");
-		saveBtn.addEventListener("click", () => {
+		const saveButton = document.createElement("button");
+		saveButton.textContent = "Yes";
+		saveButton.classList.add("save-button");
+		saveButton.addEventListener("click", () => {
 			form.submit();
 		});
-		warningMessageContainer.appendChild(saveBtn);
+		warningMessageContainer.appendChild(saveButton);
 	});
 });

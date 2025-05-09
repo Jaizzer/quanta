@@ -1,7 +1,7 @@
-const addBtn = document.querySelector(".add-item-btn");
+const addButton = document.querySelector(".add-item-button");
 
 // Render the item/tag adder component when add button is clicked
-addBtn.addEventListener("click", () => {
+addButton.addEventListener("click", () => {
 	const addOptionContainerBackground = document.createElement("div");
 	addOptionContainerBackground.classList.add(
 		"add-option-container-background",
@@ -11,13 +11,13 @@ addBtn.addEventListener("click", () => {
 	addOptionContainer.classList.add("add-option-container");
 	addOptionContainerBackground.appendChild(addOptionContainer);
 
-	const closeBtn = document.createElement("button");
-	closeBtn.textContent = "x";
-	closeBtn.classList.add("close-add-option-container-btn");
-	closeBtn.addEventListener("click", (e) => {
+	const closeButton = document.createElement("button");
+	closeButton.textContent = "x";
+	closeButton.classList.add("close-add-option-container-button");
+	closeButton.addEventListener("click", (e) => {
 		document.body.removeChild(e.target.parentElement.parentElement);
 	});
-	addOptionContainer.appendChild(closeBtn);
+	addOptionContainer.appendChild(closeButton);
 
 	const addItemOption = document.createElement("button");
 	addItemOption.classList.add("add-option");

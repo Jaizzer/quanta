@@ -11,7 +11,7 @@
 <body>
   <div class="actions">
     <a href="/items/<%=item.id%>"><button class="cancel">x</button></a>
-    <button onclick="document.querySelector('form').submit()" class="save-btn">Save</button>
+    <button onclick="document.querySelector('form').submit()" class="save-button">Save</button>
   </div>
 
   <form id="itemForm" action="" method="POST">
@@ -23,7 +23,7 @@
     <div class="quantity-field">
       <label for="quantity">Quantity</label>
       <input type="number" name="quantity" id="quantity" value="<%= item.quantity %>">
-      <a href="/items/edit-quantity/<%= item.id %>"><button  type="button" class="edit-item-quantity-btn">+/-</button></a>
+      <a href="/items/edit-quantity/<%= item.id %>"><button  type="button" class="edit-item-quantity-button">+/-</button></a>
       <select name="measurement" id="measurement">
         <option value="unit" <%= item.measurement === 'unit' ? 'selected' : null %>>unit</option>
         <option value="gram" <%= item.measurement === 'gram' ? 'selected' : null%>>g</option>

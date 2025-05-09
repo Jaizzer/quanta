@@ -12,14 +12,14 @@
 <body>
   <div class="header">
     <h1>Edit Items</h1>
-    <a href="/items"><button class="done-edit-btn">Done</button></a>
+    <a href="/items"><button class="done-edit-button">Done</button></a>
   </div>
   <% if(items.length > 0) {%>
   <% items.forEach(item => { %>
   <form action="/items/edit-items-delete" method="POST">
     <input type="text" value="<%= item.id %>" name='itemID' hidden>
     <div class="item-name" data-id="<%= item.id %>"><%= item.name %></div>
-    <button type="button" class="delete-item-btn">🗑️</button>
+    <button type="button" class="delete-item-button">🗑️</button>
   </form>
   <% }) %>
   <% }  else {%>
@@ -27,7 +27,7 @@
     <div class="icon-container">
     </div>
     <h2>Add items to easily access items</h2>
-    <button class="add-item-btn">Add item</button>
+    <button class="add-item-button">Add item</button>
   </div>
   <% }%>
 

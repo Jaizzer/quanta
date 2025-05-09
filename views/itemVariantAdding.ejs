@@ -12,7 +12,7 @@
   <div class="actions">
     <button class="cancel" onclick="history.back()">x</button>
     <h1>Add Variant</h1>
-    <button onclick="document.querySelector('form').submit()" class="save-btn">Save</button>
+    <button onclick="document.querySelector('form').submit()" class="save-button">Save</button>
   </div>
   <form id="itemForm" action="/items/add-variant/<%= item.parent.id %>" method="POST">
     <div class="h2">Parent Item: </div>

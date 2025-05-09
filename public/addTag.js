@@ -1,5 +1,5 @@
-const addTagBtn = document.querySelector(".add-tag-btn");
-addTagBtn?.addEventListener("click", () => {
+const addTagButton = document.querySelector(".add-tag-button");
+addTagButton?.addEventListener("click", () => {
 	const backgroundOverlay = document.createElement("div");
 	backgroundOverlay.classList.add("background-overlay");
 	document.body.appendChild(backgroundOverlay);
