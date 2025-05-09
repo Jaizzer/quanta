@@ -109,35 +109,50 @@ async function getAllItems(sortOption) {
 		// Only return the items which are not a parent item
 		const { rows } = await pool.query(`
             SELECT 
-            items_x.id, 
-            items_x.name, 
-            items_x.quantity, 
-            items_x.measurement,
-            items_y.name as parent_item_name,
-            CASE
-                WHEN items_y.name IS NOT NULL 
-                THEN items_y.name ELSE items_x.name
-            END as column_for_name_sorting
-            FROM items AS items_x
-            LEFT JOIN items AS items_y
-            ON items_x.parent_item_id = items_y.id
-            WHERE items_x.id 
-            NOT IN (
-                SELECT 
-                parent_item_id 
-                FROM items 
-                WHERE parent_item_id IS NOT NULL
-            )
-            ${orderByStatement} 
-            ;`);
+                SUM(total_item_value) as total_inventory_value,
+                COUNT(*) AS total_item_type_quantity,
+                SUM(quantity) AS total_inventory_quantity,
+                JSONB_AGG(
+                    JSONB_BUILD_OBJECT(
+                        'id',
+                        id,
+                        'name',
+                        name,
+                        'quantity',
+                        quantity,
+                        'measurement',
+                        measurement,
+                        'parent_item_name',
+                        parent_item_name
+                    )
+                ) as items
+            FROM (
+                    SELECT items_x.id,
+                        items_x.name,
+                        items_x.quantity,
+                        items_x.measurement,
+                        items_y.name as parent_item_name,
+                        items_x.quantity * items_x.price AS total_item_value,
+                        CASE
+                            WHEN items_y.name IS NOT NULL THEN items_y.name
+                            ELSE items_x.name
+                        END as column_for_name_sorting
+                    FROM items AS items_x
+                        LEFT JOIN items AS items_y ON items_x.parent_item_id = items_y.id
+                    WHERE items_x.id NOT IN (
+                            SELECT parent_item_id
+                            FROM items
+                            WHERE parent_item_id IS NOT NULL
+                        )
+                    ${orderByStatement}
+                ) as m;`);
 
-		return rows.map((row) => ({
-			id: row.id,
-			name: row.name,
-			quantity: row.quantity !== null ? parseFloat(row.quantity) : null,
-			measurement: row.measurement,
-			parentItemName: row.parent_item_name,
-		}));
+		return {
+			totalItemTypeQuantity: rows[0].total_item_type_quantity,
+			totalInventoryQuantity: rows[0].total_inventory_quantity,
+			totalInventoryValue: rows[0].total_inventory_value,
+			items: rows[0].items,
+		};
 	} catch (error) {
 		console.error("Error getting the items. ", error);
 	}

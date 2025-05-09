@@ -77,19 +77,26 @@ async function addItemPost(req, res, next) {
 async function getAllItems(req, res, next) {
 	const sortOption = req.query.sort;
 
-	let items = [];
+	let result = [];
 	if (sortOption) {
-		items = await db.getAllItems(sortOption);
+		result = await db.getAllItems(sortOption);
 	} else {
-		items = await db.getAllItems();
+		result = await db.getAllItems();
 	}
+
+	const {
+		items,
+		totalItemTypeQuantity,
+		totalInventoryQuantity,
+		totalInventoryValue,
+	} = result;
 
 	res.render("items", {
 		title: "Items",
 		items: items,
-		totalQuantity: getTotalItemQuantity(items),
-		totalValue: getTotalValue(items),
-		distinctItemQuantity: items.length,
+		totalItemTypeQuantity: totalItemTypeQuantity,
+		totalInventoryQuantity: totalInventoryQuantity,
+		totalInventoryValue: totalInventoryValue,
 		sortOptions: [
 			{ value: "", name: "Sort By", isSelected: !sortOption },
 			{
