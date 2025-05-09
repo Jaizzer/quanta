@@ -111,7 +111,6 @@ async function getAllItems(sortOption) {
             SELECT 
                 SUM(total_item_value) as total_inventory_value,
                 COUNT(*) AS total_item_type_quantity,
-                SUM(quantity) AS total_inventory_quantity,
                 JSONB_AGG(
                     JSONB_BUILD_OBJECT(
                         'id',
@@ -149,7 +148,6 @@ async function getAllItems(sortOption) {
 
 		return {
 			totalItemTypeQuantity: rows[0].total_item_type_quantity,
-			totalInventoryQuantity: rows[0].total_inventory_quantity,
 			totalInventoryValue: rows[0].total_inventory_value,
 			items: rows[0].items,
 		};

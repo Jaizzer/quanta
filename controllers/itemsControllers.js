@@ -87,7 +87,6 @@ async function getAllItems(req, res, next) {
 	const {
 		items,
 		totalItemTypeQuantity,
-		totalInventoryQuantity,
 		totalInventoryValue,
 	} = result;
 
@@ -95,7 +94,6 @@ async function getAllItems(req, res, next) {
 		title: "Items",
 		items: items,
 		totalItemTypeQuantity: totalItemTypeQuantity,
-		totalInventoryQuantity: totalInventoryQuantity,
 		totalInventoryValue: totalInventoryValue,
 		sortOptions: [
 			{ value: "", name: "Sort By", isSelected: !sortOption },
