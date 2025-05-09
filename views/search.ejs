@@ -6,14 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quanta | <%= title %></title>
   <link rel="stylesheet" href="style.css">
+  <script src="/cancelTagSearch.js" defer></script>
 </head>
 
 <body>
   <h1>Search</h1>
-  <form method="GET">
+  <form method="GET" class="search-form">
     <div class="search-field">
       <label class="search-icon-container" for="search">🔍</label>
-      <input type="text" name="keyword" placeholder="Search" id="search">
+      <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
     </div>
   </form>
   <% if(items.length > 0) {%>
