@@ -9,7 +9,7 @@ addTagButton?.addEventListener("click", () => {
 	const currentSortOption = new URLSearchParams(window.location.search)?.get(
 		"sort",
 	);
-	form.action = `/tags${currentSortOption ? `?sort=${currentSortOption}` : ''}`;
+	form.action = `/tags${currentSortOption ? `?sort=${currentSortOption}` : ""}`;
 	backgroundOverlay.appendChild(form);
 
 	const formTitle = document.createElement("h2");
@@ -38,7 +38,7 @@ addTagButton?.addEventListener("click", () => {
 	saveButton.addEventListener("click", () => {
 		// Render error message if input is not alpha numeric or empty
 		const tagName = input.value;
-		const isTagNameAlpha = /^[a-zA-Z]*$/.test(tagName);
+		const isTagNameAlpha = /^[a-zA-Z]([\w -]*[a-zA-Z])?$/.test(tagName);
 		const isTagNameEmpty = input.value.trim() === "";
 		input.setCustomValidity(
 			isTagNameEmpty
