@@ -517,10 +517,7 @@ async function getAllActivities() {
         SELECT
         item_id,
         tag_id,
-        CASE
-            WHEN tags.tag IS NULL THEN items.name
-            ELSE tags.tag
-        END AS entity_name,
+        activity_history.name_before_update AS entity_name,
         activity_done_at,
         activity_description AS description
         FROM activity_history
