@@ -43,7 +43,7 @@ async function getAllTags(req, res, next) {
 }
 
 async function editTagsGet(req, res, next) {
-	let keyword = req?.query?.keyword ? keyword : "";
+	let keyword = req?.query?.keyword ? req.query.keyword : "";
 	const sortOption = req.query.sort;
 
 	let tags = [];
