@@ -44,10 +44,11 @@ async function getAllTags(req, res, next) {
 
 async function editTagsGet(req, res, next) {
 	let tags = await db.getAllTags();
+	let keyword = req?.query?.keyword ? keyword : "";
 	res.render("editTags", {
 		title: "Edit Tags",
 		tags: tags,
-		keyword: keyword ? keyword : "",
+		keyword: keyword,
 	});
 }
 
