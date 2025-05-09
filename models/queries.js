@@ -680,14 +680,14 @@ async function deleteTag(tag) {
             WHERE id = $1
             ;
         `;
-		await pool.query(query, [tag.tag_id]);
+		await pool.query(query, [tag.id]);
 
 		// Update activity history
 		await updateActivityHistory({
-			tagID: tag.tag_id,
+			tagID: tag.id,
 			activityType: "Delete",
 			updateSummary: {
-				name: tag.tag_name,
+				name: tag.name,
 				groupName: "tags",
 			},
 		});
