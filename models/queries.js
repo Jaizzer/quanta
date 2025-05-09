@@ -149,7 +149,13 @@ async function getAllItems(sortOption) {
 		return {
 			totalItemTypeQuantity: rows[0].total_item_type_quantity,
 			totalInventoryValue: rows[0].total_inventory_value,
-			items: rows[0].items,
+			items: rows[0].items.map((item) => ({
+                id: item.id,
+				name: item.name,
+				quantity: item.quantity !== null ? parseFloat(item.quantity) : null,
+				measurement: item.measurement,
+				parentItemName: item.parent_item_name,
+			})),
 		};
 	} catch (error) {
 		console.error("Error getting the items. ", error);
