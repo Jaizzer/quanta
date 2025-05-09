@@ -385,15 +385,14 @@ async function deleteItem(req, res, next) {
 	const item = await db.getItemById(itemID);
 	await db.deleteItem(item);
 
-    // Check if the delete request came from an item page
-	const isDeleteRequestFromItemPage =
-		req.originalUrl === "/items/delete";
+	// Check if the delete request came from an item page
+	const isDeleteRequestFromItemPage = req.originalUrl === "/items/delete";
 
 	if (isDeleteRequestFromItemPage) {
-        // Redirect back to items if the delete request came from the item page
+		// Redirect back to items if the delete request came from the item page
 		res.status(200).redirect("/items");
 	} else {
-        // Redirect back to the edit-items page if the delete request came from the edit-items page
+		// Redirect back to the edit-items page if the delete request came from the edit-items page
 		res.status(200).redirect("/items/edit-items");
 	}
 }
