@@ -1,4 +1,4 @@
-const forms = document.querySelectorAll("form");
+const forms = document.querySelectorAll(".delete-tag-form");
 forms?.forEach((form) => {
 	// Access the delete button
 	const deleteTagButton = form.querySelector(".delete-tag-button");

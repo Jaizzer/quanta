@@ -26,7 +26,7 @@
   </div>
   <% if(tags.length > 0) {%>
   <% tags.forEach(tag => { %>
-  <form action="/tags/delete" method="POST">
+  <form action="/tags/delete" method="POST" class="delete-tag-form">
     <input type="text" value="<%= tag.id %>" name='tagID' hidden>
     <div class="tag-name" data-id="<%= tag.id %>"><%= tag.name %></div>
     <button type="button" class="delete-tag-button">🗑️</button>
