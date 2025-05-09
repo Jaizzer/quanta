@@ -78,7 +78,11 @@ app.use((err, req, res, next) => {
 	console.error(err.stack);
 	const statusCode = err.statusCode || err.status || 500;
 	const message = err.message || "Internal server error";
-	res.status(statusCode).json({ error: { message } });
+	console.log(message);
+	res.status(statusCode).render("error", {
+		title: "404 Error",
+		message: "Internal Server Error",
+	});
 });
 
 // Error handling for uncaught exceptions
