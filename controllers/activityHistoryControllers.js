@@ -38,13 +38,13 @@ function getTimePassed(date) {
 	);
 
 	if (years) {
-		return `${years}yr`;
+		return `${years}${years > 1 ? 'yrs' : 'yr'}`;
 	} else if (months) {
-		return `${months}mo`;
+		return `${months}${months > 1 ? 'mos' : 'mo'}`;
 	} else if (days) {
 		return `${days}d`;
 	} else if (hours) {
-		return `${hours}hr`;
+		return `${hours}${hours > 1 ? 'hrs' : 'hr'}`;
 	} else if (minutes) {
 		return `${minutes}m`;
 	} else {
