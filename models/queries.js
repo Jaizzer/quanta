@@ -109,7 +109,7 @@ async function getAllItems() {
 		return rows.map((row) => ({
 			id: row.id,
 			name: row.name,
-			quantity: row.quantity,
+			quantity: row.quantity !== null ? parseFloat(row.quantity) : null,
 			measurement: row.measurement,
 			parentItemName: row.parent_item_name,
 		}));
@@ -240,18 +240,22 @@ async function getItemById(itemID) {
 			id: row.id,
 			updatedAt: `${new Date(row.updated_at).toLocaleTimeString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`,
 			name: row.name,
-			quantity: row.quantity ? parseFloat(row.quantity) : null,
-			price: row.price ? parseFloat(row.price) : null,
+			quantity: row.quantity !== null ? parseFloat(row.quantity) : null,
+			price: row.price !== null ? parseFloat(row.price) : null,
 			notify: row.notify,
 			note: row.note,
-			minLevel: row.min_level ? parseFloat(row.min_level) : null,
+			minLevel: row.min_level !== null ? parseFloat(row.min_level) : null,
 			variants:
 				row.variants?.map((variant) => ({
 					...variant,
-					price: variant.price ? parseFloat(variant.price) : null,
-					quantity: variant.quantity
-						? parseFloat(variant.quantity)
-						: null,
+					price:
+						variant.price !== null
+							? parseFloat(variant.price)
+							: null,
+					quantity:
+						variant.quantity !== null
+							? parseFloat(variant.quantity)
+							: null,
 				})) || [],
 			tags: row.tags || [],
 			measurement: row.measurement,
@@ -337,8 +341,7 @@ async function getLowStockItems(isNotificationEnabledOnly) {
 
 async function updateActivityHistory(activity) {
 	try {
-		const { itemID, tagID, activityType, reason, updateSummary } =
-			activity;
+		const { itemID, tagID, activityType, reason, updateSummary } = activity;
 
 		if (activityType === "Create") {
 			const activityDescription = `Added '${updateSummary.name}' to ${updateSummary.groupName}.`;
@@ -799,9 +802,7 @@ async function editItem(updatedItem, updateSummary) {
 
 		// Update item tags
 		if (tags) {
-			await pool.query("DELETE FROM item_tags WHERE item_id = $1", [
-				id,
-			]);
+			await pool.query("DELETE FROM item_tags WHERE item_id = $1", [id]);
 			tags.forEach(async (tag) => {
 				await pool.query(
 					`INSERT INTO item_tags(item_id, tag_id) VALUES($1, $2)`,
