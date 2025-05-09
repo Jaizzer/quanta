@@ -4,6 +4,7 @@ const getTotalValue = require("./getTotalValue");
 const { body, validationResult } = require("express-validator");
 const db = require("../models/queries");
 let _ = require("lodash");
+let parseNumberInput = require("../utils/parseNumberInput.js");
 
 // Get the tags from the database
 let tags;
@@ -38,12 +39,10 @@ async function addItemPost(req, res, next) {
 	// Create an item object out of the request body's content
 	const item = {
 		name: req.body.name,
-		price: req.body.price === "" ? null : parseFloat(req.body.price),
-		quantity:
-			req.body.quantity === "" ? null : parseFloat(req.body.quantity),
+		price: parseNumberInput(req.body.price),
+		quantity: parseNumberInput(req.body.quantity),
 		measurement: req.body.measurement,
-		minLevel:
-			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
+		minLevel: parseNumberInput(req.body.minLevel),
 		note: req.body.note.trim(),
 		notify: req.body.notify ? true : false,
 		variants: req.body?.variantStatus ? getVariantsArray(req) : [],
@@ -142,12 +141,10 @@ async function editItemPost(req, res, next) {
 	const updatedItem = {
 		id: idOfItemToEdit,
 		name: req.body.name,
-		price: req.body.price === "" ? null : parseFloat(req.body.price),
-		quantity:
-			req.body.quantity === "" ? null : parseFloat(req.body.quantity),
+		price: parseNumberInput(req.body.price),
+		quantity: parseNumberInput(req.body.quantity),
 		measurement: req.body.measurement,
-		minLevel:
-			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
+		minLevel: parseNumberInput(req.body.minLevel),
 		notify: req.body.notify ? true : false,
 		note: req.body.note.trim(),
 		variants: req.body?.variantStatus ? getVariantsArray(req) : null,
@@ -222,10 +219,7 @@ async function editItemQuantityPost(req, res, next) {
 	const itemToEdit = await db.getItemById(idOfItemToEdit);
 	const previousQuantity = itemToEdit.quantity;
 
-	const newQuantity =
-		req.body.newQuantity.trim() !== ""
-			? parseFloat(req.body.newQuantity)
-			: 0;
+	const newQuantity = parseNumberInput(req.body.newQuantity);
 	const reason = req.body.reason;
 
 	const updateSummary = {
@@ -299,12 +293,10 @@ async function addVariantPost(req, res, next) {
 			name: parentItem.name,
 		},
 		name: req.body.name,
-		price: req.body.price === "" ? null : parseFloat(req.body.price),
-		quantity:
-			req.body.quantity === "" ? null : parseFloat(req.body.quantity),
+		price: parseNumberInput(req.body.price),
+		quantity: parseNumberInput(req.body.quantity),
 		measurement: req.body.measurement,
-		minLevel:
-			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
+		minLevel: parseNumberInput(req.body.minLevel),
 		note: req.body.note.trim(),
 		notify: req.body.notify ? true : false,
 		variants: req.body?.variantStatus ? getVariantsArray(req) : [],
@@ -527,19 +519,10 @@ function getVariantsArray(req) {
 	// Extract all variants from the request body
 	let variants = variantInputNames.map((variantInputName) => ({
 		name: req.body[variantInputName][0]?.trim(),
-		quantity:
-			// Only convert the quantity input if it's not empty
-			req.body[variantInputName][1] !== ""
-				? Math.abs(parseFloat(req.body[variantInputName][1]))
-				: null,
-		price:
-			// Only convert the price input if it's not empty
-			req.body[variantInputName][2] !== ""
-				? Math.abs(parseFloat(req.body[variantInputName][2]))
-				: null,
+		quantity: parseNumberInput(req.body[variantInputName][1]),
+		price: parseNumberInput(req.body[variantInputName][2]),
 		measurement: req.body.measurement,
-		minLevel:
-			req.body.minLevel === "" ? null : parseFloat(req.body.minLevel),
+		minLevel: parseNumberInput(req.body.minLevel),
 		notify: req.body.notify ? true : false,
 		// Ensure tag is an array of id number
 		tags: !req.body.tags
