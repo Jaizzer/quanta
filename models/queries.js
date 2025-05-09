@@ -587,7 +587,7 @@ async function getAllActivities() {
 			link:
 				row.item_id !== null
 					? `/items/${row.item_id}`
-					: `/tags?${row.tag_id}`,
+					: `/tags/${row.tag_id}`,
 			timePassed: getTimePassed(row.activity_done_at),
 		}));
 	} catch (error) {
