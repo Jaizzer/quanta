@@ -43,12 +43,43 @@ async function getAllTags(req, res, next) {
 }
 
 async function editTagsGet(req, res, next) {
-	let tags = await db.getAllTags();
 	let keyword = req?.query?.keyword ? keyword : "";
+	const sortOption = req.query.sort;
+
+	let tags = [];
+	if (keyword) {
+		tags = await db.searchTag(keyword, sortOption);
+	} else {
+		tags = await db.getAllTags(sortOption);
+	}
+
 	res.render("editTags", {
 		title: "Edit Tags",
 		tags: tags,
 		keyword: keyword,
+		sortOptions: [
+			{ value: "", name: "Sort By", isSelected: !sortOption },
+			{
+				value: "name-ascending",
+				name: "Name (Ascending)",
+				isSelected: sortOption === "name-ascending",
+			},
+			{
+				value: "name-descending",
+				name: "Name (Descending)",
+				isSelected: sortOption === "name-descending",
+			},
+			{
+				value: "date-added-ascending",
+				name: "Date Created (Oldest to Newest)",
+				isSelected: sortOption === "date-added-ascending",
+			},
+			{
+				value: "date-added-descending",
+				name: "Date Created (Newest to Oldest)",
+				isSelected: sortOption === "date-added-descending",
+			},
+		],
 	});
 }
 

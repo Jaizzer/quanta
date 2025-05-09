@@ -9,12 +9,20 @@
   <script src="/addTag.js" defer></script>
   <script src="/editTagName.js" defer></script>
   <script src="/deleteTag.js" defer></script>
+  <script src="/sortObjects.js" defer></script>
 </head>
 
 <body>
   <div class="header">
     <h1>Edit Tags</h1>
     <a href="/tags"><button class="done-edit-button">Done</button></a>
+    <form action="/tags/edit" method="GET" class="sort-form">
+      <select name="sort">
+        <% sortOptions?.forEach(sortOption => {  %>
+        <option value="<%= sortOption.value %>" <%= !sortOption.value && 'disabled' %> <%= sortOption.isSelected && 'selected' %>><%= sortOption.name %></option>
+        <% })%>
+      </select>
+    </form>
   </div>
   <% if(tags.length > 0) {%>
   <% tags.forEach(tag => { %>
