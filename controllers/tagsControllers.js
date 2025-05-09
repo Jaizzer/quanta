@@ -118,11 +118,20 @@ async function getTagByID(req, res, next) {
 		);
 	}
 
-	res.render("tag", {
-		title: tag.name,
-		tag: tag,
-		keyword: keyword,
-	});
+    // Render the tag page if it exists
+	if (tag) {
+		res.render("tag", {
+			title: tag.name,
+			tag: tag,
+			keyword: keyword,
+		});
+	} else {
+        // Render the error page if the tag does not exists
+		res.render("error", {
+			title: "Tag Not found",
+			message: "Tag does not exist.",
+		});
+	}
 }
 
 module.exports = {
