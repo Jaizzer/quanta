@@ -150,9 +150,10 @@ async function getAllItems(sortOption) {
 			totalItemTypeQuantity: rows[0].total_item_type_quantity,
 			totalInventoryValue: rows[0].total_inventory_value,
 			items: rows[0].items.map((item) => ({
-                id: item.id,
+				id: item.id,
 				name: item.name,
-				quantity: item.quantity !== null ? parseFloat(item.quantity) : null,
+				quantity:
+					item.quantity !== null ? parseFloat(item.quantity) : null,
 				measurement: item.measurement,
 				parentItemName: item.parent_item_name,
 			})),
@@ -888,7 +889,7 @@ async function getTagByID(id) {
         `;
 		const { rows } = await pool.query(query, [id]);
 		return {
-            id: rows[0].tag_id,
+			id: rows[0].tag_id,
 			name: rows[0].tag_name,
 			items: rows[0].items || [],
 			totalItemQuantity: rows[0].total_item_quantity,
