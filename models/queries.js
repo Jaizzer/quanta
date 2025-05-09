@@ -854,6 +854,7 @@ async function getTagByID(id) {
         `;
 		const { rows } = await pool.query(query, [id]);
 		return {
+            id: rows[0].tag_id,
 			name: rows[0].tag_name,
 			items: rows[0].items || [],
 			totalItemQuantity: rows[0].total_item_quantity,
