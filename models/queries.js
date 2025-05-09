@@ -618,6 +618,40 @@ function getTimePassed(date) {
 	}
 }
 
+async function getActivityByItemID(id) {
+	try {
+		const query = `
+        SELECT
+        item_id,
+        tag_id,
+        activity_history.name_before_update AS entity_name,
+        activity_done_at,
+        activity_description AS description
+        FROM activity_history
+        LEFT JOIN items
+        ON item_id = items.id
+        LEFT JOIN tags
+        ON tag_id = tags.id
+        WHERE item_id = $1
+        ORDER BY activity_history.id DESC
+        ;
+        `;
+		const { rows } = await pool.query(query, [id]);
+
+		return rows.map((row) => ({
+			description: row.description,
+			entityName: row.entity_name,
+			link:
+				row.item_id !== null
+					? `/items/${row.item_id}`
+					: `/tags/${row.tag_id}`,
+			timePassed: getTimePassed(row.activity_done_at),
+		}));
+	} catch (error) {
+		console.error("Error fetching activity history. ", error);
+	}
+}
+
 async function getAllTags(sortOption) {
 	try {
 		let orderByStatement;
@@ -1062,4 +1096,5 @@ module.exports = {
 	deleteItem,
 	getAllTransactions,
 	getTransactionByID,
+	getActivityByItemID,
 };

@@ -13,14 +13,16 @@
     <button class="back" onclick="history.back()">
       ←
     </button>
-    <h1>Activity History</h1>
+    <h1><%= itemName !== null ? `${itemName}`: 'Activity History' %></h1>
   </div>
 
   <div class="activities-container">
     <% activities.forEach(activity => { %>
     <a class="activity-card" href="<%= activity.link %>">
       <div class="image-container"></div>
+      <% if (itemName === null) {%>
       <h2><%= activity.entityName %></h2>
+      <% }%>
       <p><%= activity.description %></p>
       <div class="time-passed"><%=activity.timePassed %> ago</div>
     </a>
