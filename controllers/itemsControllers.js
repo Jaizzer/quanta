@@ -39,7 +39,7 @@ async function addItemPost(req, res, next) {
 	// Create an item object out of the request body's content
 	const item = {
 		name: req.body.name,
-		price: parseNumberInput(req.body.price),
+		price: parseNumberInput(req.body.price).toFixed(2),
 		quantity: parseNumberInput(req.body.quantity),
 		measurement: req.body.measurement,
 		minLevel: parseNumberInput(req.body.minLevel),
@@ -141,7 +141,7 @@ async function editItemPost(req, res, next) {
 	const updatedItem = {
 		id: idOfItemToEdit,
 		name: req.body.name,
-		price: parseNumberInput(req.body.price),
+		price: parseNumberInput(req.body.price).toFixed(2),
 		quantity: parseNumberInput(req.body.quantity),
 		measurement: req.body.measurement,
 		minLevel: parseNumberInput(req.body.minLevel),
@@ -293,7 +293,7 @@ async function addVariantPost(req, res, next) {
 			name: parentItem.name,
 		},
 		name: req.body.name,
-		price: parseNumberInput(req.body.price),
+		price: parseNumberInput(req.body.price).toFixed(2),
 		quantity: parseNumberInput(req.body.quantity),
 		measurement: req.body.measurement,
 		minLevel: parseNumberInput(req.body.minLevel),
