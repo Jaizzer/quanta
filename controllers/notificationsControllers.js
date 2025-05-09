@@ -7,9 +7,9 @@ async function getNotifications(req, res, next) {
 		itemID: lowStockItem.id,
 		message: `${lowStockItem.name} ${
 			Math.round(lowStockItem.quantity) ===
-			Math.round(lowStockItem.min_level)
-				? `has reached the set minimum level ${lowStockItem.min_level} ${lowStockItem.min_level <= 1 ? ` ${lowStockItem.measurement}` : ` ${lowStockItem.measurement}s`}.`
-				: `has went below the set minimum level ${lowStockItem.min_level} ${lowStockItem.min_level <= 1 ? ` ${lowStockItem.measurement}` : ` ${lowStockItem.measurement}s`} with a current level ${lowStockItem.quantity} ${lowStockItem.quantity <= 1 ? ` ${lowStockItem.measurement}` : ` ${lowStockItem.measurement}s`}.`
+			Math.round(lowStockItem.minLevel)
+				? `has reached the set minimum level ${lowStockItem.minLevel} ${lowStockItem.minLevel <= 1 ? ` ${lowStockItem.measurement}` : ` ${lowStockItem.measurement}s`}.`
+				: `has went below the set minimum level ${lowStockItem.minLevel} ${lowStockItem.minLevel <= 1 ? ` ${lowStockItem.measurement}` : ` ${lowStockItem.measurement}s`} with a current level ${lowStockItem.quantity} ${lowStockItem.quantity <= 1 ? ` ${lowStockItem.measurement}` : ` ${lowStockItem.measurement}s`}.`
 		}`,
 	}));
 

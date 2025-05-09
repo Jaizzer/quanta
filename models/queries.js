@@ -381,7 +381,14 @@ async function getLowStockItems(isNotificationEnabledOnly) {
         `;
 		}
 		const { rows } = await pool.query(query);
-		return rows;
+		return rows.map((row) => ({
+			id: row.id,
+			name: row.name,
+			quantity: row.quantity,
+			measurement: row.measurement,
+			minLevel: row.min_level,
+			notify: row.notify,
+		}));
 	} catch (error) {
 		console.error("Error fetching low-stock items. ", error);
 	}
