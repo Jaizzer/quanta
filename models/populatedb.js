@@ -309,6 +309,15 @@ ALTER TABLE item_categories
 RENAME TO item_tags;
 `;
 
+
+const SQL30 = `
+ALTER TABLE activity_history
+DROP COLUMN tag_id;
+
+ALTER TABLE activity_history
+ADD COLUMN tag_id INTEGER;
+`;
+
 async function main() {
 	let client;
 	try {
@@ -334,7 +343,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL29);
+		await client.query(SQL30);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
