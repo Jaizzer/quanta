@@ -10,12 +10,19 @@
   <script src="/editTagName.js" defer></script>
   <script src="/deleteTag.js" defer></script>
   <script src="/sortObjects.js" defer></script>
+  <script src="/cancelTagSearch.js" defer></script>
 </head>
 
 <body>
   <div class="header">
     <h1>Edit Tags</h1>
     <a href="/tags"><button class="done-edit-button">Done</button></a>
+    <form method="GET" class="search-form">
+      <div class="search-field">
+        <label class="search-icon-container" for="search">🔍</label>
+        <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
+      </div>
+    </form>
     <form action="/tags/edit" method="GET" class="sort-form">
       <select name="sort">
         <% sortOptions?.forEach(sortOption => {  %>
