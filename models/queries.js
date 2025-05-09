@@ -287,7 +287,28 @@ async function getItemById(itemID) {
 
 async function searchItem(keyword) {
 	try {
-		const query = `SELECT id, name, quantity, measurement FROM items WHERE LOWER(name) LIKE LOWER('%' || $1 || '%')`;
+		const query = `
+            SELECT DISTINCT *
+            FROM (
+                    SELECT items.id,
+                        items.name,
+                        items.quantity,
+                        items.measurement
+                    FROM items
+                        LEFT JOIN item_tags ON item_tags.item_id = items.id
+                        LEFT JOIN tags ON item_tags.tag_id = tags.id
+                    WHERE (
+                            LOWER(items.name) LIKE LOWER('%' || $1 || '%')
+                            OR LOWER(tags.tag) LIKE LOWER('%' || $1 || '%')
+                        )
+                        AND items.id NOT IN (
+                            SELECT parent_item_id
+                            FROM items
+                            WHERE parent_item_id IS NOT NULL
+                        )
+                ) AS items
+            ORDER BY items.id;
+        `;
 		const { rows } = await pool.query(query, [keyword]);
 		return rows;
 	} catch (error) {
