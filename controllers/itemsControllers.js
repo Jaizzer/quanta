@@ -75,13 +75,44 @@ async function addItemPost(req, res, next) {
 }
 
 async function getAllItems(req, res, next) {
-	const items = await db.getAllItems();
+	const sortOption = req.query.sort;
+
+	let items = [];
+	if (sortOption) {
+		items = await db.getAllItems(sortOption);
+	} else {
+		items = await db.getAllItems();
+	}
+
 	res.render("items", {
 		title: "Items",
 		items: items,
 		totalQuantity: getTotalItemQuantity(items),
 		totalValue: getTotalValue(items),
 		distinctItemQuantity: items.length,
+		sortOptions: [
+			{ value: "", name: "Sort By", isSelected: !sortOption },
+			{
+				value: "name-ascending",
+				name: "Name (Ascending)",
+				isSelected: sortOption === "name-ascending",
+			},
+			{
+				value: "name-descending",
+				name: "Name (Descending)",
+				isSelected: sortOption === "name-descending",
+			},
+			{
+				value: "date-added-ascending",
+				name: "Date Created (Oldest to Newest)",
+				isSelected: sortOption === "date-added-ascending",
+			},
+			{
+				value: "date-added-descending",
+				name: "Date Created (Newest to Oldest)",
+				isSelected: sortOption === "date-added-descending",
+			},
+		],
 	});
 }
 

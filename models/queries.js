@@ -84,8 +84,27 @@ async function insertItem(item) {
 	}
 }
 
-async function getAllItems() {
+async function getAllItems(sortOption) {
 	try {
+		let orderByStatement;
+		switch (sortOption) {
+			case "name-ascending":
+				orderByStatement = `ORDER BY column_for_name_sorting ASC`;
+				break;
+			case "name-descending":
+				orderByStatement = "ORDER BY column_for_name_sorting DESC";
+				break;
+			case "date-added-ascending":
+				orderByStatement = "ORDER BY id ASC";
+				break;
+			case "date-added-descending":
+				orderByStatement = "ORDER BY id DESC";
+				break;
+			default:
+				orderByStatement = "";
+				break;
+		}
+
 		// Only return the items which are not a parent item
 		const { rows } = await pool.query(`
             SELECT 
@@ -93,7 +112,11 @@ async function getAllItems() {
             items_x.name, 
             items_x.quantity, 
             items_x.measurement,
-            items_y.name as parent_item_name
+            items_y.name as parent_item_name,
+            CASE
+                WHEN items_y.name IS NOT NULL 
+                THEN items_y.name ELSE items_x.name
+            END as column_for_name_sorting
             FROM items AS items_x
             LEFT JOIN items AS items_y
             ON items_x.parent_item_id = items_y.id
@@ -104,6 +127,7 @@ async function getAllItems() {
                 FROM items 
                 WHERE parent_item_id IS NOT NULL
             )
+            ${orderByStatement} 
             ;`);
 
 		return rows.map((row) => ({

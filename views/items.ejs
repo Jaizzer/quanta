@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quanta | <%= title %></title>
   <script src="/addItem.js" defer></script>
+  <script src="/sortTags.js" defer></script>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -33,6 +34,13 @@
 
     <div class="actions">
       <a href="/items/edit-items"><button class="edit-items-button">Edit</button></a>
+      <form action="/items" method="GET" class="sort-form">
+        <select name="sort">
+          <% sortOptions?.forEach(sortOption => {  %>
+          <option value="<%= sortOption.value %>" <%= !sortOption.value && 'disabled' %> <%= sortOption.isSelected && 'selected' %>><%= sortOption.name %></option>
+          <% })%>
+        </select>
+      </form>
     </div>
   </div>
   <%- include('partials/itemCardContainer', {items: items}) %>
