@@ -1,4 +1,5 @@
 const pool = require("./pool");
+const { intervalToDuration } = require("date-fns");
 
 async function insertItem(item) {
 	try {
@@ -553,9 +554,41 @@ async function getAllActivities() {
         ;
         `;
 		const { rows } = await pool.query(query);
-		return rows;
+
+		return rows.map((row) => ({
+			description: row.description,
+			entityName: row.entity_name,
+			link:
+				row.item_id !== null
+					? `/items/${row.item_id}`
+					: `/tags?${row.tag_id}`,
+			timePassed: getTimePassed(row.activity_done_at),
+		}));
 	} catch (error) {
 		console.error("Error fetching activities. ", error);
+	}
+}
+
+function getTimePassed(date) {
+	const { years, months, days, hours, minutes, seconds } = intervalToDuration(
+		{
+			start: new Date(date),
+			end: new Date(),
+		},
+	);
+
+	if (years) {
+		return `${years}${years > 1 ? "yrs" : "yr"}`;
+	} else if (months) {
+		return `${months}${months > 1 ? "mos" : "mo"}`;
+	} else if (days) {
+		return `${days}d`;
+	} else if (hours) {
+		return `${hours}${hours > 1 ? "hrs" : "hr"}`;
+	} else if (minutes) {
+		return `${minutes}m`;
+	} else {
+		return `${seconds}s`;
 	}
 }
 
