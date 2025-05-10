@@ -163,7 +163,6 @@ async function getAllItems(sortOption) {
                         items_x.min_level,
                         items_y.name,
                         items_x.quantity * items_x.price
-                        ORDER BY date_updated DESC
                     ${orderByStatement}
                 ) as m;`);
 
