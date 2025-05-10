@@ -1,7 +1,19 @@
 const asyncHandler = require("express-async-handler");
+const db = require("../models/queries");
 
 async function rootGet(req, res, next) {
-	res.render("index", { title: "Home" });
+	const { items, totalItemTypeQuantity, totalInventoryValue } =
+		await db.getAllItems("date-updated-descending");
+	const lowStockItems = await db.getLowStockItems();
+	res.render("index", {
+		title: "Home",
+		recentlyUpdatedItems: items.slice(0, 10),
+		lowStockItems: lowStockItems,
+		summary: {
+			totalItemTypeQuantity,
+			totalInventoryValue,
+		},
+	});
 }
 
 module.exports = {
