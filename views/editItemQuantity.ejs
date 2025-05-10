@@ -28,13 +28,13 @@
       <div class="controller">
         <div class="controller-label">Adjust Quantity</div>
         <button type="button" class="subtract-button">-</button>
-        <input class="current-adjustment-value" value="0" type="number">
+        <input class="current-adjustment-value" value="0" type="number" step="any">
         <button type="button" class="add-button">+</button>
       </div>
 
       <div class="new-quantity-input">
         <label for="new-quantity-input">New Quantity</label>
-        <input type="number" id="new-quantity-input" placeholder="0" name="newQuantity" value="<%= item.quantity %>">
+        <input type="number" id="new-quantity-input" placeholder="0" name="newQuantity" value="<%= item.quantity %>" step="any">
       </div>
 
       <div class="quantity-update-reason-section">
