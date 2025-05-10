@@ -84,11 +84,7 @@ async function getAllItems(req, res, next) {
 		result = await db.getAllItems();
 	}
 
-	const {
-		items,
-		totalItemTypeQuantity,
-		totalInventoryValue,
-	} = result;
+	const { items, totalItemTypeQuantity, totalInventoryValue } = result;
 
 	res.render("items", {
 		title: "Items",
