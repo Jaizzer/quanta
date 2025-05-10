@@ -117,6 +117,16 @@ async function getAllItems(req, res, next) {
 				name: "Date Created (Newest to Oldest)",
 				isSelected: sortOption === "date-added-descending",
 			},
+			{
+				value: "date-updated-ascending",
+				name: "Date Updated (Oldest to Newest)",
+				isSelected: sortOption === "date-updated-ascending",
+			},
+			{
+				value: "date-updated-descending",
+				name: "Date Updated (Newest to Oldest)",
+				isSelected: sortOption === "date-updated-descending",
+			},
 		],
 	});
 }
