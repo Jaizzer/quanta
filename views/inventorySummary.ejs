@@ -15,25 +15,7 @@
     </button>
     <h1>Inventory Summary</h1>
   </div>
-  <div class="inventory-summary-card">
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Total Qty</th>
-            <th>Total Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= totalQuantity %></td>
-            <td>$<%= totalValue %></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
+  <%- include('partials/summaryCard', summary)  %>
   <div class="recently-updated-items">
     <h2>Recently Updated</h2>
     <%- include('partials/itemCardContainer', {items: items}) %>

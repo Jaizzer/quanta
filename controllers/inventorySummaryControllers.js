@@ -1,30 +1,19 @@
 const asyncHandler = require("express-async-handler");
 const getTotalItemQuantity = require("./getTotalItemQuantity");
 const getTotalValue = require("./getTotalValue");
+const db = require("../models/queries");
 
 async function inventorySummaryGet(req, res, next) {
-	const items = [
-		{
-			id: 3,
-			name: "Item 1",
-			quantity: 2,
-			price: 25,
-		},
-		{
-			id: 4,
-			name: "Item 2",
-			quantity: 2,
-			price: 45,
-		},
-	];
-	const totalQuantity = getTotalItemQuantity(items);
-	const totalValue = getTotalValue(items);
+	const { items, totalItemTypeQuantity, totalInventoryValue } =
+		await db.getAllItems("date-updated-descending");
 
 	res.render("inventorySummary", {
-		title: "Home",
-		totalQuantity: totalQuantity,
-		totalValue: totalValue,
-		items: items,
+		title: "Inventory Summary",
+		items,
+		summary: {
+			totalItemTypeQuantity,
+			totalInventoryValue,
+		},
 	});
 }
 
