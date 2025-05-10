@@ -21,12 +21,12 @@
 
   <div class="recent-items">
     <h2>Recent Items</h2>
-    <%- include('partials/itemCardContainer', {items: recentlyUpdatedItems }) %>
+    <%- include('partials/itemCardContainer', {items: recentlyUpdatedItems, isStockStatusVisible: false }) %>
   </div>
 
   <div class="low-stock-items">
     <h2>Low Stock</h2>
-    <%- include('partials/itemCardContainer', {items: lowStockItems}) %>
+    <%- include('partials/itemCardContainer', {items: lowStockItems, isStockStatusVisible: false}) %>
   </div>
 </body>
 

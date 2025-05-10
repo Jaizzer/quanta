@@ -126,7 +126,9 @@ async function getAllItems(sortOption) {
                         'measurement',
                         measurement,
                         'parent_item_name',
-                        parent_item_name
+                        parent_item_name,
+                        'min_level',
+                        min_level
                     )
                 ) as items
             FROM (
@@ -135,6 +137,7 @@ async function getAllItems(sortOption) {
                         items_x.name,
                         items_x.quantity,
                         items_x.measurement,
+                        items_x.min_level,
                         items_y.name as parent_item_name,
                         items_x.quantity * items_x.price AS total_item_value,
                         CASE
@@ -155,6 +158,7 @@ async function getAllItems(sortOption) {
                         items_x.name,
                         items_x.quantity,
                         items_x.measurement,
+                        items_x.min_level,
                         items_y.name,
                         items_x.quantity * items_x.price
                         ORDER BY date_updated DESC
@@ -173,6 +177,7 @@ async function getAllItems(sortOption) {
 					item.quantity !== null ? parseFloat(item.quantity) : null,
 				measurement: item.measurement,
 				parentItemName: item.parent_item_name,
+                isLowStock: parseFloat(item.quantity) <= item.min_level
 			})),
 		};
 	} catch (error) {
