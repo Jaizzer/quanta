@@ -10,6 +10,7 @@
       <% if (item.quantity !== null) {%>
       <div class="item-quantity"><%= item.quantity %><%= item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s` %></div>
       <% }%>
+      <a href="/items/edit-quantity/<%= item.id %>"><button type="button" class="edit-item-quantity-button">+/-</button></a>
     </div>
   </a>
   <% }); %>
