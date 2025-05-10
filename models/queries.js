@@ -305,7 +305,7 @@ async function getItemById(itemID) {
 			updatedAt: `${new Date(row.updated_at).toLocaleTimeString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`,
 			name: row.name,
 			quantity: row.quantity !== null ? parseFloat(row.quantity) : null,
-			price: row.price !== null ? parseFloat(row.price) : null,
+			price: row.price !== null ? parseFloat(row.price).toFixed(2) : null,
 			notify: row.notify,
 			note: row.note,
 			minLevel: row.min_level !== null ? parseFloat(row.min_level) : null,
