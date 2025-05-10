@@ -1026,8 +1026,8 @@ async function getAllTransactions() {
 			reason: row.reason,
 			quantityChange:
 				parseFloat(row.quantity_change) > 0
-					? `+${row.quantity_change}`
-					: row.quantity_change,
+					? `+${parseFloat(row.quantity_change)}`
+					: parseFloat(row.quantity_change),
 			dateUpdated: `${new Date(row.date_updated).toLocaleTimeString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`,
 		}));
 	} catch (error) {
@@ -1070,8 +1070,8 @@ async function getTransactionByID(id) {
 			reason: rows[0].reason,
 			quantityChange:
 				parseFloat(rows[0].quantity_change) > 0
-					? `+${rows[0].quantity_change}`
-					: rows[0].quantity_change,
+					? `+${parseFloat(rows[0].quantity_change)}`
+					: parseFloat(rows[0].quantity_change),
 			dateUpdated: `${new Date(rows[0].date_updated).toLocaleTimeString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`,
 		};
 	} catch (error) {
