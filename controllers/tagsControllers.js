@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const db = require("../models/queries");
 
 async function getAllTags(req, res, next) {
-	const keyword = req.query.keyword;
+	const keyword = req.query.keyword?.trim();
 	const sortOption = req.query.sort;
 	let tags = [];
 
@@ -108,7 +108,7 @@ async function updateTagName(req, res, next) {
 
 async function getTagByID(req, res, next) {
 	const tagID = req.params.id;
-	const keyword = req.query.keyword;
+	const keyword = req.query.keyword?.trim();
 	const tag = await db.getTagByID(tagID);
 
 	// Filter the items if there is search keyword

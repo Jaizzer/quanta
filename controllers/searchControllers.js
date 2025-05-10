@@ -3,7 +3,7 @@ const db = require("../models/queries");
 
 async function searchItem(req, res, next) {
 	let items = [];
-	const keyword = req.query.keyword;
+	const keyword = req.query.keyword?.trim();
 	if (keyword) {
 		items = await db.searchItem(keyword);
 	}
