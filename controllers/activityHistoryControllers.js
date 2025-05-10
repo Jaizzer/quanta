@@ -6,6 +6,7 @@ async function activityHistoryGet(req, res, next) {
 	res.render("activityHistory", {
 		title: "Activity History",
 		activities: activities,
+        itemName: null,
 	});
 }
 
