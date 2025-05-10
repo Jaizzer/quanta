@@ -101,6 +101,10 @@ async function getAllItems(sortOption) {
 			case "date-added-descending":
 				orderByStatement = "ORDER BY id DESC";
 				break;
+			case "date-updated-ascending":
+				orderByStatement = "ORDER BY date_updated ASC";
+			case "date-updated-descending":
+				orderByStatement = "ORDER BY date_updated DESC";
 			default:
 				orderByStatement = "";
 				break;
@@ -126,7 +130,8 @@ async function getAllItems(sortOption) {
                     )
                 ) as items
             FROM (
-                    SELECT items_x.id,
+                    SELECT 
+                        items_x.id,
                         items_x.name,
                         items_x.quantity,
                         items_x.measurement,
@@ -135,14 +140,24 @@ async function getAllItems(sortOption) {
                         CASE
                             WHEN items_y.name IS NOT NULL THEN items_y.name
                             ELSE items_x.name
-                        END as column_for_name_sorting
+                        END as column_for_name_sorting,
+                        MAX(activity_history.activity_done_at) AS date_updated
                     FROM items AS items_x
                         LEFT JOIN items AS items_y ON items_x.parent_item_id = items_y.id
+                        LEFT JOIN activity_history ON activity_history.item_id = items_x.id
                     WHERE items_x.id NOT IN (
                             SELECT parent_item_id
                             FROM items
                             WHERE parent_item_id IS NOT NULL
                         )
+                    GROUP BY
+                        items_x.id,
+                        items_x.name,
+                        items_x.quantity,
+                        items_x.measurement,
+                        items_y.name,
+                        items_x.quantity * items_x.price
+                        ORDER BY date_updated DESC
                     ${orderByStatement}
                 ) as m;`);
 
