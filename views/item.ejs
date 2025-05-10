@@ -60,6 +60,7 @@
       <div class="quantity">
         <div class="title">Quantity:</div>
         <div class="value"><%= `${ item.quantity !== null ?`${item.quantity} ${item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
+        <a href="/items/edit-quantity/<%= item.id %>"><button type="button" class="edit-item-quantity-button">+/-</button></a>
       </div>
       <div class="min-level">
         <div class="title">Min Level:</div>
