@@ -103,8 +103,10 @@ async function getAllItems(sortOption) {
 				break;
 			case "date-updated-ascending":
 				orderByStatement = "ORDER BY date_updated ASC";
+                break;
 			case "date-updated-descending":
 				orderByStatement = "ORDER BY date_updated DESC";
+                break;
 			default:
 				orderByStatement = "";
 				break;
