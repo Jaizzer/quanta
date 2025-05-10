@@ -162,8 +162,10 @@ async function getAllItems(sortOption) {
                 ) as m;`);
 
 		return {
-			totalItemTypeQuantity: rows[0].total_item_type_quantity,
-			totalInventoryValue: rows[0].total_inventory_value,
+			totalItemTypeQuantity: parseFloat(rows[0].total_item_type_quantity),
+			totalInventoryValue: parseFloat(
+				rows[0].total_inventory_value,
+			).toFixed(2),
 			items: rows[0].items.map((item) => ({
 				id: item.id,
 				name: item.name,
