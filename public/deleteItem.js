@@ -4,7 +4,10 @@ forms?.forEach((form) => {
 	const deleteItemButton = form.querySelector(".delete-item-button");
 
 	// Get the item name
-	const itemName = form.querySelector(".item-name")?.textContent;
+	const itemName =
+		form.querySelector(".item-name")?.textContent ||
+		document.querySelector(".variant-name")?.textContent ||
+		document.querySelector("h2")?.textContent;
 
 	// Render warning message before deleting the item
 	deleteItemButton.addEventListener("click", () => {

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/style.css">
+  <script src="/deleteItem.js" defer></script>
 </head>
 
 <body>
@@ -90,7 +91,7 @@
 
   <form action="/items/delete" method="POST">
     <input type="text" value="<%= item.id %>" name='itemID' hidden>
-    <button type="submit">Delete Item</button>
+    <button type="button" class="delete-item-button">Delete Item</button>
   </form>
 
   </div>
