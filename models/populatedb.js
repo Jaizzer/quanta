@@ -318,6 +318,11 @@ ALTER TABLE activity_history
 ADD COLUMN tag_id INTEGER;
 `;
 
+const SQL31 = `
+ALTER TABLE items
+ALTER COLUMN quantity TYPE DECIMAL(10, 2);
+`
+
 async function main() {
 	let client;
 	try {
@@ -343,7 +348,7 @@ async function main() {
 		});
 
 		await client.connect();
-		await client.query(SQL30);
+		await client.query(SQL31);
 		console.log(`Database setup complete.`);
 	} catch (error) {
 		console.error(`Error during database setup: ${error}`);
