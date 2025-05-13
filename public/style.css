@@ -38,7 +38,6 @@ th {
     color: rgb(131, 138, 157);
 }
 
-.items-container,
 .notifications-container {
 	height: calc(100% - 130px);
 	border: 1px solid red;
