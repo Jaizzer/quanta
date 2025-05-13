@@ -10,6 +10,7 @@ body {
 	position: relative;
 	height: 100vh;
     background-color: #dbdbdb;
+    font-family: Roboto;
 }
 
 nav {
