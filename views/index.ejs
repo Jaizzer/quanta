@@ -5,16 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
-  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <h1>Quanta</h1>
 
-  <a class="inventory-summary" href="inventory-summary">
-    <h2>Inventory Summary</h2>
-    <%- include('partials/summaryTable', summary)  %>
-  </a> 
+  <a href="inventory-summary" class="inventory-summary">
+    <div>
+      <h2>Inventory Summary</h2>
+      <%- include('partials/summaryTable', summary)  %>
+    </div>
+  </a>
   <%- include('partials/nav') %>
   <%- include('partials/insightCard', {title: 'Low Stock', subtitle: 'View all stock items that are low inventory', routeName: 'items/low-stock'}) %>
   <%- include('partials/insightCard', {title: 'Transactions', subtitle: 'See all item quantity updates', routeName: 'transactions'}) %>
