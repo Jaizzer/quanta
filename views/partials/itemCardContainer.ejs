@@ -13,7 +13,7 @@
       <% if (item.isLowStock && isStockStatusVisible) {%>
         <div class="low-stock-indicator">Low Stock</div>
       <% }%>
-      <a href="/items/edit-quantity/<%= item.id %>"><button type="button" class="edit-item-quantity-button">+/-</button></a>
+      <a href="/items/edit-quantity/<%= item.id %>" class="edit-item-quantity-button"><button type="button">+/-</button></a>
     </div>
   </a>
   <% }); %>
