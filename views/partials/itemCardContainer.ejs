@@ -3,16 +3,18 @@
   <div class="item-card">
     <a href="/items/<%= item.id %>">
       <div class="item-image"></div>
-      <h3 class="item-name"><%= item.parentItemName || item.name %></h3>
-      <% if (item.parentItemName) { %>
-      <div class="variant-name"><%= item.name %></div>
-      <% } %>
-      <% if (item.quantity !== null) {%>
-      <div class="item-quantity"><%= item.quantity %><%= item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s` %></div>
-      <% }%>
-      <% if (item.isLowStock && isStockStatusVisible) {%>
-      <div class="low-stock-indicator">Low Stock</div>
-      <% }%>
+      <div class="item-card-text-content">
+          <h3 class="item-name"><%= item.parentItemName || item.name %></h3>
+          <% if (item.parentItemName) { %>
+          <div class="variant-name"><%= item.name %></div>
+          <% } %>
+          <% if (item.quantity !== null) {%>
+          <div class="item-quantity"><%= item.quantity %><%= item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s` %></div>
+          <% }%>
+          <% if (item.isLowStock && isStockStatusVisible) {%>
+          <div class="low-stock-indicator">Low Stock</div>
+          <% }%>
+      </div>
     </a>
     <button class="item-triple-dot-button" data-id="<%= item.id %>" data-parent="<%= item.parentItemName %>" data-name="<%= item.name %>">...</button>
   </div>
