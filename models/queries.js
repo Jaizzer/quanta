@@ -103,10 +103,10 @@ async function getAllItems(sortOption) {
 				break;
 			case "date-updated-ascending":
 				orderByStatement = "ORDER BY date_updated ASC";
-                break;
+				break;
 			case "date-updated-descending":
 				orderByStatement = "ORDER BY date_updated DESC";
-                break;
+				break;
 			default:
 				orderByStatement = "";
 				break;
@@ -178,7 +178,7 @@ async function getAllItems(sortOption) {
 					item.quantity !== null ? parseFloat(item.quantity) : null,
 				measurement: item.measurement,
 				parentItemName: item.parent_item_name,
-                isLowStock: parseFloat(item.quantity) <= item.min_level
+				isLowStock: parseFloat(item.quantity) <= item.min_level,
 			})),
 		};
 	} catch (error) {
