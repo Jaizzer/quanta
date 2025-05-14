@@ -96,7 +96,7 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 					link.href = `activity-history/${itemID}`;
 					break;
 				case "view-item-transactions":
-					link.href = `transactions/${itemID}`;
+					link.href = `transactions/item/${itemID}`;
 					break;
 				case "view-item-details":
 					link.href = `items/${itemID}`;

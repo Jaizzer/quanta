@@ -19,7 +19,28 @@ async function getTransactionById(req, res, next) {
 	});
 }
 
+async function getItemSpecificTransactions(req, res, next) {
+	const itemID = req.params.id;
+	const item = await db.getItemById(itemID);
+	const transactions = await db.getItemSpecificTransactions(itemID);
+
+	if (item) {
+		res.render("itemTransactions", {
+			title: "Transactions",
+			transactions: transactions,
+			item: item,
+		});
+	} else {
+		// Render an error page if the item does not exist.
+		res.render("error", {
+			title: "Item Not Found",
+			message: "The item does not exist.",
+		});
+	}
+}
+
 module.exports = {
 	getAllTransactions: asyncHandler(getAllTransactions),
 	getTransactionById: asyncHandler(getTransactionById),
+	getItemSpecificTransactions: asyncHandler(getItemSpecificTransactions),
 };
