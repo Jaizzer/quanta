@@ -390,38 +390,44 @@ async function getLowStockItems(isNotificationEnabledOnly) {
 		if (isNotificationEnabledOnly) {
 			query = `
                 SELECT 
-                    id,
-                    name,
-                    quantity,
-                    measurement,
-                    min_level,
-                    notify
-                FROM items
-                WHERE quantity <= min_level
-                    AND id NOT IN (
+                    y.id,
+                    y.name,
+                    y.quantity,
+                    y.measurement,
+                    y.min_level,
+                    y.notify,
+                    x.name AS parent_item_name
+                FROM items AS y
+                LEFT JOIN items AS x
+                ON y.parent_item_id = x.id
+                WHERE y.quantity <= y.min_level
+                    AND y.id NOT IN (
                         SELECT parent_item_id
                         FROM items
                         WHERE parent_item_id IS NOT NULL
                     )
-                    AND notify = TRUE;
+                    AND y.notify = TRUE;
             `;
 		} else {
 			query = `
                 SELECT 
-                    id,
-                    name,
-                    quantity,
-                    measurement,
-                    min_level,
-                    notify
-                FROM items
-                WHERE quantity <= min_level
-                    AND id NOT IN (
+                    y.id,
+                    y.name,
+                    y.quantity,
+                    y.measurement,
+                    y.min_level,
+                    y.notify,
+                    x.name AS parent_item_name
+                FROM items AS y
+                LEFT JOIN items AS x
+                ON y.parent_item_id = x.id
+                WHERE y.quantity <= y.min_level
+                    AND y.id NOT IN (
                         SELECT parent_item_id
                         FROM items
                         WHERE parent_item_id IS NOT NULL
                     );
-        `;
+            `;
 		}
 		const { rows } = await pool.query(query);
 		return rows.map((row) => ({
@@ -431,6 +437,7 @@ async function getLowStockItems(isNotificationEnabledOnly) {
 			measurement: row.measurement,
 			minLevel: row.min_level !== null ? parseFloat(row.min_level) : null,
 			notify: row.notify,
+			parentItemName: row.parent_item_name,
 		}));
 	} catch (error) {
 		console.error("Error fetching low-stock items. ", error);
