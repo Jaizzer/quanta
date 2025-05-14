@@ -425,7 +425,7 @@ const validateAddItemForm = [
 ];
 
 async function editItemsGet(req, res, next) {
-	const items = await db.getAllItems();
+	const { items } = await db.getAllItems();
 	res.render("editItems", {
 		title: "Edit Items",
 		items: items,
@@ -438,14 +438,17 @@ async function deleteItem(req, res, next) {
 	await db.deleteItem(item);
 
 	// Check if the delete request came from an item page
-	const isDeleteRequestFromItemPage = req.originalUrl === "/items/delete";
+	const deleteRequestSource = req.originalUrl;
 
-	if (isDeleteRequestFromItemPage) {
+	if (deleteRequestSource === "/items/delete") {
 		// Redirect back to items if the delete request came from the item page
 		res.status(200).redirect("/items");
-	} else {
+	} else if (deleteRequestSource === "/items/edit-items") {
 		// Redirect back to the edit-items page if the delete request came from the edit-items page
 		res.status(200).redirect("/items/edit-items");
+	} else if (deleteRequestSource === "/items/delete-item-dashboard") {
+		// Redirect back to the dashboard page if the delete request came from the dashboard
+		res.status(200).redirect("/");
 	}
 }
 
