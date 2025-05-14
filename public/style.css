@@ -236,6 +236,7 @@ th {
 	display: grid;
 	grid-template-columns: 1fr auto;
 	grid-template-rows: repeat(2, auto);
+	column-gap: 20px;
 }
 
 .low-stock-items .item-card .item-quantity {
@@ -251,6 +252,10 @@ th {
 	grid-row: 1 / 2;
 	align-self: end;
 
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+
 	font-size: 1em;
 }
 
@@ -258,6 +263,10 @@ th {
 	grid-column: 1 / 2;
 	grid-row: 2 / 3;
 	align-self: start;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
 
 	font-size: 0.9em;
 	color: #676b78;
