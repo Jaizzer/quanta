@@ -25,7 +25,6 @@ tripleDotButtons?.forEach((tripleDotButton) => {
 		const parentItemName = tripleDotButton.dataset.parent;
 		const itemName = tripleDotButton.dataset.name;
 
-		console.log(itemID, parentItemName, itemName);
 		document.body.appendChild(
 			createUtilityBox(itemID, itemName, parentItemName),
 		);
