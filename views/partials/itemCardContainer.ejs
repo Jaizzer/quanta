@@ -1,7 +1,7 @@
 <div class="items-container">
   <% items.forEach(item => { %>
-  <div href="/items/<%= item.id %>">
-    <div class="item-card">
+  <div class="item-card">
+    <a href="/items/<%= item.id %>">
       <div class="item-image"></div>
       <h3 class="item-name"><%= item.parentItemName || item.name %></h3>
       <% if (item.parentItemName) { %>
@@ -13,8 +13,8 @@
       <% if (item.isLowStock && isStockStatusVisible) {%>
       <div class="low-stock-indicator">Low Stock</div>
       <% }%>
-      <button class="item-triple-dot-button" data-id="<%= item.id %>" data-parent="<%= item.parentItemName %>" data-name="<%= item.name %>">...</button>
-    </div>
+    </a>
+    <button class="item-triple-dot-button" data-id="<%= item.id %>" data-parent="<%= item.parentItemName %>" data-name="<%= item.name %>">...</button>
   </div>
   <% }); %>
 </div>
