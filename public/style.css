@@ -21,6 +21,9 @@ nav {
 	bottom: 0px;
 	width: 100%;
 
+	left: 0;
+	right: 0;
+
 	background-color: white;
 	padding: 1em;
 }
