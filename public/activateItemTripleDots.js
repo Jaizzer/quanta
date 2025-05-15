@@ -60,17 +60,21 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 	itemImageContainer.classList.add("item-image-container");
 	itemCard.appendChild(itemImageContainer);
 
+	const itemTextContent = document.createElement("div");
+	itemTextContent.classList.add("item-text-content");
+	itemCard.appendChild(itemTextContent);
+
 	const itemNameContainer = document.createElement("div");
 	itemNameContainer.classList.add("item-name");
 	itemNameContainer.textContent = parentItemName || itemName;
-	itemCard.appendChild(itemNameContainer);
+	itemTextContent.appendChild(itemNameContainer);
 
 	// Add the variant name if the item is a variant
 	if (parentItemName) {
-		const variantName = document.querySelector("div");
+		const variantName = document.createElement("div");
 		variantName.classList.add("variant-name");
 		variantName.textContent = itemName;
-		itemCard.appendChild(variantName);
+		itemTextContent.appendChild(variantName);
 	}
 
 	const actions = [
