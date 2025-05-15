@@ -303,17 +303,6 @@ th {
 	grid-row: 1 / 3;
 }
 
-.item-name {
-	grid-column: 2 / 3;
-	grid-row: 1 / 2;
-	align-self: end;
-}
-
-.item-quantity {
-	grid-column: 2 / 3;
-	grid-row: 2 / 3;
-}
-
 .add-item-button {
 	position: absolute;
 	bottom: 3.5em;
