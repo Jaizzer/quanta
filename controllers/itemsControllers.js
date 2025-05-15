@@ -84,7 +84,9 @@ async function getAllItems(req, res, next) {
 		result = await db.getAllItems();
 	}
 
-	const { items, totalItemTypeQuantity, totalInventoryValue } = result;
+	const items = result?.items || [];
+	const totalItemTypeQuantity = result?.totalItemTypeQuantity;
+	const totalInventoryValue = result?.totalItemTypeQuantity;
 
 	res.render("items", {
 		title: "Items",
@@ -425,7 +427,8 @@ const validateAddItemForm = [
 ];
 
 async function editItemsGet(req, res, next) {
-	const { items } = await db.getAllItems();
+	const items = (await db.getAllItems())?.items || [];
+
 	res.render("editItems", {
 		title: "Edit Items",
 		items: items,

@@ -4,8 +4,11 @@ const getTotalValue = require("./getTotalValue");
 const db = require("../models/queries");
 
 async function inventorySummaryGet(req, res, next) {
-	const { items, totalItemTypeQuantity, totalInventoryValue } =
-		await db.getAllItems("date-updated-descending");
+	const result = await db.getAllItems("date-updated-descending");
+
+	const items = result?.items || [];
+	const totalItemTypeQuantity = result?.totalItemTypeQuantity;
+	const totalInventoryValue = result?.totalItemTypeQuantity;
 
 	res.render("inventorySummary", {
 		title: "Inventory Summary",
