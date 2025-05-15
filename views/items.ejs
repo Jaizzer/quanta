@@ -12,27 +12,28 @@
 </head>
 
 <body>
-  <h1>Items</h1>
-  <div class="item-summary-card">
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Items</th>
-            <th>Total Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= totalItemTypeQuantity %></td>
-            <td>$<%= totalInventoryValue %></td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="items">
+    <h1>Items</h1>
+    <div class="item-summary-card">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Items</th>
+              <th>Total Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= totalItemTypeQuantity %></td>
+              <td>$<%= totalInventoryValue %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
     <div class="actions">
-      <a href="/items/edit-items"><button class="edit-items-button">Edit</button></a>
+      <a href="/items/edit-items"><button class="edit-items-button">Edit Items</button></a>
       <form action="/items" method="GET" class="sort-form">
         <select name="sort">
           <% sortOptions?.forEach(sortOption => {  %>
@@ -41,10 +42,11 @@
         </select>
       </form>
     </div>
+
+    <%- include('partials/itemCardContainer', {items: items, isStockStatusVisible: true}) %>
+    <button class="add-item-button">Add</button>
+    <%- include('partials/nav') %>
   </div>
-  <%- include('partials/itemCardContainer', {items: items, isStockStatusVisible: true}) %>
-  <button class="add-item-button">Add</button>
-  <%- include('partials/nav') %>
 </body>
 
 </html>
