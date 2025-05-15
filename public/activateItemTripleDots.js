@@ -25,17 +25,21 @@ tripleDotButtons?.forEach((tripleDotButton) => {
 		const parentItemName = tripleDotButton.dataset.parent;
 		const itemName = tripleDotButton.dataset.name;
 
-		document.body.appendChild(
+		document.body.prepend(
 			createUtilityBox(itemID, itemName, parentItemName),
 		);
 	});
 });
 
 function createUtilityBox(itemID, itemName, parentItemName) {
+	const backgroundOverlay = document.createElement("div");
+	backgroundOverlay.classList.add("background-overlay");
+
 	const utilityBoxContainer = document.createElement("form");
 	utilityBoxContainer.action = "/items/delete-item-dashboard";
 	utilityBoxContainer.method = "POST";
 	utilityBoxContainer.classList.add("utility-box-container");
+	backgroundOverlay.appendChild(utilityBoxContainer);
 
 	const itemIDInput = document.createElement("input");
 	itemIDInput.value = itemID;
@@ -48,7 +52,7 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 	closeButton.classList.add("utility-box-close-button");
 	closeButton.textContent = "x";
 	closeButton.addEventListener("click", () => {
-		utilityBoxContainer.parentElement.removeChild(utilityBoxContainer);
+		backgroundOverlay.parentElement.removeChild(backgroundOverlay);
 	});
 	utilityBoxContainer.appendChild(closeButton);
 
@@ -175,9 +179,7 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 					);
 
 					// Show the utility box
-					document.body.appendChild(
-						utilityBoxContainer,
-					);
+					document.body.appendChild(backgroundOverlay);
 				});
 				warningMessageContainer.appendChild(cancelButton);
 
@@ -203,5 +205,5 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 		}
 	});
 
-	return utilityBoxContainer;
+	return backgroundOverlay;
 }
