@@ -399,3 +399,12 @@ nav {
 	grid-column: 2 / 3;
 	grid-row: 1 / 2;
 }
+
+.background-overlay {
+	position: absolute;
+	z-index: 1;
+
+	height: 100%;
+	width: 100%;
+	background-color: #00000033;
+}
