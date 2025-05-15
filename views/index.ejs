@@ -9,28 +9,27 @@
   <script src="/activateItemTripleDots.js" defer></script>
 </head>
 
-<body class="dashboard">
-  <h1>Quanta</h1>
-
-  <a href="inventory-summary" class="inventory-summary">
-    <div>
-      <div class="icon"></div>
-      <h2>Inventory Summary</h2>
-      <%- include('partials/summaryTable', summary)  %>
+<body>
+  <div class="dashboard">
+    <h1>Quanta</h1>
+    <a href="inventory-summary" class="inventory-summary">
+      <div>
+        <div class="icon"></div>
+        <h2>Inventory Summary</h2>
+        <%- include('partials/summaryTable', summary)  %>
+      </div>
+    </a>
+    <%- include('partials/nav') %>
+    <%- include('partials/insightCard', {title: 'Low Stock', subtitle: 'View all stock items that are low inventory', routeName: 'items/low-stock'}) %>
+    <%- include('partials/insightCard', {title: 'Transactions', subtitle: 'See all item quantity updates', routeName: 'transactions'}) %>
+    <div class="recent-items">
+      <h2>Recent Items</h2>
+      <%- include('partials/itemCardContainer', {items: recentlyUpdatedItems, isStockStatusVisible: false }) %>
     </div>
-  </a>
-  <%- include('partials/nav') %>
-  <%- include('partials/insightCard', {title: 'Low Stock', subtitle: 'View all stock items that are low inventory', routeName: 'items/low-stock'}) %>
-  <%- include('partials/insightCard', {title: 'Transactions', subtitle: 'See all item quantity updates', routeName: 'transactions'}) %>
-
-  <div class="recent-items">
-    <h2>Recent Items</h2>
-    <%- include('partials/itemCardContainer', {items: recentlyUpdatedItems, isStockStatusVisible: false }) %>
-  </div>
-
-  <div class="low-stock-items">
-    <h2>Low Stock</h2>
-    <%- include('partials/itemCardContainer', {items: lowStockItems, isStockStatusVisible: false}) %>
+    <div class="low-stock-items">
+      <h2>Low Stock</h2>
+      <%- include('partials/itemCardContainer', {items: lowStockItems, isStockStatusVisible: false}) %>
+    </div>
   </div>
 </body>
 
