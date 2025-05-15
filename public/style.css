@@ -20,6 +20,9 @@ nav {
 	position: fixed;
 	bottom: 0px;
 	width: 100%;
+
+	background-color: white;
+	padding: 1em;
 }
 
 ul {
@@ -315,11 +318,6 @@ th {
 	right: 1em;
 }
 
-nav {
-	background-color: white;
-	padding: 1em;
-}
-
 .add-option-container-background {
 	position: absolute;
 	top: 0px;
@@ -408,7 +406,6 @@ nav {
 	width: 100%;
 	background-color: #00000033;
 }
-
 
 .utility-box-container {
 	position: fixed;
