@@ -43,6 +43,28 @@ a {
 	color: inherit;
 }
 
+.item-name,
+.item-quantity,
+.variant-name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.item-name {
+	font-size: 1em;
+}
+
+.variant-name {
+	font-size: 0.8em;
+	color: #838a9d;
+}
+
+.item-quantity {
+	font-size: 0.9em;
+	color: #3a3d44;
+}
+
 /* Dashboard Page */
 
 .dashboard {
@@ -177,21 +199,10 @@ th {
 
 .recent-items .item-card .variant-name {
 	align-self: start;
-
-	overflow: hidden;
-	text-overflow: ellipsis;
-	width: 100%;
-	font-size: 0.9em;
-	color: #676b78;
 }
 
 .recent-items .item-card .item-name {
 	align-self: start;
-
-	overflow: hidden;
-	text-overflow: ellipsis;
-	width: 100%;
-	font-size: 1em;
 }
 
 .recent-items .item-card .item-quantity {
@@ -262,25 +273,12 @@ th {
 	grid-column: 1 / 2;
 	grid-row: 1 / 2;
 	align-self: end;
-
-	overflow: hidden;
-	text-overflow: ellipsis;
-	width: 100%;
-
-	font-size: 1em;
 }
 
 .low-stock-items .item-card .variant-name {
 	grid-column: 1 / 2;
 	grid-row: 2 / 3;
 	align-self: start;
-
-	overflow: hidden;
-	text-overflow: ellipsis;
-	width: 100%;
-
-	font-size: 0.9em;
-	color: #676b78;
 }
 
 .item-triple-dot-button {
@@ -481,17 +479,4 @@ th {
 	grid-template-columns: auto;
 	grid-template-rows: auto auto;
 	align-content: center;
-}
-
-.utility-box-container .item-name {
-	font-size: 1em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.utility-box-container .variant-name {
-	font-size: 0.9em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	color: #838a9d;
 }
