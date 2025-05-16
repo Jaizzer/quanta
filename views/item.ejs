@@ -88,12 +88,12 @@
         <%- include('partials/itemCardContainer', {items: item.variants}) %>
         <% }%>
       </div>
+      <form action="/items/delete" method="POST">
+        <input type="text" value="<%= item.id %>" name='itemID' hidden>
+        <button type="button" class="delete-item-button">Delete Item</button>
+      </form>
+      <%- include('partials/nav') %>
     </div>
-    <form action="/items/delete" method="POST">
-      <input type="text" value="<%= item.id %>" name='itemID' hidden>
-      <button type="button" class="delete-item-button">Delete Item</button>
-    </form>
-    <%- include('partials/nav') %>
   </div>
   </div>
 </body>
