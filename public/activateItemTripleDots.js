@@ -32,14 +32,14 @@ tripleDotButtons?.forEach((tripleDotButton) => {
 });
 
 function createUtilityBox(itemID, itemName, parentItemName) {
-	const backgroundOverlay = document.createElement("div");
-	backgroundOverlay.classList.add("background-overlay");
+	const utilityBoxBackgroundOverlay = document.createElement("div");
+	utilityBoxBackgroundOverlay.classList.add("background-overlay");
 
 	const utilityBoxContainer = document.createElement("form");
 	utilityBoxContainer.action = "/items/delete-item-dashboard";
 	utilityBoxContainer.method = "POST";
 	utilityBoxContainer.classList.add("utility-box-container");
-	backgroundOverlay.appendChild(utilityBoxContainer);
+	utilityBoxBackgroundOverlay.appendChild(utilityBoxContainer);
 
 	const itemIDInput = document.createElement("input");
 	itemIDInput.value = itemID;
@@ -150,20 +150,25 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 			deleteButton.type = "button";
 			deleteButton.addEventListener("click", () => {
 				// Hide the utility box
-				utilityBoxContainer.parentElement.removeChild(
-					utilityBoxContainer,
+				utilityBoxBackgroundOverlay.parentElement.removeChild(
+					utilityBoxBackgroundOverlay,
 				);
 
 				// Display warning message
-				const backgroundOverlay = document.createElement("div");
-				backgroundOverlay.classList.add("background-overlay");
-				document.body.appendChild(backgroundOverlay);
+				const deleteWarningBackgroundOverlay =
+					document.createElement("div");
+				deleteWarningBackgroundOverlay.classList.add(
+					"background-overlay",
+				);
+				document.body.prepend(deleteWarningBackgroundOverlay);
 
 				const warningMessageContainer = document.createElement("div");
 				warningMessageContainer.classList.add(
 					"warning-message-container",
 				);
-				backgroundOverlay.appendChild(warningMessageContainer);
+				deleteWarningBackgroundOverlay.appendChild(
+					warningMessageContainer,
+				);
 
 				const warningMessage = document.createElement("div");
 				warningMessage.textContent = `Are you sure you want to delete item '${itemName}'?`;
@@ -174,12 +179,12 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 				cancelButton.textContent = "Cancel";
 				cancelButton.classList.add("cancel-button");
 				cancelButton.addEventListener("click", () => {
-					backgroundOverlay.parentElement.removeChild(
-						backgroundOverlay,
+					deleteWarningBackgroundOverlay.parentElement.removeChild(
+						deleteWarningBackgroundOverlay,
 					);
 
 					// Show the utility box
-					document.body.appendChild(backgroundOverlay);
+					document.body.appendChild(utilityBoxBackgroundOverlay);
 				});
 				warningMessageContainer.appendChild(cancelButton);
 
@@ -205,5 +210,5 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 		}
 	});
 
-	return backgroundOverlay;
+	return utilityBoxBackgroundOverlay;
 }
