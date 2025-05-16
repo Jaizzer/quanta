@@ -19,7 +19,7 @@ forms?.forEach((form) => {
 
 		const backgroundOverlay = document.createElement("div");
 		backgroundOverlay.classList.add("background-overlay");
-		document.body.appendChild(backgroundOverlay);
+		document.body.prepend(backgroundOverlay);
 
 		const warningMessageContainer = document.createElement("div");
 		warningMessageContainer.classList.add("warning-message-container");
