@@ -53,7 +53,9 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 	closeButton.type = "button";
 	closeButton.textContent = "x";
 	closeButton.addEventListener("click", () => {
-		backgroundOverlay.parentElement.removeChild(backgroundOverlay);
+		utilityBoxBackgroundOverlay.parentElement.removeChild(
+			utilityBoxBackgroundOverlay,
+		);
 	});
 	utilityBoxContainer.appendChild(closeButton);
 
