@@ -10,97 +10,92 @@
 </head>
 
 <body>
-  <div class="header">
-    <a href="/items">
+  <div class="item-description">
+    <div class="header">
+      <a href="/items">
         <button class="back">
           ←
         </button>
-    </a>
-    <a href="/items/edit/<%= item.id %>" class="edit">
-      <button>Edit</button>
-    </a>
-  </div>
-  <div class="item-container">
-    <h2><%= item.parent?.name || item.name %></h2>
-    <% if (item.variants.length !== 0) {%>
-    <div class="item-summary">
-      <div class="variant-count">
-        <div class="icon-container"></div>
-        <div class="value"><%= item.variants.length %></div>
-      </div>
-      <div class="total-quantity">
-        <div class="icon-container"></div>
-        <div class="value"><%= item.totalQuantity %></div>
-      </div>
-      <div class="price-range">
-        <div class="icon-container"></div>
-        <div class="value"><%= `${item.maximumPrice === item.minimumPrice ? `$${item.maximumPrice}` : `$${item.minimumPrice} - ${item.maximumPrice}`}` %></div>
-      </div>
-    </div>
-    <% }%>
-    <div class="item-details">
-      <div class="update-date">
-        <div class="title">Updated at:</div>
-        <div class="value"><%= item.updatedAt %></div>
-      </div>
-      <div class="actions">
-        <a href="/activity-history/<%=item.id%>"><button class="history-button">View History</button></a>
-      </div>
-    </div>
-
-    <% if (item.parent) {%>
-    <div class="variant-name-section">
-      <a class="parent-item-link" href="/items/<%= item.parent.id %>"><%= item.parent.name %></a>
-      <div class="variant-name">
-        <%= item.name %>
-      </div>
-    </div>
-    <% }%>
-
-    <% if (item.variants.length === 0) {%>
-    <div class="item-stats">
-      <div class="quantity">
-        <div class="title">Quantity:</div>
-        <div class="value"><%= `${ item.quantity !== null ?`${item.quantity} ${item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
-        <a href="/items/edit-quantity/<%= item.id %>"><button type="button" class="edit-item-quantity-button">+/-</button></a>
-      </div>
-      <div class="min-level">
-        <div class="title">Min Level:</div>
-        <div class="value"><%= `${ item.minLevel !== null ?`${item.minLevel} ${item.minLevel <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
-      </div>
-      <div class="price">
-        <div class="title">Price:</div>
-        <div class="value"><%= `${item.price !== null ? `$${item.price}` : '--'}`  %></div>
-      </div>
-    </div>
-    <div class="tags-section">
-      <div class="section-title">Tags:</div>
-      <% item.tags.forEach(tag => { %>
-      <a href="/tags/<%= tag.id %>">
-        <div class="tag"><%= tag.name %></div>
       </a>
-      <% }) %>
+      <a href="/items/edit/<%= item.id %>" class="edit">
+        <button>Edit</button>
+      </a>
     </div>
-    <% }%>
-
-    <div class="variants-section">
-      <div class="variant-section-label">Item Variants</div>
-      <a href="/items/add-variant/<%= item.id %>"><button class="add-variant-button">+ Add Variant</button></a>
+    <div class="item-container">
+      <h2><%= item.parent?.name || item.name %></h2>
       <% if (item.variants.length !== 0) {%>
-      <%- include('partials/itemCardContainer', {items: item.variants}) %>
+      <div class="item-summary">
+        <div class="variant-count">
+          <div class="icon-container"></div>
+          <div class="value"><%= item.variants.length %></div>
+        </div>
+        <div class="total-quantity">
+          <div class="icon-container"></div>
+          <div class="value"><%= item.totalQuantity %></div>
+        </div>
+        <div class="price-range">
+          <div class="icon-container"></div>
+          <div class="value"><%= `${item.maximumPrice === item.minimumPrice ? `$${item.maximumPrice}` : `$${item.minimumPrice} - ${item.maximumPrice}`}` %></div>
+        </div>
+      </div>
       <% }%>
+      <div class="item-details">
+        <div class="update-date">
+          <div class="title">Updated at:</div>
+          <div class="value"><%= item.updatedAt %></div>
+        </div>
+        <div class="actions">
+          <a href="/activity-history/<%=item.id%>"><button class="history-button">View History</button></a>
+        </div>
+      </div>
+      <% if (item.parent) {%>
+      <div class="variant-name-section">
+        <a class="parent-item-link" href="/items/<%= item.parent.id %>"><%= item.parent.name %></a>
+        <div class="variant-name">
+          <%= item.name %>
+        </div>
+      </div>
+      <% }%>
+      <% if (item.variants.length === 0) {%>
+      <div class="item-stats">
+        <div class="quantity">
+          <div class="title">Quantity:</div>
+          <div class="value"><%= `${ item.quantity !== null ?`${item.quantity} ${item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
+          <a href="/items/edit-quantity/<%= item.id %>"><button type="button" class="edit-item-quantity-button">+/-</button></a>
+        </div>
+        <div class="min-level">
+          <div class="title">Min Level:</div>
+          <div class="value"><%= `${ item.minLevel !== null ?`${item.minLevel} ${item.minLevel <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
+        </div>
+        <div class="price">
+          <div class="title">Price:</div>
+          <div class="value"><%= `${item.price !== null ? `$${item.price}` : '--'}`  %></div>
+        </div>
+      </div>
+      <div class="tags-section">
+        <div class="section-title">Tags:</div>
+        <% item.tags.forEach(tag => { %>
+        <a href="/tags/<%= tag.id %>">
+          <div class="tag"><%= tag.name %></div>
+        </a>
+        <% }) %>
+      </div>
+      <% }%>
+      <div class="variants-section">
+        <div class="variant-section-label">Item Variants</div>
+        <a href="/items/add-variant/<%= item.id %>"><button class="add-variant-button">+ Add Variant</button></a>
+        <% if (item.variants.length !== 0) {%>
+        <%- include('partials/itemCardContainer', {items: item.variants}) %>
+        <% }%>
+      </div>
     </div>
+    <form action="/items/delete" method="POST">
+      <input type="text" value="<%= item.id %>" name='itemID' hidden>
+      <button type="button" class="delete-item-button">Delete Item</button>
+    </form>
+    <%- include('partials/nav') %>
   </div>
-
-  <form action="/items/delete" method="POST">
-    <input type="text" value="<%= item.id %>" name='itemID' hidden>
-    <button type="button" class="delete-item-button">Delete Item</button>
-  </form>
-
   </div>
-  <%- include('partials/nav') %>
-
-
 </body>
 
 </html>
