@@ -50,6 +50,7 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 
 	const closeButton = document.createElement("button");
 	closeButton.classList.add("utility-box-close-button");
+	closeButton.type = "button";
 	closeButton.textContent = "x";
 	closeButton.addEventListener("click", () => {
 		backgroundOverlay.parentElement.removeChild(backgroundOverlay);
