@@ -45,7 +45,8 @@ a {
 
 .item-name,
 .item-quantity,
-.variant-name {
+.variant-name,
+.warning-message span {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 100%;
@@ -571,4 +572,37 @@ th {
 	grid-column: 2 / 3;
 	grid-row: 2 / 3;
 	transform: rotate(180deg);
+}
+
+.warning-message-container {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 50vh;
+	margin-inline: auto;
+
+	max-width: 400px;
+
+	padding: 1em;
+	border-radius: 0.5em;
+	background-color: white;
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto auto;
+	justify-content: center;
+	gap: 1em;
+}
+
+.warning-message-container .warning-message {
+	grid-column: 1 / 3;
+	hyphens: auto;
+}
+
+.warning-message-container button {
+	grid-row: 2 / 3;
+	background-color: #eaeaea;
+	border: 0px;
+	padding: 0.5em;
+	border-radius: 0.25em;
 }
