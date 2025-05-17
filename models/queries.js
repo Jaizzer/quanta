@@ -312,6 +312,10 @@ async function getItemById(itemID) {
 			name: row.name,
 			quantity: row.quantity !== null ? parseFloat(row.quantity) : null,
 			price: row.price !== null ? parseFloat(row.price).toFixed(2) : null,
+			totalValue:
+				row.price * row.quantity !== null || NaN
+					? parseFloat(row.price * row.quantity).toFixed(2)
+					: null,
 			notify: row.notify,
 			note: row.note,
 			minLevel: row.min_level !== null ? parseFloat(row.min_level) : null,
