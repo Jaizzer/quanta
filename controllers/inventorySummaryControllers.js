@@ -8,7 +8,7 @@ async function inventorySummaryGet(req, res, next) {
 
 	const items = result?.items || [];
 	const totalItemTypeQuantity = result?.totalItemTypeQuantity;
-	const totalInventoryValue = result?.totalItemTypeQuantity;
+	const totalInventoryValue = result?.totalInventoryValue;
 
 	res.render("inventorySummary", {
 		title: "Inventory Summary",

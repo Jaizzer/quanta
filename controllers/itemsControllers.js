@@ -86,7 +86,7 @@ async function getAllItems(req, res, next) {
 
 	const items = result?.items || [];
 	const totalItemTypeQuantity = result?.totalItemTypeQuantity;
-	const totalInventoryValue = result?.totalItemTypeQuantity;
+	const totalInventoryValue = result?.totalInventoryValue;
 
 	res.render("items", {
 		title: "Items",

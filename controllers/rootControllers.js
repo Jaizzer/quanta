@@ -6,7 +6,7 @@ async function rootGet(req, res, next) {
 
 	const items = result?.items || [];
 	const totalItemTypeQuantity = result?.totalItemTypeQuantity;
-	const totalInventoryValue = result?.totalItemTypeQuantity;
+	const totalInventoryValue = result?.totalInventoryValue;
 
 	const lowStockItems = await db.getLowStockItems();
 	res.render("index", {
