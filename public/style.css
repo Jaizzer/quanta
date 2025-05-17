@@ -789,3 +789,24 @@ th {
 	background-color: #ff4e4e;
 	color: white;
 }
+
+.item-description .tags-section {
+    display: grid;
+    gap: 0.5em;
+}
+
+.item-description .tags-container {
+	display: flex;
+	gap: 0.5em;
+}
+
+.item-description .tags-container a {
+	padding-bottom: 0.5em;
+	padding-top: 0.5em;
+	padding-right: 1.25em;
+	padding-left: 1.25em;
+	border-radius: 1em;
+
+    font-size: 0.8em;
+	background-color: #eaeaea;
+}

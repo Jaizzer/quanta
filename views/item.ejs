@@ -81,11 +81,13 @@
       <div class="tags-section">
         <div class="section-title">Tags</div>
         <% if (item.tags.length > 0) { %>
-        <% item.tags.forEach(tag => { %>
-        <a href="/tags/<%= tag.id %>">
-          <div class="tag"><%= tag.name %></div>
-        </a>
-        <% }) %>
+        <div class="tags-container">
+          <% item.tags.forEach(tag => { %>
+          <a href="/tags/<%= tag.id %>">
+            <div class="tag"><%= tag.name %></div>
+          </a>
+          <% }) %>
+        </div>
         <% } else {%>
         <span class="empty-value-placeholder">-- --</span>
         <% }%>
