@@ -51,7 +51,7 @@ a {
 	text-overflow: ellipsis;
 	width: 100%;
 
-    color: #3a3d44;
+	color: #3a3d44;
 }
 
 .item-name {
@@ -277,7 +277,7 @@ th {
 }
 
 .low-stock-items .item-card .item-quantity {
-    color: orange;
+	color: orange;
 }
 
 .low-stock-items .item-card .item-name,
@@ -702,7 +702,6 @@ th {
 	border-right: 1px solid #eaeaea;
 }
 
-
 .item-description .update-date,
 .item-description .quantity,
 .item-description .price,
@@ -721,8 +720,8 @@ th {
 }
 
 .item-description .item-summary {
-    display: flex;
-    gap: 3em;
+	display: flex;
+	gap: 3em;
 }
 
 .item-description .item-details,
@@ -761,16 +760,15 @@ th {
 }
 
 .item-description .variants-section {
-    display: grid;
+	display: grid;
 	gap: 0.5em;
 }
 
-
 .item-description .variants-section .item-triple-dot-button {
 	transform: rotate(-90deg);
-    background-color: transparent;
+	background-color: transparent;
 
-    align-self: center;
+	align-self: center;
 }
 
 .item-description .tags-section .empty-value-placeholder {
@@ -789,5 +787,3 @@ th {
 	background-color: #ff4e4e;
 	color: white;
 }
-
-
