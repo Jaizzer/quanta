@@ -40,6 +40,7 @@
       <div class="item-details">
         <div class="update-date">
           <div class="title">Updated at:</div>
+          <div class="section-title">Updated at</div>
           <div class="value"><%= item.updatedAt %></div>
         </div>
         <div class="actions">
@@ -61,21 +62,21 @@
       <% if (item.variants.length === 0) {%>
       <div class="item-stats">
         <div class="quantity">
-          <div class="title">Quantity:</div>
+          <div class="section-title">Quantity</div>
           <div class="value"><%= `${ item.quantity !== null ?`${item.quantity} ${item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
           <a href="/items/edit-quantity/<%= item.id %>"><button type="button" class="edit-item-quantity-button">+/-</button></a>
         </div>
         <div class="min-level">
-          <div class="title">Min Level:</div>
+          <div class="section-title">Min Level</div>
           <div class="value"><%= `${ item.minLevel !== null ?`${item.minLevel} ${item.minLevel <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
         </div>
         <div class="price">
-          <div class="title">Price:</div>
+          <div class="section-title">Price</div>
           <div class="value"><%= `${item.price !== null ? `$${item.price}` : '--'}`  %></div>
         </div>
       </div>
       <div class="tags-section">
-        <div class="section-title">Tags:</div>
+        <div class="section-title">Tags</div>
         <% if (item.tags.length > 0) { %>
         <% item.tags.forEach(tag => { %>
         <a href="/tags/<%= tag.id %>">
