@@ -153,9 +153,7 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 			deleteButton.type = "button";
 			deleteButton.addEventListener("click", () => {
 				// Hide the utility box
-				utilityBoxBackgroundOverlay.parentElement.removeChild(
-					utilityBoxBackgroundOverlay,
-				);
+				utilityBoxBackgroundOverlay.hidden = true;
 
 				// Display warning message
 				const deleteWarningBackgroundOverlay =
@@ -187,7 +185,7 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 					);
 
 					// Show the utility box
-					document.body.appendChild(utilityBoxBackgroundOverlay);
+					utilityBoxBackgroundOverlay.hidden = false;
 				});
 				warningMessageContainer.appendChild(cancelButton);
 
