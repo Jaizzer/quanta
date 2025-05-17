@@ -73,6 +73,7 @@ a {
 .dashboard {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	align-content: start;
 	gap: 1em;
 
 	height: 100%;
@@ -494,6 +495,7 @@ th {
 	display: flex;
 	flex-direction: column;
 	gap: 0.55em;
+	align-content: start;
 
 	padding: 1em;
 	background-color: #dbdbdb;
