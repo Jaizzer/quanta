@@ -98,19 +98,19 @@ function createUtilityBox(itemID, itemName, parentItemName) {
 			const link = document.createElement("a");
 			switch (action) {
 				case "update-item-quantity":
-					link.href = `items/edit-quantity/${itemID}`;
+					link.href = `/items/edit-quantity/${itemID}`;
 					break;
 				case "edit-item":
-					link.href = `items/edit/${itemID}`;
+					link.href = `/items/edit/${itemID}`;
 					break;
 				case "view-item-activity-history":
-					link.href = `activity-history/${itemID}`;
+					link.href = `/activity-history/${itemID}`;
 					break;
 				case "view-item-transactions":
-					link.href = `transactions/item/${itemID}`;
+					link.href = `/transactions/item/${itemID}`;
 					break;
 				case "view-item-details":
-					link.href = `items/${itemID}`;
+					link.href = `/items/${itemID}`;
 					break;
 				default:
 					break;
