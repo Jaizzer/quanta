@@ -50,6 +50,8 @@ a {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 100%;
+
+    color: #3a3d44;
 }
 
 .item-name {
