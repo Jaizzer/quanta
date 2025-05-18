@@ -646,7 +646,8 @@ th {
 /* Item page */
 .item-description,
 .item-edit,
-.item-adding {
+.item-adding,
+.variant-adding {
 	height: 100%;
 
 	padding: 1em;
@@ -661,7 +662,8 @@ th {
 
 .item-description .item-container,
 .item-edit form,
-.item-adding form {
+.item-adding form,
+.variant-adding .variant-creation-container {
 	max-width: 500px;
 
 	background-color: white;
@@ -871,7 +873,8 @@ th {
 }
 
 .item-edit input,
-.item-adding input {
+.item-adding input,
+.variant-adding input {
 	border: 0px;
 	outline: none;
 }
@@ -881,7 +884,8 @@ th {
 .item-edit .section-title,
 .item-adding label,
 .item-adding .tag-field div,
-.item-adding .section-title {
+.item-adding .section-title,
+.variant-adding label {
 	font-size: 0.8em;
 	color: #838a9d;
 }
@@ -953,7 +957,10 @@ th {
 .item-edit .price-field,
 .item-edit .total-value,
 .item-adding .price-field,
-.item-adding .total-value {
+.item-adding .total-value,
+.variant-adding .price-field,
+.variant-adding .item-name-field,
+.variant-adding .quantity-field {
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: auto auto;
@@ -990,7 +997,11 @@ th {
 .item-adding .total-value,
 .item-adding .tag-field,
 .item-adding .note-field,
-.item-adding .variant-checkbox-container {
+.item-adding .variant-checkbox-container,
+.variant-adding .item-name-field,
+.variant-adding .price-field,
+.variant-adding .quantity-field,
+.variant-adding h2 {
 	padding: 10px;
 }
 
@@ -1008,7 +1019,10 @@ th {
 .item-adding .total-value,
 .item-adding .tag-field,
 .item-adding .note-field,
-.item-adding .variant-checkbox-container {
+.item-adding .variant-checkbox-container,
+.variant-adding .item-name-field,
+.variant-adding .price-field,
+.variant-adding .quantity-field {
 	border-bottom: 1px solid #dbdbdb;
 	row-gap: 0.25em;
 }
@@ -1027,7 +1041,11 @@ th {
 .item-adding .min-level-field,
 .item-adding .total-value,
 .item-adding .note-field,
-.item-adding .variant-checkbox-container {
+.item-adding .variant-checkbox-container,
+.item-adding .variant-checkbox-container,
+.variant-adding .item-name-field,
+.variant-adding .price-field,
+.variant-adding .quantity-field {
 	border-left: 1px solid #dbdbdb;
 }
 
@@ -1041,12 +1059,16 @@ th {
 .item-adding .total-value,
 .item-adding .tag-field,
 .item-adding .note-field,
-.item-adding .variant-checkbox-container {
+.item-adding .variant-checkbox-container,
+.item-adding .variant-checkbox-container,
+.variant-adding .item-name-field,
+.variant-adding .quantity-field {
 	border-right: 1px solid #dbdbdb;
 }
 
 .item-edit .item-name-field,
-.item-adding .item-name-field {
+.item-adding .item-name-field,
+.variant-adding .item-name-field {
 	border-top: 1px solid #dbdbdb;
 }
 
@@ -1098,7 +1120,8 @@ th {
 }
 
 .item-edit .error-message,
-.item-adding .error-message {
+.item-adding .error-message,
+.variant-adding .error-message {
 	grid-column: 1 / -1;
 	font-size: 0.5em;
 	color: red;
@@ -1120,4 +1143,58 @@ th {
 .variants-container div {
 	max-width: 120px;
 	width: auto;
+}
+
+/* Variant Adding Page */
+
+.variant-adding .variant-creation-container {
+	max-width: 500px;
+
+	background-color: white;
+	border-radius: 0.5em;
+	padding: 1.5em;
+
+	display: grid;
+	align-content: start;
+	gap: 1em;
+
+	overflow: auto;
+}
+
+.variant-adding button {
+	background-color: #eaeaea;
+	padding: 0.5em;
+	border: 0px;
+	border-radius: 0.5em;
+}
+
+.variant-adding .add-variant-button {
+	flex: 0;
+	justify-self: end;
+}
+
+.variant-adding .variant-input-section {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.variant-adding .item-name-field,
+.variant-adding .delete-variant-input-section-button {
+	grid-column: 1 / -1;
+}
+
+.variant-adding h2 {
+    grid-column: 1 / -1;
+	font-size: 1.25em;
+	border: 1px solid #dbdbdb;
+	border-bottom: 0px;
+}
+
+.variant-adding .delete-variant-input-section-button {
+	margin-top: 10px;
+}
+
+.variant-adding .delete-variant-input-section-button:hover {
+	background-color: #ff4e4e;
+	color: white;
 }
