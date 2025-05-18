@@ -531,7 +531,7 @@ th {
 
 .items .items-container {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
 	gap: 1em;
 }
 
@@ -540,8 +540,8 @@ th {
 	position: relative;
 
 	display: grid;
-	grid-template-columns: 90% 1fr;
-	grid-template-rows: 5em auto auto;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	grid-template-rows: 8em auto auto;
 	gap: 0.5em;
 
 	padding: 1em;
@@ -572,7 +572,7 @@ th {
 
 .item-card-text-content .low-stock-indicator {
 	position: absolute;
-	top: 6.6em;
+	top: 10.75em;
 
 	padding: 0.25em;
 	margin-left: 0.4em;
