@@ -110,7 +110,7 @@ function createAddVariantButtonSection() {
 				document.body,
 			);
 
-            // Create additional container for the entire variant adding page content
+			// Create additional container for the entire variant adding page content
 			const variantAddingContainer = document.createElement("div");
 			variantAddingContainer.classList.add("variant-adding");
 			document.body.appendChild(variantAddingContainer);
