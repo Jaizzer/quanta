@@ -52,7 +52,7 @@ function createItemHasVariantsCheckbox() {
 	checkBoxLabel.htmlFor = checkBox.id;
 	checkBox.checked = variantInputsData?.length !== 0 || false;
 	container.appendChild(checkBoxLabel);
-	container.appendChild(checkBox);
+	checkBoxLabel.appendChild(checkBox);
 
 	// Render the add variant button section if the checkbox is already checked
 	if (checkBox.checked) {
@@ -67,11 +67,11 @@ function createItemHasVariantsCheckbox() {
 
 		// Remove the add variant button section
 		if (isThereAlreadyAddVariantButtonSection) {
-			e.target.parentElement.removeChild(
+			e.target.parentElement.parentElement.removeChild(
 				isThereAlreadyAddVariantButtonSection,
 			);
 		} else {
-			e.target.parentElement.appendChild(createAddVariantButtonSection());
+			e.target.parentElement.parentElement.appendChild(createAddVariantButtonSection());
 		}
 	});
 
