@@ -71,7 +71,9 @@ function createItemHasVariantsCheckbox() {
 				isThereAlreadyAddVariantButtonSection,
 			);
 		} else {
-			e.target.parentElement.parentElement.appendChild(createAddVariantButtonSection());
+			e.target.parentElement.parentElement.appendChild(
+				createAddVariantButtonSection(),
+			);
 		}
 	});
 
