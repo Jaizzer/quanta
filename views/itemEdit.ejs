@@ -54,10 +54,17 @@
       </div>
       <div class="tag-field">
         <div>Tags</div>
-        <% tags.forEach(tag => { %>
-        <label><input type="checkbox" name="tags" value="<%= tag.id %>" class="tag-checkbox" <%= item.tags.find(itemTag => itemTag.id === tag.id)  ? 'checked': null%> /><%= tag.name %></label>
-        <% }) %>
-        <%- include('partials/formErrorMessage', {errorMessage: itemTagError}) %>
+        <% if(tags.length > 0) {%>
+        <div class="tags">
+          <% tags.forEach(tag => { %>
+          <label><input type="checkbox" name="tags" value="<%= tag.id %>" class="tag-checkbox" <%= item.tags.find(itemTag => itemTag.id === tag.id)  ? 'checked': null%> /><%= tag.name %></label>
+          <% }) %>
+          <%- include('partials/formErrorMessage', {errorMessage: itemTagError}) %>
+        </div>
+        <% } else {%>
+        <div class="empty-tag-placeholder">--</div>
+        <% } %>
+
       </div>
       <div class=" note-field">
         <label for="note">Note:</label>
