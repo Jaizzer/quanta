@@ -242,6 +242,7 @@ function createVariantInputSection(
 	const variantPriceInput = document.createElement("input");
 	variantPriceInput.name = label;
 	variantPriceInput.value = price;
+	variantPriceInput.max = "99999";
 	variantPriceInput.id = "price";
 	variantPriceInput.placeholder = "0";
 	variantPriceInput.min = 0;
@@ -249,8 +250,15 @@ function createVariantInputSection(
 	variantPriceInput.classList.add("variant-price-input");
 	variantPriceInput.addEventListener("input", (e) => {
 		if (!e.target.validity.valid) {
-			// Clear input if the value is invalid
-			e.target.value = "";
+			if (parseFloat(e.target.value) > 99999) {
+				e.target.value = e.target.value.substring(
+					0,
+					e.target.value.length - 1,
+				);
+			} else {
+				// Clear input if the value is invalid
+				e.target.value = "";
+			}
 		}
 	});
 	const variantPriceFieldLabel = document.createElement("label");
@@ -266,6 +274,7 @@ function createVariantInputSection(
 	variantQuantityInput.name = label;
 	variantQuantityInput.value = quantity;
 	variantQuantityInput.id = "quantity";
+	variantQuantityInput.max = "99999";
 	variantQuantityInput.placeholder = "0";
 	variantQuantityInput.min = 0;
 	variantQuantityInput.type = "number";
@@ -273,8 +282,15 @@ function createVariantInputSection(
 
 	variantQuantityInput.addEventListener("input", (e) => {
 		if (!e.target.validity.valid) {
-			// Clear input if the value is invalid
-			e.target.value = "";
+			if (parseFloat(e.target.value) > 99999) {
+				e.target.value = e.target.value.substring(
+					0,
+					e.target.value.length - 1,
+				);
+			} else {
+				// Clear input if the value is invalid
+				e.target.value = "";
+			}
 		}
 	});
 
