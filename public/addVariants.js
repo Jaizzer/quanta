@@ -90,12 +90,6 @@ function createAddVariantButtonSection() {
 	addVariantButton.type = "button";
 	addVariantButton.textContent = "+Add";
 	addVariantButton.addEventListener("click", () => {
-		// Clear the variant list if it exists inside the item creation form
-		removeVariantList();
-
-		// Remove the hidden variant input section inside the item creation form
-		removeVariantInputSections();
-
 		// Save the previous body before going to the variant creation container
 		itemCreationBody = document.body;
 
@@ -283,7 +277,10 @@ function createVariantAddingHeadingSection() {
 	arrowButton.textContent = "←";
 	arrowButton.classList.add("back-button");
 	arrowButton.addEventListener("click", () => {
-		document.replaceChild(itemCreationBody, document.body);
+		document.body.parentElement.replaceChild(
+			itemCreationBody,
+			document.body,
+		);
 	});
 	headingSection.appendChild(arrowButton);
 
@@ -310,6 +307,12 @@ function createVariantAddingHeadingSection() {
 		if (!isThereExistingVariantInputErrors) {
 			// Save the variant creation body
 			variantCreationBody = document.body;
+
+			// Clear the variant list if it exists inside the item creation form
+			removeVariantList(itemCreationBody);
+
+			// Remove the hidden variant input section inside the item creation form
+			removeVariantInputSections(itemCreationBody);
 
 			// Restore the previous page
 			document.body.parentElement.replaceChild(
@@ -442,14 +445,14 @@ function createVariantList(variantNames) {
 	return container;
 }
 
-function removeVariantList() {
-	const variantList = document.querySelector(".variants-container");
+function removeVariantList(element) {
+	const variantList = element.querySelector(".variants-container");
 	variantList?.parentElement.removeChild(variantList);
 }
 
-function removeVariantInputSections() {
+function removeVariantInputSections(element) {
 	const variantInputSections = Array.from(
-		document.querySelectorAll(".variant-input-section"),
+		element.querySelectorAll(".variant-input-section"),
 	);
 
 	variantInputSections.forEach((variantInputSection) => {
