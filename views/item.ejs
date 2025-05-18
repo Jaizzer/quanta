@@ -24,16 +24,16 @@
       <% if (item.variants.length !== 0) {%>
       <div class="item-summary">
         <div class="variant-count">
-          <div class="icon-container"></div>
+          <div class="icon-container">Items</div>
           <div class="value"><%= item.variants.length %></div>
         </div>
         <div class="total-quantity">
-          <div class="icon-container"></div>
+          <div class="icon-container">Qty</div>
           <div class="value"><%= item.totalQuantity %></div>
         </div>
         <div class="price-range">
-          <div class="icon-container"></div>
-          <div class="value"><%= `${item.maximumPrice === item.minimumPrice ? `$${item.maximumPrice}` : `$${item.minimumPrice} - ${item.maximumPrice}`}` %></div>
+          <div class="icon-container">Prices</div>
+          <div class="value"><%= `${item.maximumPrice === item.minimumPrice ? `$${item.maximumPrice}` : `$${item.minimumPrice} - $${item.maximumPrice}`}` %></div>
         </div>
       </div>
       <% }%>
