@@ -454,9 +454,12 @@ th {
 	text-align: start;
 }
 
-.utility-box-container a:hover,
-.utility-box-container .delete-item-button:hover {
+.utility-box-container a:hover {
 	background-color: #ededed;
+}
+
+.utility-box-container .delete-item-button:hover {
+	background-color: #ff4e4e;
 }
 
 .utility-box-container .item {
