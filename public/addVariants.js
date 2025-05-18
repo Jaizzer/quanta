@@ -145,7 +145,7 @@ function createAddVariantButtonSection() {
 				variantInputSection.querySelector(".variant-name-input").value,
 		);
 		addVariantContainer.appendChild(createVariantList(variantNames));
-	} else if (variantInputsData) {
+	} else if (variantInputsData.length !== 0) {
 		// Create variant list from the variant inputs data returned by the backend
 		const variantNames = variantInputsData.map(
 			(variantInputData) => variantInputData.name,
@@ -445,8 +445,8 @@ function triggerErrors() {
 }
 
 function removeAnErrorNextToAnElement(element) {
-	const nextElement = element.nextElementSibling;
-	if (nextElement.className === "error-message") {
+	const nextElement = element?.nextElementSibling;
+	if (nextElement?.className === "error-message") {
 		element.parentElement.removeChild(nextElement);
 	}
 }
