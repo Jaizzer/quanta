@@ -46,7 +46,8 @@ a {
 .item-name,
 .item-quantity,
 .variant-name,
-.warning-message span {
+.warning-message span,
+.value {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 100%;
