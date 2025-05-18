@@ -4,6 +4,9 @@ let itemCreationBody;
 // Variable to store the body element of the variant creation page
 let variantCreationBody;
 
+// Access the navbar
+const nav = document.querySelector("nav");
+
 // Access the variants data that is returned from the backend if they exist
 const variantInputsDataString = document.querySelector(".variant-inputs-data")
 	?.dataset?.variantInputsData;
@@ -118,6 +121,9 @@ function createAddVariantButtonSection() {
 			variantAddingContainer.appendChild(
 				createVariantCreationContainer(variantInputsData),
 			);
+
+			// Add the nav
+			variantAddingContainer.appendChild(nav);
 		} else {
 			// Just load the previously save variantCreationBody if it exists
 			document.body.parentElement.replaceChild(
