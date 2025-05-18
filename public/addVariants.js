@@ -75,6 +75,12 @@ function createItemHasVariantsCheckbox() {
 				createAddVariantButtonSection(),
 			);
 		}
+
+		// Remove the existing variants container section
+		const variantsContainer = document.querySelector(".variants-container");
+		if (variantsContainer) {
+			e.target.parentElement.parentElement.removeChild(variantsContainer);
+		}
 	});
 
 	return container;
