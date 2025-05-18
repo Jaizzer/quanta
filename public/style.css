@@ -645,7 +645,8 @@ th {
 
 /* Item page */
 .item-description,
-.item-edit {
+.item-edit,
+.item-adding {
 	height: 100%;
 
 	padding: 1em;
@@ -659,7 +660,8 @@ th {
 }
 
 .item-description .item-container,
-.item-edit form {
+.item-edit form,
+.item-adding form {
 	max-width: 500px;
 
 	background-color: white;
@@ -818,12 +820,20 @@ th {
 	gap: 0.5em;
 }
 
-.item-description .tags-container {
+.item-description .tags-container,
+.item-adding .variants-container {
+	max-height: 150px;
+
 	display: flex;
+	flex-flow: row wrap;
+	align-items: start;
+	flex-wrap: wrap;
 	gap: 0.5em;
+	overflow: auto;
 }
 
-.item-description .tags-container a {
+.item-description .tags-container a,
+.item-adding .variants-container div {
 	padding-bottom: 0.5em;
 	padding-top: 0.5em;
 	padding-right: 1.25em;
@@ -835,7 +845,8 @@ th {
 }
 
 /* Edit Item page */
-.item-edit form {
+.item-edit form,
+.item-adding form {
 	max-width: 500px;
 
 	background-color: white;
@@ -847,47 +858,59 @@ th {
 	align-content: start;
 }
 
-.item-edit button {
+.item-edit button,
+.item-adding button {
 	background-color: #eaeaea;
 	padding: 0.5em;
 	border: 0px;
 	border-radius: 0.5em;
 }
 
-.item-edit input {
+.item-edit input,
+.item-adding input {
 	border: 0px;
 	outline: none;
 }
 
 .item-edit label,
 .item-edit .tag-field div,
-.item-edit .section-title {
+.item-edit .section-title,
+.item-adding label,
+.item-adding .tag-field div,
+.item-adding .section-title {
 	font-size: 0.8em;
 	color: #838a9d;
 }
 
-.item-edit .item-name-field {
+.item-edit .item-name-field,
+.item-adding .item-name-field {
 	grid-row: 1 / 2;
 	grid-column: 1 / 3;
 }
 
-.item-edit .item-name-field input {
+.item-edit .item-name-field input,
+.item-adding .item-name-field input {
 	width: 100%;
 
 	font-size: 2em;
 }
 
-.item-edit .total-value {
+.item-edit .total-value,
+.item-adding .total-value {
 	width: 100%;
 }
 
 .item-edit input,
-.item-edit .value {
+.item-edit .value,
+.item-adding input,
+.item-adding .value {
 	font-size: clamp(0.8em, 2.5vw, 1em);
 }
 
 .item-edit .quantity-field,
-.item-edit .min-level-field {
+.item-edit .min-level-field,
+.item-adding .quantity-field,
+.item-adding .min-level-field {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto auto;
 	align-content: start;
@@ -897,12 +920,14 @@ th {
 	align-items: center;
 }
 
-.item-edit .quantity-field label {
+.item-edit .quantity-field label,
+.item-adding .quantity-field label {
 	grid-column: 1 / 4;
 	grid-row: 1 / 2;
 }
 
-.item-edit .quantity-field select {
+.item-edit .quantity-field select,
+.item-adding .quantity-field select {
 	appearance: none;
 	border: 0px;
 	outline: none;
@@ -910,16 +935,21 @@ th {
 }
 
 .item-edit .quantity-field input,
-.item-edit .min-level-field input {
+.item-edit .min-level-field input,
+.item-adding .quantity-field input,
+.item-adding .min-level-field input {
 	border-right: 1px solid #dbdbdb;
 }
 
-.item-edit .tag-field {
+.item-edit .tag-field,
+.item-adding .tag-field {
 	grid-column: 1 / 3;
 }
 
 .item-edit .price-field,
-.item-edit .total-value {
+.item-edit .total-value,
+.item-adding .price-field,
+.item-adding .total-value {
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: auto auto;
@@ -927,15 +957,18 @@ th {
 	align-items: center;
 }
 
-.item-edit .min-level-field label:nth-child(1) {
+.item-edit .min-level-field label:nth-child(1),
+.item-adding .min-level-field label:nth-child(1) {
 	grid-column: 1 / 4;
 }
 
-.item-edit #min-level {
+.item-edit #min-level,
+.item-adding #min-level {
 	grid-column: 1 / 2;
 }
 
-.item-edit #notify {
+.item-edit #notify,
+.item-adding #notify {
 	max-height: 20px;
 }
 
@@ -945,7 +978,15 @@ th {
 .item-edit .price-field,
 .item-edit .total-value,
 .item-edit .tag-field,
-.item-edit .note-field {
+.item-edit .note-field,
+.item-adding .item-name-field,
+.item-adding .quantity-field,
+.item-adding .min-level-field,
+.item-adding .price-field,
+.item-adding .total-value,
+.item-adding .tag-field,
+.item-adding .note-field,
+.item-adding .variant-checkbox-container {
 	padding: 10px;
 }
 
@@ -955,7 +996,15 @@ th {
 .item-edit .price-field,
 .item-edit .total-value,
 .item-edit .tag-field,
-.item-edit .note-field {
+.item-edit .note-field,
+.item-adding .item-name-field,
+.item-adding .quantity-field,
+.item-adding .min-level-field,
+.item-adding .price-field,
+.item-adding .total-value,
+.item-adding .tag-field,
+.item-adding .note-field,
+.item-adding .variant-checkbox-container {
 	border-bottom: 1px solid #dbdbdb;
 	row-gap: 0.25em;
 }
@@ -966,7 +1015,15 @@ th {
 .item-edit .tag-field,
 .item-edit .min-level-field,
 .item-edit .total-value,
-.item-edit .note-field {
+.item-edit .note-field,
+.item-adding .item-name-field,
+.item-adding .quantity-field,
+.item-adding .price-field,
+.item-adding .tag-field,
+.item-adding .min-level-field,
+.item-adding .total-value,
+.item-adding .note-field,
+.item-adding .variant-checkbox-container {
 	border-left: 1px solid #dbdbdb;
 }
 
@@ -974,22 +1031,31 @@ th {
 .item-edit .item-name-field,
 .item-edit .total-value,
 .item-edit .tag-field,
-.item-edit .note-field {
+.item-edit .note-field,
+.item-adding .min-level-field,
+.item-adding .item-name-field,
+.item-adding .total-value,
+.item-adding .tag-field,
+.item-adding .note-field,
+.item-adding .variant-checkbox-container {
 	border-right: 1px solid #dbdbdb;
 }
 
-.item-edit .item-name-field {
+.item-edit .item-name-field,
+.item-adding .item-name-field {
 	border-top: 1px solid #dbdbdb;
 }
 
-.item-edit .tag-field {
+.item-edit .tag-field,
+.item-adding .tag-field {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
 	gap: 0.5em;
 }
 
-.item-edit .tag-field .tags {
+.item-edit .tag-field .tags,
+.item-adding .tag-field .tags {
 	max-height: 100px;
 
 	display: flex;
@@ -999,32 +1065,54 @@ th {
 	overflow: auto;
 }
 
-.item-edit .tag-field label {
+.item-edit .tag-field label,
+.item-adding .tag-field label {
 	display: flex;
 	align-items: center;
 	gap: 0.5em;
 }
 
-.item-edit .tag-field label {
+.item-edit .tag-field label,
+.item-adding .tag-field label {
 	font-size: 1em;
 	color: #3a3d44;
 }
 
-.item-edit .note-field {
+.item-edit .note-field,
+.item-adding .note-field {
 	grid-column: 1 / 3;
 
 	display: flex;
 	flex-direction: column;
 }
 
-.item-edit .note-field textarea {
+.item-edit .note-field textarea,
+.item-adding .note-field textarea {
 	resize: none;
 	height: 200px;
 	padding: 1.25em;
 }
 
-.item-edit .error-message {
+.item-edit .error-message,
+.item-adding .error-message {
 	grid-column: 1 / -1;
 	font-size: 0.5em;
 	color: red;
+}
+
+.variant-checkbox-container {
+	grid-column: 1 / -1;
+	height: 8em;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.variant-checkbox-container label {
+	display: flex;
+	gap: 0.25em;
+}
+
+.variants-container div {
+	max-width: 100px;
 }
