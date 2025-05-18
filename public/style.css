@@ -545,7 +545,7 @@ th {
 	position: relative;
 
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	grid-template-columns: minmax(0, 1fr) auto;
 	grid-template-rows: 8em auto auto;
 	gap: 0.5em;
 
