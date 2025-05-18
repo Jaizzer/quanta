@@ -792,7 +792,7 @@ th {
 }
 
 .item-description .variant-name-section {
-    display: grid;
+	display: grid;
 }
 
 .item-description .variants-section .item-triple-dot-button {
