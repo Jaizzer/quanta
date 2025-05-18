@@ -647,7 +647,8 @@ th {
 .item-description,
 .item-edit,
 .item-adding,
-.variant-adding {
+.variant-adding,
+.new-variant-adding {
 	height: 100%;
 
 	padding: 1em;
@@ -852,7 +853,8 @@ th {
 
 /* Edit Item page */
 .item-edit form,
-.item-adding form {
+.item-adding form,
+.new-variant-adding form {
 	max-width: 500px;
 
 	background-color: white;
@@ -865,7 +867,8 @@ th {
 }
 
 .item-edit button,
-.item-adding button {
+.item-adding button,
+.new-variant-adding button {
 	background-color: #eaeaea;
 	padding: 0.5em;
 	border: 0px;
@@ -874,7 +877,8 @@ th {
 
 .item-edit input,
 .item-adding input,
-.variant-adding input {
+.variant-adding input,
+.new-variant-adding input {
 	border: 0px;
 	outline: none;
 }
@@ -885,33 +889,41 @@ th {
 .item-adding label,
 .item-adding .tag-field div,
 .item-adding .section-title,
-.variant-adding label {
+.variant-adding label,
+.new-variant-adding label,
+.new-variant-adding .tag-field div,
+.new-variant-adding .section-title {
 	font-size: 0.8em;
 	color: #838a9d;
 }
 
 .item-edit .item-name-field,
-.item-adding .item-name-field {
+.item-adding .item-name-field,
+.new-variant-adding .item-name-field {
 	grid-row: 1 / 2;
 	grid-column: 1 / 3;
 }
 
 .item-edit .item-name-field input,
-.item-adding .item-name-field input {
+.item-adding .item-name-field input,
+.new-variant-adding .item-name-field input {
 	width: 100%;
 
 	font-size: 2em;
 }
 
 .item-edit .total-value,
-.item-adding .total-value {
+.item-adding .total-value,
+.new-variant-adding .total-value {
 	width: 100%;
 }
 
 .item-edit input,
 .item-edit .value,
 .item-adding input,
-.item-adding .value {
+.item-adding .value,
+.new-variant-adding input,
+.new-variant-adding .value {
 	font-size: clamp(0.8em, 2.5vw, 1em);
 }
 
@@ -928,14 +940,26 @@ th {
 	align-items: center;
 }
 
+.new-variant-adding .quantity-field,
+.new-variant-adding .min-level-field {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto auto;
+	align-content: start;
+	justify-content: start;
+	column-gap: 0.5em;
+	align-items: center;
+}
+
 .item-edit .quantity-field label,
-.item-adding .quantity-field label {
+.item-adding .quantity-field label,
+.new-variant-adding .quantity-field label {
 	grid-column: 1 / 4;
 	grid-row: 1 / 2;
 }
 
 .item-edit .quantity-field select,
-.item-adding .quantity-field select {
+.item-adding .quantity-field select,
+.new-variant-adding .quantity-field select {
 	appearance: none;
 	border: 0px;
 	outline: none;
@@ -945,12 +969,15 @@ th {
 .item-edit .quantity-field input,
 .item-edit .min-level-field input,
 .item-adding .quantity-field input,
-.item-adding .min-level-field input {
+.item-adding .min-level-field input,
+.new-variant-adding .quantity-field input,
+.new-variant-adding .min-level-field input {
 	border-right: 1px solid #dbdbdb;
 }
 
 .item-edit .tag-field,
-.item-adding .tag-field {
+.item-adding .tag-field,
+.new-variant-adding .tag-field {
 	grid-column: 1 / 3;
 }
 
@@ -960,7 +987,10 @@ th {
 .item-adding .total-value,
 .variant-adding .price-field,
 .variant-adding .item-name-field,
-.variant-adding .quantity-field {
+.variant-adding .quantity-field,
+.new-variant-adding .price-field,
+.new-variant-adding .item-name-field,
+.new-variant-adding .quantity-field {
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: auto auto;
@@ -969,17 +999,20 @@ th {
 }
 
 .item-edit .min-level-field label:nth-child(1),
-.item-adding .min-level-field label:nth-child(1) {
+.item-adding .min-level-field label:nth-child(1),
+.new-variant-adding .min-level-field label:nth-child(1) {
 	grid-column: 1 / 4;
 }
 
 .item-edit #min-level,
-.item-adding #min-level {
+.item-adding #min-level,
+.new-variant-adding #min-level {
 	grid-column: 1 / 2;
 }
 
 .item-edit #notify,
-.item-adding #notify {
+.item-adding #notify,
+.new-variant-adding #notify {
 	max-height: 20px;
 }
 
@@ -1001,7 +1034,15 @@ th {
 .variant-adding .item-name-field,
 .variant-adding .price-field,
 .variant-adding .quantity-field,
-.variant-adding h2 {
+.variant-adding h2,
+.new-variant-adding .item-name-field,
+.new-variant-adding .price-field,
+.new-variant-adding .quantity-field,
+.new-variant-adding .tag-field,
+.new-variant-adding .min-level-field,
+.new-variant-adding .note-field,
+.new-variant-adding .total-value,
+.new-variant-adding .parent-name-field {
 	padding: 10px;
 }
 
@@ -1022,7 +1063,13 @@ th {
 .item-adding .variant-checkbox-container,
 .variant-adding .item-name-field,
 .variant-adding .price-field,
-.variant-adding .quantity-field {
+.variant-adding .quantity-field,
+.new-variant-adding .item-name-field,
+.new-variant-adding .price-field,
+.new-variant-adding .quantity-field,
+.new-variant-adding .min-level-field,
+.new-variant-adding .note-field,
+.new-variant-adding .total-value {
 	border-bottom: 1px solid #dbdbdb;
 	row-gap: 0.25em;
 }
@@ -1045,7 +1092,13 @@ th {
 .item-adding .variant-checkbox-container,
 .variant-adding .item-name-field,
 .variant-adding .price-field,
-.variant-adding .quantity-field {
+.variant-adding .quantity-field,
+.new-variant-adding .item-name-field,
+.new-variant-adding .price-field,
+.new-variant-adding .quantity-field,
+.new-variant-adding .tag-field,
+.new-variant-adding .note-field,
+.new-variant-adding .parent-name-field {
 	border-left: 1px solid #dbdbdb;
 }
 
@@ -1062,18 +1115,30 @@ th {
 .item-adding .variant-checkbox-container,
 .item-adding .variant-checkbox-container,
 .variant-adding .item-name-field,
-.variant-adding .quantity-field {
+.new-variant-adding .item-name-field,
+.new-variant-adding .price-field,
+.new-variant-adding .quantity-field,
+.new-variant-adding .min-level-field,
+.new-variant-adding .tag-field,
+.new-variant-adding .note-field,
+.new-variant-adding .total-value,
+.new-variant-adding .parent-name-field {
 	border-right: 1px solid #dbdbdb;
 }
 
 .item-edit .item-name-field,
 .item-adding .item-name-field,
-.variant-adding .item-name-field {
+.variant-adding .item-name-field,
+.new-variant-adding .item-name-field,
+.new-variant-adding .quantity-field,
+.new-variant-adding .min-level-field,
+.new-variant-adding .note-field {
 	border-top: 1px solid #dbdbdb;
 }
 
 .item-edit .tag-field,
-.item-adding .tag-field {
+.item-adding .tag-field,
+.new-variant-adding .tag-field {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -1081,7 +1146,8 @@ th {
 }
 
 .item-edit .tag-field .tags,
-.item-adding .tag-field .tags {
+.item-adding .tag-field .tags,
+.new-variant-adding .tag-field .tags {
 	max-height: 100px;
 
 	display: flex;
@@ -1092,20 +1158,23 @@ th {
 }
 
 .item-edit .tag-field label,
-.item-adding .tag-field label {
+.item-adding .tag-field label,
+.new-variant-adding .tag-field label {
 	display: flex;
 	align-items: center;
 	gap: 0.5em;
 }
 
 .item-edit .tag-field label,
-.item-adding .tag-field label {
+.item-adding .tag-field label,
+.new-variant-adding .tag-field label {
 	font-size: 1em;
 	color: #3a3d44;
 }
 
 .item-edit .note-field,
-.item-adding .note-field {
+.item-adding .note-field,
+.new-variant-adding .note-field {
 	grid-column: 1 / 3;
 
 	display: flex;
@@ -1113,7 +1182,8 @@ th {
 }
 
 .item-edit .note-field textarea,
-.item-adding .note-field textarea {
+.item-adding .note-field textarea,
+.new-variant-adding .note-field textarea {
 	resize: none;
 	height: 200px;
 	padding: 1.25em;
@@ -1121,7 +1191,8 @@ th {
 
 .item-edit .error-message,
 .item-adding .error-message,
-.variant-adding .error-message {
+.variant-adding .error-message,
+.new-variant-adding .error-message {
 	grid-column: 1 / -1;
 	font-size: 0.5em;
 	color: red;
@@ -1146,7 +1217,6 @@ th {
 }
 
 /* Variant Adding Page */
-
 .variant-adding .variant-creation-container {
 	max-width: 500px;
 
@@ -1184,7 +1254,7 @@ th {
 }
 
 .variant-adding h2 {
-    grid-column: 1 / -1;
+	grid-column: 1 / -1;
 	font-size: 1.25em;
 	border: 1px solid #dbdbdb;
 	border-bottom: 0px;
@@ -1197,4 +1267,8 @@ th {
 .variant-adding .delete-variant-input-section-button:hover {
 	background-color: #ff4e4e;
 	color: white;
+}
+
+.new-variant-adding .parent-name-field {
+	grid-column: 1 / -1;
 }
