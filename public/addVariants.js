@@ -118,12 +118,6 @@ function createAddVariantButtonSection() {
 	});
 	addVariantContainer.appendChild(addVariantButton);
 
-	// Create the add variant button label
-	const addVariantLabel = document.createElement("div");
-	addVariantLabel.textContent = "Variants and Options";
-	addVariantLabel.classList.add("add-variant-label");
-	addVariantContainer.appendChild(addVariantLabel);
-
 	// Create variant list if there are existing variants
 	if (variantCreationBody) {
 		const variantInputSections = Array.from(
