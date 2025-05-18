@@ -41,6 +41,7 @@
         <input type="number" name="minLevel" id="min-level" value="<%= item.minLevel %>">
         <input type="checkbox" name="notify" id="notify" <%= item.notify ? 'checked': null %>>
         <label for=" notify">Notify Me</label>
+        <%- include('partials/formErrorMessage', {errorMessage: itemMinLevelError}) %>
       </div>
       <div class="price-field">
         <label for="price">Price</label>
