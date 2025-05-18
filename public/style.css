@@ -791,6 +791,10 @@ th {
 	gap: 0.5em;
 }
 
+.item-description .variant-name-section {
+    display: grid;
+}
+
 .item-description .variants-section .item-triple-dot-button {
 	transform: rotate(-90deg);
 	background-color: transparent;
