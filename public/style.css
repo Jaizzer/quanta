@@ -1118,5 +1118,6 @@ th {
 }
 
 .variants-container div {
-	max-width: 100px;
+	max-width: 120px;
+	width: auto;
 }
