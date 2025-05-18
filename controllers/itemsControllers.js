@@ -389,18 +389,18 @@ const validateAddItemForm = [
 
 	body("quantity")
 		.optional({ values: "falsy" })
-		.isFloat({ min: 0 })
-		.withMessage("Item quantity must be at least 0"),
+		.isFloat({ min: 0, max: 99999999 })
+		.withMessage("Quantity must be between 0 to 99999999"),
 
 	body("minLevel")
 		.optional({ values: "falsy" })
-		.isFloat({ min: 0 })
-		.withMessage("Item minimum level must be at least 0"),
+		.isFloat({ min: 0, max: 99999999 })
+		.withMessage("Minimum level must be between 0 to 99999999"),
 
 	body("price")
 		.optional({ values: "falsy" })
-		.isFloat({ min: 0 })
-		.withMessage("Item price must be at least 0"),
+		.isFloat({ min: 0, max: 99999999.99 })
+		.withMessage("Price must be between 0 to 99999999.99"),
 
 	body("tags").custom((value, { req }) => {
 		if (value) {
