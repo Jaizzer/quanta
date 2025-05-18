@@ -321,12 +321,6 @@ th {
 	border-radius: 0.25em;
 }
 
-.add-item-button {
-	position: absolute;
-	bottom: 3.5em;
-	right: 1em;
-}
-
 .add-option-container-background {
 	position: absolute;
 	top: 0px;
@@ -355,13 +349,17 @@ th {
 
 	position: relative;
 
-	background-color: rgb(98, 96, 96);
+	background-color: white;
 }
 
 .add-option {
-	padding: 0.5em;
+	padding: 1em;
 	border-radius: 0.5em;
 	border: 0px;
+}
+
+.add-option:hover {
+	background-color: #bdbdbd;
 }
 
 .close-add-option-container-button {
@@ -374,6 +372,10 @@ th {
 
 	border-radius: 50%;
 	border: 0px;
+}
+.close-add-option-container-button:hover {
+	background-color: #ff4e4e;
+	color: white;
 }
 
 .notification-card {
@@ -568,6 +570,21 @@ th {
 .items .item-card-text-content {
 	grid-column: 1 / 2;
 	grid-row: 2 / 3;
+}
+
+.items .add-item-button {
+	position: absolute;
+	bottom: 5em;
+	right: 1em;
+	background-color: #eaeaea;
+	border: 0px;
+	padding: 0.5em;
+	border-radius: 0.25em;
+}
+
+.items .add-item-button:hover {
+	background-color: #6fe36f;
+	color: white;
 }
 
 .item-card-text-content .low-stock-indicator {
