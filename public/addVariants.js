@@ -339,7 +339,7 @@ function createVariantAddingHeadingSection() {
 
 			// Append the variant list to the variant checkbox container
 			const variantCheckboxContainer = document.querySelector(
-				".add-variant-button-container",
+				".variant-checkbox-container",
 			);
 			variantCheckboxContainer.appendChild(
 				createVariantList(variantNames),
