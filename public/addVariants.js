@@ -106,8 +106,16 @@ function createAddVariantButtonSection() {
 				document.createElement("body"),
 				document.body,
 			);
-			document.body.appendChild(createVariantAddingHeadingSection());
-			document.body.appendChild(
+
+            // Create additional container for the entire variant adding page content
+			const variantAddingContainer = document.createElement("div");
+			variantAddingContainer.classList.add("variant-adding");
+			document.body.appendChild(variantAddingContainer);
+
+			variantAddingContainer.appendChild(
+				createVariantAddingHeadingSection(),
+			);
+			variantAddingContainer.appendChild(
 				createVariantCreationContainer(variantInputsData),
 			);
 		} else {
