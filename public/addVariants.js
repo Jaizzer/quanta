@@ -215,8 +215,77 @@ function createVariantInputSection(
 	variantInputSectionLabel.textContent = label;
 	mainContainer.appendChild(variantInputSectionLabel);
 
+	const variantNameField = document.createElement("div");
+	variantNameField.classList.add("item-name-field");
+	mainContainer.appendChild(variantNameField);
+	const variantNameInput = document.createElement("input");
+	variantNameInput.name = label;
+	variantNameInput.value = name;
+	variantNameInput.id = "item-name";
+	variantNameInput.classList.add("variant-name-input");
+	variantNameInput.placeholder = "Name";
+	variantNameInput.addEventListener("focus", () => {
+		removeAnErrorNextToAnElement(variantNameInput);
+	});
+	variantNameInput.addEventListener("focusout", () => {
+		triggerErrors();
+	});
+	const variantNameFieldLabel = document.createElement("label");
+	variantNameFieldLabel.textContent = "Name";
+	variantNameFieldLabel.htmlFor = "item-name";
+	variantNameField.appendChild(variantNameFieldLabel);
+	variantNameField.appendChild(variantNameInput);
+
+	const variantPriceField = document.createElement("div");
+	variantPriceField.classList.add("price-field");
+	mainContainer.appendChild(variantPriceField);
+	const variantPriceInput = document.createElement("input");
+	variantPriceInput.name = label;
+	variantPriceInput.value = price;
+	variantPriceInput.id = "price";
+	variantPriceInput.placeholder = "0";
+	variantPriceInput.min = 0;
+	variantPriceInput.type = "number";
+	variantPriceInput.classList.add("variant-price-input");
+	variantPriceInput.addEventListener("input", (e) => {
+		if (!e.target.validity.valid) {
+			// Clear input if the value is invalid
+			e.target.value = "";
+		}
+	});
+	const variantPriceFieldLabel = document.createElement("label");
+	variantPriceFieldLabel.textContent = "Price";
+	variantPriceFieldLabel.htmlFor = "price";
+	variantPriceField.appendChild(variantPriceFieldLabel);
+	variantPriceField.appendChild(variantPriceInput);
+
+	const variantQuantityField = document.createElement("div");
+	variantQuantityField.classList.add("quantity-field");
+	mainContainer.appendChild(variantQuantityField);
+	const variantQuantityInput = document.createElement("input");
+	variantQuantityInput.name = label;
+	variantQuantityInput.value = quantity;
+	variantQuantityInput.id = "quantity";
+	variantQuantityInput.placeholder = "0";
+	variantQuantityInput.min = 0;
+	variantQuantityInput.type = "number";
+	variantQuantityInput.classList.add("variant-price-input");
+
+	variantQuantityInput.addEventListener("input", (e) => {
+		if (!e.target.validity.valid) {
+			// Clear input if the value is invalid
+			e.target.value = "";
+		}
+	});
+
+	const variantQuantityFieldLabel = document.createElement("label");
+	variantQuantityFieldLabel.textContent = "Quantity";
+	variantQuantityField.htmlFor = "quantity";
+	variantQuantityField.appendChild(variantQuantityFieldLabel);
+	variantQuantityField.appendChild(variantQuantityInput);
+
 	const deleteVariantInputSectionButton = document.createElement("button");
-	deleteVariantInputSectionButton.textContent = "🗑️";
+	deleteVariantInputSectionButton.textContent = "Delete Variant";
 	deleteVariantInputSectionButton.type = "button";
 	deleteVariantInputSectionButton.classList.add(
 		"delete-variant-input-section-button",
@@ -239,51 +308,6 @@ function createVariantInputSection(
 		}
 	});
 	mainContainer.appendChild(deleteVariantInputSectionButton);
-
-	const variantNameInput = document.createElement("input");
-	variantNameInput.name = label;
-	variantNameInput.value = name;
-	variantNameInput.classList.add("variant-name-input");
-	variantNameInput.placeholder = "Name";
-	variantNameInput.addEventListener("focus", () => {
-		removeAnErrorNextToAnElement(variantNameInput);
-	});
-	variantNameInput.addEventListener("focusout", () => {
-		triggerErrors();
-	});
-
-	mainContainer.appendChild(variantNameInput);
-
-	const variantPriceInput = document.createElement("input");
-	variantPriceInput.name = label;
-	variantPriceInput.value = price;
-	variantPriceInput.placeholder = "Price";
-	variantPriceInput.min = 0;
-	variantPriceInput.type = "number";
-	variantPriceInput.classList.add("variant-price-input");
-	variantPriceInput.addEventListener("input", (e) => {
-		if (!e.target.validity.valid) {
-			// Clear input if the value is invalid
-			e.target.value = "";
-		}
-	});
-	mainContainer.appendChild(variantPriceInput);
-
-	const variantQuantityInput = document.createElement("input");
-	variantQuantityInput.name = label;
-	variantQuantityInput.value = quantity;
-	variantQuantityInput.placeholder = "Quantity";
-	variantQuantityInput.min = 0;
-	variantQuantityInput.type = "number";
-	variantQuantityInput.classList.add("variant-price-input");
-
-	variantQuantityInput.addEventListener("input", (e) => {
-		if (!e.target.validity.valid) {
-			// Clear input if the value is invalid
-			e.target.value = "";
-		}
-	});
-	mainContainer.appendChild(variantQuantityInput);
 
 	return mainContainer;
 }
