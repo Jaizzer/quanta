@@ -18,9 +18,7 @@
     <div class="item-card">
       <div class="image-container"></div>
       <div class="item-name"><%= item.name %></div>
-      <% if (item.quantity) {%>
       <div class="item-quantity"><%= `${ item.quantity !== null ?`${item.quantity} ${item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
-      <% }%>
     </div>
     <form action="/items/edit-quantity/<%= item.id %>" method="POST">
       <div class="item-quantity-editing-section">
