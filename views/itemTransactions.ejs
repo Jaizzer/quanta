@@ -15,16 +15,17 @@
         ←
       </button>
       <div class="item-name">
-          <% if (item.parent) {%>
-          <h1><%= item.parent.name %></h1>
-          <p><%= item.name %></p>
-          <% } else {%>
-          <h1><%= item.name %></h1>
-          <%  }%>
+        <% if (item.parent) {%>
+        <h1><%= item.parent.name %></h1>
+        <p><%= item.name %></p>
+        <% } else {%>
+        <h1><%= item.name %></h1>
+        <%  }%>
       </div>
     </div>
+    <% if (transactions.length > 0) {%>
     <div class="transactions-container">
-      <% if (transactions.length > 0) {%>
+
       <% transactions.forEach(transaction => { %>
       <a class="transaction-card" href="/transactions/<%= transaction.transactionID %>">
         <div class="transaction-header">
@@ -38,10 +39,10 @@
         </div>
       </a>
       <% });%>
-      <% } else {%>
-      <p>There are currently no transactions for this item.</p>
-      <% } %>
     </div>
+    <% } else {%>
+    <p>There are currently no transactions for this item.</p>
+    <% } %>
     <%- include('partials/nav') %>
   </div>
 
