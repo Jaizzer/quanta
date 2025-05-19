@@ -2,7 +2,7 @@ const addTagButton = document.querySelector(".add-tag-button");
 addTagButton?.addEventListener("click", () => {
 	const backgroundOverlay = document.createElement("div");
 	backgroundOverlay.classList.add("background-overlay");
-	document.body.appendChild(backgroundOverlay);
+	document.body.prepend(backgroundOverlay);
 
 	const form = document.createElement("form");
 	form.method = "POST";
