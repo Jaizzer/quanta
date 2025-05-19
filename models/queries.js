@@ -1064,7 +1064,7 @@ async function getAllTransactions() {
 				parseFloat(row.quantity_change) > 0
 					? `+${parseFloat(row.quantity_change)}`
 					: parseFloat(row.quantity_change),
-			dateUpdated: `${new Date(row.date_updated).toLocaleTimeString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`,
+			dateUpdated: `${new Date(row.date_updated).toLocaleDateString([], { year: "numeric", month: "short", day: "numeric" })}`,
 		}));
 	} catch (error) {
 		console.error("Error retrieving the transactions. ", error);
@@ -1110,7 +1110,7 @@ async function getItemSpecificTransactions(itemID) {
 				parseFloat(row.quantity_change) > 0
 					? `+${parseFloat(row.quantity_change)}`
 					: parseFloat(row.quantity_change),
-			dateUpdated: `${new Date(row.date_updated).toLocaleTimeString([], { year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}`,
+			dateUpdated: `${new Date(row.date_updated).toLocaleDateString([], { year: "numeric", month: "short", day: "numeric" })}`,
 		}));
 	} catch (error) {
 		console.error("Error retrieving the transactions. ", error);
