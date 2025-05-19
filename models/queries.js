@@ -1035,6 +1035,7 @@ async function getAllTransactions() {
                     id AS transaction_id,
                     item_id,
                     reason,
+                    activity_type,
                     name_before_update AS item_name_before_update,
                     previous_quantity,
                     updated_quantity,
@@ -1058,6 +1059,7 @@ async function getAllTransactions() {
 			itemID: row.item_id,
 			itemName: row.item_name_before_update,
 			reason: row.reason,
+			type: row.activity_type,
 			quantityChange:
 				parseFloat(row.quantity_change) > 0
 					? `+${parseFloat(row.quantity_change)}`
@@ -1077,6 +1079,7 @@ async function getItemSpecificTransactions(itemID) {
                     id AS transaction_id,
                     item_id,
                     reason,
+                    activity_type,
                     name_before_update AS item_name_before_update,
                     previous_quantity,
                     updated_quantity,
@@ -1101,6 +1104,7 @@ async function getItemSpecificTransactions(itemID) {
 			transactionID: row.transaction_id,
 			itemID: row.item_id,
 			itemName: row.item_name_before_update,
+			type: row.activity_type,
 			reason: row.reason,
 			quantityChange:
 				parseFloat(row.quantity_change) > 0
@@ -1122,6 +1126,7 @@ async function getTransactionByID(id) {
                     id AS transaction_id,
                     item_id,
                     reason,
+                    activity_type,
                     name_before_update AS item_name_before_update,
                     previous_quantity,
                     updated_quantity,
@@ -1146,6 +1151,7 @@ async function getTransactionByID(id) {
 			itemID: rows[0].item_id,
 			itemName: rows[0].item_name_before_update,
 			reason: rows[0].reason,
+			type: rows[0].activity_type,
 			quantityChange:
 				parseFloat(rows[0].quantity_change) > 0
 					? `+${parseFloat(rows[0].quantity_change)}`
