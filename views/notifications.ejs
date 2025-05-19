@@ -9,13 +9,15 @@
 </head>
 
 <body>
-  <h1>Notifications</h1>
-  <% if(notifications.length > 0) {%>
-  <%- include('partials/notificationCardContainer', {notifications: notifications}) %>
-  <% } else {%>
-  <div class="no-notification-found-message">You have no notifications today</div>
-  <% } %>
-  <%- include('partials/nav') %>
+  <div class="notification">
+    <h1>Notifications</h1>
+    <% if(notifications.length > 0) {%>
+    <%- include('partials/notificationCardContainer', {notifications: notifications}) %>
+    <% } else {%>
+    <div class="no-notification-found-message">You have no notifications today</div>
+    <% } %>
+    <%- include('partials/nav') %>
+  </div>
 </body>
 
 </html>
