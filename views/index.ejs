@@ -28,13 +28,13 @@
     <%- include('partials/nav') %>
     <%- include('partials/insightCard', {title: 'Low Stock', subtitle: 'View all stock items that are low inventory', routeName: 'items/low-stock'}) %>
     <%- include('partials/insightCard', {title: 'Transactions', subtitle: 'See all item quantity updates', routeName: 'transactions'}) %>
-    <% if (recentlyUpdatedItems) {%>
+    <% if (recentlyUpdatedItems?.length > 0) {%>
     <div class="recent-items">
       <h2>Recent Items</h2>
       <%- include('partials/itemCardContainer', {items: recentlyUpdatedItems, isStockStatusVisible: false }) %>
     </div>
     <% }%>
-    <% if (lowStockItems) { %>
+    <% if (lowStockItems?.length > 0) { %>
     <div class="low-stock-items">
       <h2>Low Stock</h2>
       <%- include('partials/itemCardContainer', {items: lowStockItems, isStockStatusVisible: false}) %>
