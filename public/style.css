@@ -506,6 +506,14 @@ th {
 	display: flex;
 }
 
+.utility-box-container .delete-item-button svg {
+	stroke: #171717;
+}
+
+.utility-box-container .delete-item-button:hover svg {
+	stroke: white;
+}
+
 .utility-box-container a {
 	display: grid;
 	align-content: center;
