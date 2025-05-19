@@ -27,7 +27,7 @@
       </div>
       <div class="transaction-item">
         <div class="item-name"><%= transaction.itemName %></div>
-        <div class="item-update"><%= transaction.quantityChange %></div>
+        <div class="item-update <%= transaction.quantityChange < 0 ? 'negative' : '' %>"><%= transaction.quantityChange %></div>
       </div>
     </a>
     <% });%>
