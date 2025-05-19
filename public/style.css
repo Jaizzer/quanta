@@ -2154,3 +2154,15 @@ a:hover > button {
 	align-items: center;
 	justify-content: space-between;
 }
+
+.items-edit .add-item-button {
+	background-color: #eaeaea;
+	padding: 1em;
+	border: 0px;
+	border-radius: 0.5em;
+}
+
+.items-edit .search-default-message {
+	display: grid;
+	gap: 0.5em;
+}
