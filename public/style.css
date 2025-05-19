@@ -298,6 +298,7 @@ th {
 }
 
 .low-stock-items .items-container,
+.tag .items-container,
 .item-quantity-edit .items-container,
 .search .items-container,
 .variants-section .items-container {
@@ -306,6 +307,7 @@ th {
 }
 
 .low-stock-items .item-card,
+.tag .item-card,
 .search .item-card,
 .variants-section .item-card {
 	display: grid;
@@ -318,6 +320,7 @@ th {
 }
 
 .low-stock-items .item-card a,
+.tag .item-card a,
 .item-quantity-edit .item-card a,
 .search .item-card a,
 .variants-section .item-card a {
@@ -330,6 +333,7 @@ th {
 }
 
 .low-stock-items .item-card .item-card-text-content,
+.tag .item-card .item-card-text-content,
 .search .item-card .item-card-text-content,
 .variants-section .item-card .item-card-text-content {
 	display: grid;
@@ -339,6 +343,7 @@ th {
 }
 
 .low-stock-items .item-card .item-quantity,
+.tag .item-card .item-quantity,
 .search .item-card .item-quantity,
 .variants-section .item-card .item-quantity {
 	grid-column: 2 / 3;
@@ -352,6 +357,7 @@ th {
 }
 
 .low-stock-items .item-card .item-name,
+.tag .item-card .item-name,
 .search .item-card .item-name,
 .variants-section .item-card .item-name {
 	grid-column: 1 / 2;
@@ -360,6 +366,7 @@ th {
 }
 
 .low-stock-items .item-card .variant-name,
+.tag .item-card .variant-name,
 .search .item-card .variant-name,
 .variants-section .item-card .variant-name {
 	grid-column: 1 / 2;
@@ -376,6 +383,7 @@ th {
 }
 
 .low-stock-items .item-card .item-image,
+.tag .item-card .item-image,
 .item-quantity-edit .item-card .item-image,
 .search .item-card .item-image,
 .variants-section .item-card .item-image {
@@ -1375,6 +1383,7 @@ th {
 .transactions .header,
 .tags .header,
 .reports .header,
+.tag .header,
 .transaction .header,
 .low-stock .header {
 	display: flex;
@@ -1387,6 +1396,7 @@ th {
 .activity-history button,
 .reports button,
 .tags button,
+.tag .header button,
 .transactions button,
 .transaction button,
 .low-stock .header button {
@@ -1830,6 +1840,7 @@ th {
 }
 
 .search .search-field,
+.tag .search-field,
 .tags .search-field {
 	display: grid;
 	grid-template-columns: auto minmax(0, 1fr) auto;
@@ -1842,7 +1853,8 @@ th {
 }
 
 .search .search-field button,
-.tags .search-field button {
+.tags .search-field button,
+.tag .search-field button {
 	border: 0px;
 	background-color: transparent;
 	font-size: 1.15em;
@@ -1850,19 +1862,22 @@ th {
 }
 
 .search .search-field input,
-.tags .search-field input {
+.tags .search-field input,
+.tag .search-field input {
 	border: 0px;
 	font-size: 1.15em;
 	outline: none;
 }
 
 .search .search-field svg,
+.tag .search-field svg,
 .tags .search-field svg {
 	fill: black;
 	display: flex;
 }
 
 .search .search-default-message div,
+.tag .search-default-message div,
 .tags .search-default-message div {
 	font-size: 1.5em;
 }
@@ -1996,4 +2011,25 @@ th {
 
 .background-overlay form button {
 	grid-row: 3 / 4;
+}
+
+.tag {
+	height: 100%;
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.55em;
+	align-content: start;
+
+	padding: 1em;
+	background-color: #dbdbdb;
+	overflow: auto;
+	padding-bottom: 70px;
+}
+
+.tag-summary-container {
+	padding: 1em;
+	border-radius: 0.5em;
+	background-color: white;
 }
