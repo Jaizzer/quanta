@@ -495,7 +495,8 @@ th {
 }
 
 /*  Items Page */
-.items {
+.items,
+.inventory-summary {
 	height: 100%;
 
 	display: flex;
@@ -509,38 +510,45 @@ th {
 	padding-bottom: 70px;
 }
 
-.items .table-container {
+.items .table-container,
+.inventory-summary .table-container {
 	padding: 0.5em;
 	border-radius: 0.5em;
 	background-color: white;
 }
 
-.items .actions {
+.items .actions,
+.inventory-summary .actions {
 	display: grid;
 	grid-template-columns: 1fr auto;
 	justify-content: space-between;
 	gap: 0.5em;
 }
 
-.items .actions select {
+.items .actions select,
+.inventory-summary .actions select {
 	width: 100%;
 }
 
 .items .actions button,
-.items .actions select {
+.items .actions select,
+.inventory-summary .actions button,
+.inventory-summary .actions select {
 	padding: 0.75em;
 	border-radius: 0.5em;
 	border: 0px;
 	background-color: #f8f8f8;
 }
 
-.items .items-container {
+.items .items-container,
+.inventory-summary .items-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
 	gap: 1em;
 }
 
-.items .item-card {
+.items .item-card,
+.inventory-summary .item-card {
 	flex-shrink: 0;
 	position: relative;
 
@@ -554,7 +562,8 @@ th {
 	border-radius: 0.5em;
 }
 
-.items .item-card a {
+.items .item-card a,
+.inventory-summary .item-card a {
 	grid-column: 1 / 3;
 	grid-row: 1 / 4;
 
@@ -563,19 +572,22 @@ th {
 	grid-template-rows: subgrid;
 }
 
-.items .item-image {
+.items .item-image,
+.inventory-summary .item-image {
 	grid-column: 1 / 3;
 	grid-row: 1 / 2;
 
 	background-color: #bdbdbd;
 }
 
-.items .item-card-text-content {
+.items .item-card-text-content,
+.inventory-summary .item-card-text-content {
 	grid-column: 1 / 2;
 	grid-row: 2 / 3;
 }
 
-.items .add-item-button {
+.items .add-item-button,
+.inventory-summary .add-item-button {
 	position: absolute;
 	bottom: 5em;
 	right: 1em;
@@ -585,12 +597,14 @@ th {
 	border-radius: 0.25em;
 }
 
-.items .add-item-button:hover {
+.items .add-item-button:hover,
+.inventory-summary .add-item-button:hover {
 	background-color: #6fe36f;
 	color: white;
 }
 
-.item-card-text-content .low-stock-indicator {
+.item-card-text-content .low-stock-indicator,
+.inventory-summary .low-stock-indicator {
 	position: absolute;
 	top: 10.75em;
 
@@ -604,7 +618,8 @@ th {
 	color: white;
 }
 
-.items .item-triple-dot-button {
+.items .item-triple-dot-button,
+.inventory-summary .item-triple-dot-button {
 	grid-column: 2 / 3;
 	grid-row: 2 / 3;
 	transform: rotate(180deg);
@@ -1271,4 +1286,37 @@ th {
 
 .new-variant-adding .parent-name-field {
 	grid-column: 1 / -1;
+}
+
+/* Inventory-summary page */
+
+.inventory-summary {
+	gap: 1em;
+}
+
+.inventory-summary .table-container {
+	padding: 1em;
+}
+
+.inventory-summary .header {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+}
+
+.inventory-summary .header button {
+	background-color: #eaeaea;
+	padding: 1em;
+	border: 0px;
+	border-radius: 0.5em;
+}
+
+.inventory-summary .recently-updated-items {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+}
+
+.inventory-summary h2 {
+	font-size: 1em;
 }
