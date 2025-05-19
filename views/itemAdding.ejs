@@ -55,7 +55,7 @@
       <div class="tag-field">
         <div>Tags</div>
         <% if(tags.length > 0) {%>
-        <div class="tags">
+        <div class="tag-checkbox-container">
           <% tags.forEach(tag => { %>
           <label><input type="checkbox" name="tags" value="<%= tag.id %>" class="tag-checkbox" <%= item.tags.find(itemTag => itemTag.id === tag.id) ? 'checked': null%> /><%= tag.name %></label>
           <% }) %>

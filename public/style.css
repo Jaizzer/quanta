@@ -1246,9 +1246,9 @@ th {
 	gap: 0.5em;
 }
 
-.item-edit .tag-field .tags,
-.item-adding .tag-field .tags,
-.new-variant-adding .tag-field .tags {
+.item-edit .tag-field .tag-checkbox-container,
+.item-adding .tag-field .tag-checkbox-container,
+.new-variant-adding .tag-field .tags-checkbox-container {
 	max-height: 100px;
 
 	display: flex;
