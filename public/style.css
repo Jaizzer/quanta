@@ -64,6 +64,10 @@ ul {
 	justify-content: center;
 }
 
+button:hover {
+	background-color: #bdbdbd;
+}
+
 nav li:hover {
 	background-color: white;
 	color: #f73535;
@@ -85,6 +89,7 @@ li {
 a {
 	text-decoration: none;
 	color: inherit;
+	border-radius: 0.5em;
 }
 
 .item-name,
@@ -243,6 +248,11 @@ th {
 .recent-items .item-card .item-triple-dot-button {
 	grid-column: 2 / 3;
 	grid-row: 2 / 3;
+}
+
+.item-triple-dot-button:hover {
+	color: #f12626;
+	background-color: transparent;
 }
 
 .recent-items .item-card a {
