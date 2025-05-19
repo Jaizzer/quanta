@@ -501,6 +501,24 @@ th {
 	background-color: white;
 }
 
+.utility-box-container svg {
+	width: 20px;
+	display: flex;
+}
+
+.utility-box-container a {
+	display: grid;
+	align-content: center;
+}
+
+.utility-button-content,
+.utility-box-container .delete-item-button {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	align-items: center;
+	gap: 0.75em;
+}
+
 .utility-box-container .utility-box-close-button {
 	width: 1em;
 	height: 1em;
