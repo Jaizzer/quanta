@@ -14,12 +14,14 @@
       <button class="back" onclick="history.back()">
         ←
       </button>
-      <% if (item.parent) {%>
-      <h1><%= item.parent.name %></h1>
-      <p><%= item.name %></p>
-      <% } else {%>
-      <h1><%= item.name %></h1>
-      <%  }%>
+      <div class="item-name">
+          <% if (item.parent) {%>
+          <h1><%= item.parent.name %></h1>
+          <p><%= item.name %></p>
+          <% } else {%>
+          <h1><%= item.name %></h1>
+          <%  }%>
+      </div>
     </div>
     <div class="transactions-container">
       <% if (transactions.length > 0) {%>
