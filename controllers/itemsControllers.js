@@ -447,7 +447,7 @@ async function deleteItem(req, res, next) {
 	if (deleteRequestSource === "/items/delete") {
 		// Redirect back to items if the delete request came from the item page
 		res.status(200).redirect("/items");
-	} else if (deleteRequestSource === "/items/edit-items") {
+	} else if (deleteRequestSource === "/items/edit-items-delete") {
 		// Redirect back to the edit-items page if the delete request came from the edit-items page
 		res.status(200).redirect("/items/edit-items");
 	} else if (deleteRequestSource === "/items/delete-item-dashboard") {
