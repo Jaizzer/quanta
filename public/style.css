@@ -237,6 +237,7 @@ th {
 }
 
 .low-stock-items .items-container,
+.item-quantity-edit .items-container,
 .variants-section .items-container {
 	display: grid;
 	grid-template-columns: 1fr;
@@ -254,6 +255,7 @@ th {
 }
 
 .low-stock-items .item-card a,
+.item-quantity-edit .item-card a,
 .variants-section .item-card a {
 	display: grid;
 	grid-template-columns: 4em minmax(0, 1fr);
@@ -306,6 +308,7 @@ th {
 }
 
 .low-stock-items .item-card .item-image,
+.item-quantity-edit .item-card .item-image,
 .variants-section .item-card .item-image {
 	background-color: #bdbdbd;
 	border: 0px;
@@ -655,7 +658,8 @@ th {
 .item-edit,
 .item-adding,
 .variant-adding,
-.new-variant-adding {
+.new-variant-adding,
+.item-quantity-edit {
 	height: 100%;
 
 	padding: 1em;
@@ -671,6 +675,7 @@ th {
 .item-description .item-container,
 .item-edit form,
 .item-adding form,
+.item-quantity-edit form,
 .variant-adding .variant-creation-container {
 	max-width: 500px;
 
@@ -1199,9 +1204,10 @@ th {
 .item-edit .error-message,
 .item-adding .error-message,
 .variant-adding .error-message,
+.item-quantity-edit .error-message,
 .new-variant-adding .error-message {
 	grid-column: 1 / -1;
-	font-size: 0.5em;
+	font-size: 0.75em;
 	color: red;
 }
 
@@ -1293,6 +1299,7 @@ th {
 }
 
 .inventory-summary .header,
+.item-quantity-edit .header,
 .low-stock .header {
 	display: flex;
 	align-items: center;
@@ -1300,6 +1307,7 @@ th {
 }
 
 .inventory-summary .header button,
+.item-quantity-edit button,
 .low-stock .header button {
 	background-color: #eaeaea;
 	padding: 1em;
@@ -1372,4 +1380,119 @@ th {
 	grid-row: 1 / 2;
 
 	word-break: break-word;
+}
+
+.item-quantity-edit {
+	align-content: start;
+	grid-template-rows: auto auto 1fr;
+	gap: 0em;
+}
+
+.item-quantity-edit .items-container {
+	max-width: 500px;
+	margin-top: 1em;
+	padding: 1em;
+	background-color: white;
+	border-bottom: 1px solid #eaeaea;
+}
+
+.item-quantity-edit .item-card {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 1em;
+
+	padding: 0.75em;
+	border: 1px solid #eaeaea;
+	border-radius: 0.5em;
+	background-color: white;
+}
+
+.item-quantity-edit .item-card-text-content {
+	display: grid;
+	align-content: center;
+}
+
+.item-quantity-edit form {
+	border-radius: 0px;
+	gap: 1em;
+}
+
+.item-quantity-edit label {
+	font-size: 0.8em;
+	color: #838a9d;
+}
+
+.item-quantity-edit .item-quantity-editing-section {
+	display: flex;
+	flex-direction: column;
+}
+
+.item-quantity-edit .item-quantity-editing-section button {
+	background-color: transparent;
+	border: 0px;
+}
+
+.item-quantity-edit .item-quantity-editing-section input {
+	outline: none;
+	border: 0px;
+}
+
+.item-quantity-edit .controller {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	justify-content: center;
+	justify-items: center;
+	grid-template-rows: auto auto;
+	row-gap: 0.5em;
+}
+
+.item-quantity-edit .controller .controller-label {
+	grid-column: 1 / -1;
+}
+
+.item-quantity-edit .controller input {
+	grid-column: 2 / 3;
+	font-size: 2em;
+	width: 10ch;
+	text-align: center;
+
+	border: 0px;
+}
+.item-quantity-edit .controller button {
+	font-size: 1.75em;
+}
+
+.item-quantity-edit .new-quantity-input {
+	margin-top: 0.5em;
+}
+
+.item-quantity-edit .new-quantity-input,
+.item-quantity-edit .reason-field {
+	display: flex;
+	flex-direction: column;
+}
+
+.item-quantity-edit .new-quantity-input input {
+	background-color: #eaeaea;
+	padding: 0.5em;
+	border-radius: 0.25em;
+}
+
+.item-quantity-edit select {
+	padding: 0.5em;
+	border: 0px;
+	background-color: #eaeaea;
+	outline: none;
+}
+
+.item-quantity-edit .update-button {
+	background-color: #eaeaea;
+	border: 0px;
+	padding: 0.5em;
+	border-radius: 0.25em;
+}
+
+.item-quantity-edit .update-button:hover {
+	background-color: #6fe36f;
+	color: white;
 }
