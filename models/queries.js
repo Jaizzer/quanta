@@ -169,19 +169,29 @@ async function getAllItems(sortOption) {
                 ) as m;`);
 
 		return {
-			totalItemTypeQuantity: parseFloat(rows[0].total_item_type_quantity),
-			totalInventoryValue: parseFloat(
-				rows[0].total_inventory_value,
-			).toFixed(2),
-			items: rows[0].items.map((item) => ({
-				id: item.id,
-				name: item.name,
-				quantity:
-					item.quantity !== null ? parseFloat(item.quantity) : null,
-				measurement: item.measurement,
-				parentItemName: item.parent_item_name,
-				isLowStock: parseFloat(item.quantity) <= item.min_level,
-			})),
+			totalItemTypeQuantity: isNaN(
+				parseFloat(rows[0].total_item_type_quantity),
+			)
+				? 0
+				: parseFloat(rows[0].total_item_type_quantity),
+			totalInventoryValue: isNaN(
+				parseFloat(rows[0].total_inventory_value),
+			)
+				? 0
+				: parseFloat(rows[0].total_inventory_value).toFixed(2),
+			items: rows[0].items
+				? rows[0].items.map((item) => ({
+						id: item.id,
+						name: item.name,
+						quantity:
+							item.quantity !== null
+								? parseFloat(item.quantity)
+								: null,
+						measurement: item.measurement,
+						parentItemName: item.parent_item_name,
+						isLowStock: parseFloat(item.quantity) <= item.min_level,
+					}))
+				: [],
 		};
 	} catch (error) {
 		console.error("Error getting the items. ", error);
