@@ -76,6 +76,8 @@ async function insertItem(item) {
 				groupName: parent?.name
 					? `${parent?.name}'s variants`
 					: "items",
+				previousValue: 0,
+				updatedValue: item.quantity,
 			},
 		});
 
@@ -188,7 +190,7 @@ async function getAllItems(sortOption) {
 
 async function deleteItem(item) {
 	try {
-		const { id, name, parent } = item;
+		const { id, name, parent, quantity } = item;
 		const query = `
             DELETE
             FROM items
@@ -206,6 +208,8 @@ async function deleteItem(item) {
 				groupName: parent?.name
 					? `${parent?.name}'s variants`
 					: "items",
+				previousValue: quantity,
+				updatedValue: 0,
 			},
 		});
 		console.log("Item deleted successfully.");
@@ -461,9 +465,11 @@ async function updateActivityHistory(activity) {
                         tag_id, 
                         activity_type, 
                         activity_description,
-                        name_before_update
+                        name_before_update,
+                        previous_quantity,
+                        updated_quantity
                     ) 
-                    VALUES ($1, $2, $3, $4, $5)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7)
                     ;
                     `,
 				[
@@ -472,6 +478,8 @@ async function updateActivityHistory(activity) {
 					activityType,
 					activityDescription,
 					updateSummary.name,
+					updateSummary.previousValue,
+					updateSummary.updatedValue,
 				],
 			);
 		} else if (activityType === "Delete") {
@@ -484,9 +492,11 @@ async function updateActivityHistory(activity) {
                         tag_id, 
                         activity_type, 
                         activity_description,
-                        name_before_update
+                        name_before_update,
+                        previous_quantity,
+                        updated_quantity
                     ) 
-                    VALUES ($1, $2, $3, $4, $5)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7)
                     ;
                     `,
 				[
@@ -495,6 +505,8 @@ async function updateActivityHistory(activity) {
 					activityType,
 					activityDescription,
 					updateSummary.name,
+					updateSummary.previousValue,
+					updateSummary.updatedValue,
 				],
 			);
 		} else if (activityType === "Update" && itemID) {
@@ -1049,7 +1061,7 @@ async function getAllTransactions() {
                 WHERE NOT (
                         previous_quantity IS NULL
                         AND updated_quantity IS NULL
-                    )
+                    ) AND NOT (previous_quantity = updated_quantity)
                 ORDER BY date_updated DESC;
             `,
 		);
@@ -1093,7 +1105,7 @@ async function getItemSpecificTransactions(itemID) {
                 WHERE NOT (
                         previous_quantity IS NULL
                         AND updated_quantity IS NULL
-                    )
+                    ) AND NOT (previous_quantity = updated_quantity)
                     AND item_id = $1
                 ORDER BY date_updated DESC;
             `,
@@ -1141,7 +1153,7 @@ async function getTransactionByID(id) {
                     AND NOT (
                         previous_quantity IS NULL
                         AND updated_quantity IS NULL
-                    )
+                    ) AND NOT (previous_quantity = updated_quantity)
             `,
 			[id],
 		);
