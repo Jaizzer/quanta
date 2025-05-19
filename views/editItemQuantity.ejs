@@ -10,54 +10,45 @@
 </head>
 
 <body>
-  <div class="actions">
-    <button class="cancel" onclick="history.back()">x</button>
-    <h1>Update Quantity</h1>
-  </div>
-
-  <div class="item-card">
-    <div class="image-container"></div>
-    <div class="item-name"><%= item.name %></div>
-    <% if (item.quantity) {%>
-    <div class="item-quantity"><%= `${ item.quantity !== null ?`${item.quantity} ${item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
-    <% }%>
-  </div>
-
-  <form action="/items/edit-quantity/<%= item.id %>" method="POST">
-    <div class="item-quantity-editing-section">
-      <div class="controller">
-        <div class="controller-label">Adjust Quantity</div>
-        <button type="button" class="subtract-button">-</button>
-        <input class="current-adjustment-value" value="0" type="number" step="any">
-        <button type="button" class="add-button">+</button>
-      </div>
-
-      <div class="new-quantity-input">
-        <label for="new-quantity-input">New Quantity</label>
-        <input type="number" id="new-quantity-input" placeholder="0" name="newQuantity" value="<%= item.quantity %>" step="any">
-      </div>
-
-      <div class="quantity-update-reason-section">
-
-      </div>
-
+  <div class="item-quantity-edit">
+    <div class="actions">
+      <button class="cancel" onclick="history.back()">x</button>
+      <h1>Update Quantity</h1>
     </div>
-
-    <div class="reason-field">
-      <label for="reason-selection">Reason</label>
-      <select name="reason" id="reason-selection">
-        <% reasons.forEach(reason => { %>
-        <option value="<%=reason %>" <%= reason === 'Inventory Count Adjustment' && 'selected'%>><%= reason %></option>
-        <% })%>
-      </select>
+    <div class="item-card">
+      <div class="image-container"></div>
+      <div class="item-name"><%= item.name %></div>
+      <% if (item.quantity) {%>
+      <div class="item-quantity"><%= `${ item.quantity !== null ?`${item.quantity} ${item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
+      <% }%>
     </div>
-    <button class="update-button" type="submit">Update </button>
-
-  </form>
-
-
-
-  <%- include('partials/nav') %>
+    <form action="/items/edit-quantity/<%= item.id %>" method="POST">
+      <div class="item-quantity-editing-section">
+        <div class="controller">
+          <div class="controller-label">Adjust Quantity</div>
+          <button type="button" class="subtract-button">-</button>
+          <input class="current-adjustment-value" value="0" type="number" step="any">
+          <button type="button" class="add-button">+</button>
+        </div>
+        <div class="new-quantity-input">
+          <label for="new-quantity-input">New Quantity</label>
+          <input type="number" id="new-quantity-input" placeholder="0" name="newQuantity" value="<%= item.quantity %>" step="any">
+        </div>
+        <div class="quantity-update-reason-section">
+        </div>
+      </div>
+      <div class="reason-field">
+        <label for="reason-selection">Reason</label>
+        <select name="reason" id="reason-selection">
+          <% reasons.forEach(reason => { %>
+          <option value="<%=reason %>" <%= reason === 'Inventory Count Adjustment' && 'selected'%>><%= reason %></option>
+          <% })%>
+        </select>
+      </div>
+      <button class="update-button" type="submit">Update </button>
+    </form>
+    <%- include('partials/nav') %>
+  </div>
 
 </body>
 
