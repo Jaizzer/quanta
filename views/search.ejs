@@ -11,27 +11,28 @@
 </head>
 
 <body>
-  <h1>Search</h1>
-  <form method="GET" class="search-form">
-    <div class="search-field">
-      <label class="search-icon-container" for="search">🔍</label>
-      <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
+  <div class="search">
+    <h1>Search</h1>
+    <form method="GET" class="search-form">
+      <div class="search-field">
+        <label class="search-icon-container" for="search">🔍</label>
+        <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
+      </div>
+    </form>
+    <% if(items.length > 0) {%>
+    <%- include('partials/itemCardContainer', {items: items}) %>
+    <% } else if (keyword) {%>
+    <div class="no-items-found-message">No item '<%= keyword %>' found</div>
+    <% } else {%>
+    <div class="search-default-message">
+      <div class="icon-container">
+      </div>
+      <h2>Nothing to see here</h2>
+      <h3>Enter text to start your search</h3>
     </div>
-  </form>
-  <% if(items.length > 0) {%>
-  <%- include('partials/itemCardContainer', {items: items}) %>
-  <% } else if (keyword) {%>
-  <div class="no-items-found-message">No item '<%= keyword %>' found</div>
-  <% } else {%>
-  <div class="search-default-message">
-    <div class="icon-container">
-    </div>
-    <h2>Nothing to see here</h2>
-    <h3>Enter text to start your search</h3>
+    <% }%>
+    <%- include('partials/nav') %>
   </div>
-  <% }%>
-
-  <%- include('partials/nav') %>
 </body>
 
 </html>
