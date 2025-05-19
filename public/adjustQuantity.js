@@ -138,10 +138,10 @@ function insertAnErrorNextToAnElement(element, message) {
 }
 
 function validateInputs() {
-	if (newQuantityInput.value < 0) {
+	if (newQuantityInput.value < 0 || newQuantityInput.value > 999999) {
 		insertAnErrorNextToAnElement(
 			newQuantityInput,
-			"Quantity can't be lower than 0.",
+			"Quantity must be between 0 and 999999",
 		);
 
 		// Disable the update button
