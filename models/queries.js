@@ -938,9 +938,17 @@ async function getTagByID(id) {
 			id: rows[0].tag_id,
 			name: rows[0].tag_name,
 			items: rows[0].items || [],
-			totalItemQuantity: rows[0].total_item_quantity,
-			totalDistinctItemQuantity: rows[0].total_distinct_item_quantity,
-			totalValue: rows[0].total_value,
+			totalItemQuantity: isNaN(parseFloat(rows[0].total_item_quantity))
+				? 0
+				: parseFloat(rows[0].total_item_quantity),
+			totalDistinctItemQuantity: isNaN(
+				parseFloat(rows[0].total_distinct_item_quantity),
+			)
+				? 0
+				: parseFloat(rows[0].total_distinct_item_quantity),
+			totalValue: isNaN(parseFloat(rows[0].total_value))
+				? 0
+				: parseFloat(rows[0].total_value).toFixed(2),
 		};
 	} catch (error) {
 		console.error("Error fetching tag. ", error);
