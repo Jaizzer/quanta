@@ -97,6 +97,7 @@ a {
 .activity-history h2,
 .transactions p,
 .transactions h2,
+.transaction h1,
 .value {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -1351,6 +1352,7 @@ th {
 .item-quantity-edit .header,
 .activity-history .header,
 .transactions .header,
+.transaction .header,
 .low-stock .header {
 	display: flex;
 	align-items: center;
@@ -1361,6 +1363,7 @@ th {
 .item-quantity-edit button,
 .activity-history button,
 .transactions button,
+.transaction button,
 .low-stock .header button {
 	background-color: #eaeaea;
 	padding: 1em;
@@ -1701,7 +1704,8 @@ th {
 }
 
 /* Transactions page */
-.transactions {
+.transactions,
+.transaction {
 	height: 100%;
 
 	display: flex;
@@ -1759,4 +1763,33 @@ th {
 .transactions .transaction-type {
 	color: #838a9d;
 	font-size: 0.75em;
+}
+
+/*  Transaction page */
+.transaction .transaction-description {
+	background-color: white;
+	padding: 1em;
+	border-radius: 0.5em;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+}
+
+.transaction .transaction-description > div {
+	display: grid;
+	grid-template-columns: 4em auto;
+	justify-content: space-between;
+}
+
+.transaction .transaction-item {
+	padding: 0.5em;
+	border-radius: 0.5em;
+	margin-top: 0.5em;
+	background-color: #eaeaea;
+	width: fit-content;
+	max-width: 10em;
+}
+
+.transaction .transaction-item:hover {
+	background-color: #dbdbdb;
 }
