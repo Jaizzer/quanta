@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"); */
 
 html {
 	overflow: hidden;
@@ -13,7 +13,7 @@ html {
 body {
 	position: relative;
 	height: 100vh;
-	font-family: Roboto;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 nav {
@@ -48,6 +48,8 @@ a {
 .variant-name,
 .warning-message span,
 .notification .message,
+.user-name,
+.user-email,
 .value {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -1495,4 +1497,102 @@ th {
 .item-quantity-edit .update-button:hover {
 	background-color: #6fe36f;
 	color: white;
+}
+
+/* Menu page */
+
+.menu {
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.55em;
+	align-content: start;
+
+	padding: 1em;
+	background-color: #dbdbdb;
+	overflow: auto;
+	padding-bottom: 70px;
+}
+
+.menu .menu-options-container {
+	display: grid;
+	align-items: center;
+
+	background-color: white;
+	border-radius: 0.5em;
+	overflow: hidden;
+}
+
+.menu .menu-options-container a {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5em;
+}
+
+.menu .menu-options-container a:nth-child(1) {
+	border-bottom: 1px solid #eaeaea;
+}
+
+.menu .menu-options-container .text-content {
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+}
+
+.menu .menu-options-container .arrow-container {
+	margin-left: auto;
+}
+
+.menu img {
+	width: 100%;
+}
+
+.menu .menu-option:hover {
+	background-color: #eaeaea;
+}
+
+.menu .menu-option .icon-container {
+	padding-left: 1em;
+}
+
+.menu .user-name-card {
+	display: grid;
+	grid-template-columns: 4em minmax(0, 1fr);
+	grid-template-rows: auto auto;
+	align-content: center;
+	align-items: center;
+	background-color: white;
+	padding: 1em;
+	column-gap: 1em;
+	border-radius: 0.5em;
+}
+
+.menu .image-container {
+	grid-column: 1 / 2;
+	grid-row: 1 / 3;
+
+	display: flex;
+	align-items: center;
+}
+
+.menu .user-name {
+	grid-column: 2 / 3;
+	grid-row: 1 / 2;
+	align-self: end;
+	font-size: 1.5em;
+}
+
+.menu .user-email {
+	grid-column: 2 / 3;
+	grid-row: 2 / 3;
+	align-self: start;
+	color: #838a9d;
+}
+
+.menu .menu-options-container .menu-option .text-content {
+	padding-top: 1em;
+	padding-bottom: 1em;
+	padding-right: 1em;
 }
