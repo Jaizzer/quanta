@@ -715,7 +715,8 @@ th {
 	hyphens: auto;
 }
 
-.warning-message-container button {
+.warning-message-container button,
+.background-overlay button {
 	grid-row: 2 / 3;
 	background-color: #eaeaea;
 	border: 0px;
@@ -1917,6 +1918,7 @@ th {
 
 /* Tags page */
 .tags {
+	position: relative;
 	height: 100%;
 
 	display: flex;
@@ -1960,4 +1962,38 @@ th {
 
 .tags h2 {
 	font-size: 1em;
+}
+
+.background-overlay form {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 50vh;
+	margin-inline: auto;
+
+	max-width: 400px;
+
+	padding: 1em;
+	border-radius: 0.5em;
+	background-color: white;
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto auto auto;
+	justify-content: center;
+	gap: 1em;
+}
+
+.background-overlay form input {
+	grid-row: 2 / 3;
+	grid-column: 1 / -1;
+	background-color: #eaeaea;
+	border: 0px;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	outline: none;
+}
+
+.background-overlay form button {
+	grid-row: 3 / 4;
 }
