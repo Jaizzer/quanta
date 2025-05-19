@@ -9,28 +9,27 @@
 </head>
 
 <body>
-  <div class="header">
-    <button class="back" onclick="history.back()">
-      ←
-    </button>
-    <!-- If there is an item name, then this page is an item's specific activity history -->
-    <h1><%= itemName !== null ? `${itemName}`: 'Activity History' %></h1>
+  <div class="activity-history">
+    <div class="header">
+      <button class="back" onclick="history.back()">
+        ←
+      </button>
+      <!-- If there is an item name, then this page is an item's specific activity history -->
+      <h1><%= itemName !== null ? `${itemName}`: 'Activity History' %></h1>
+    </div>
+    <div class="activities-container">
+      <% activities.forEach(activity => { %>
+      <a class="activity-card" href="<%= activity.link %>">
+        <% if (itemName === null) {%>
+        <h2><%= activity.entityName %></h2>
+        <% }%>
+        <p><%= activity.description %></p>
+        <div class="time-passed"><%=activity.timePassed %> ago</div>
+      </a>
+      <% })%>
+    </div>
+    <%- include('partials/nav') %>
   </div>
-
-  <div class="activities-container">
-    <% activities.forEach(activity => { %>
-    <a class="activity-card" href="<%= activity.link %>">
-      <div class="image-container"></div>
-      <% if (itemName === null) {%>
-      <h2><%= activity.entityName %></h2>
-      <% }%>
-      <p><%= activity.description %></p>
-      <div class="time-passed"><%=activity.timePassed %> ago</div>
-    </a>
-    <% })%>
-  </div>
-
-  <%- include('partials/nav') %>
 </body>
 
 </html>

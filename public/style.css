@@ -50,6 +50,7 @@ a {
 .notification .message,
 .user-name,
 .user-email,
+.activity-history h2,
 .value {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -1302,6 +1303,7 @@ th {
 
 .inventory-summary .header,
 .item-quantity-edit .header,
+.activity-history .header,
 .low-stock .header {
 	display: flex;
 	align-items: center;
@@ -1310,6 +1312,7 @@ th {
 
 .inventory-summary .header button,
 .item-quantity-edit button,
+.activity-history button,
 .low-stock .header button {
 	background-color: #eaeaea;
 	padding: 1em;
@@ -1595,4 +1598,56 @@ th {
 	padding-top: 1em;
 	padding-bottom: 1em;
 	padding-right: 1em;
+}
+
+/* Activity History Page */
+.activity-history {
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.55em;
+	align-content: start;
+
+	padding: 1em;
+	background-color: #dbdbdb;
+	overflow: auto;
+	padding-bottom: 70px;
+}
+
+.activity-history .activities-container {
+	border-radius: 0.5em;
+	overflow: scroll;
+}
+
+.activity-history .activity-card {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-rows: auto auto;
+	padding: 1em;
+	background-color: white;
+	border-top: 1px solid #eaeaea;
+	row-gap: 0.5em;
+}
+
+.activity-history .activity-card:hover {
+	background-color: #eaeaea;
+}
+
+.activity-history h2 {
+	grid-column: 1 / 2;
+	font-size: 1em;
+}
+
+.activity-history p {
+	grid-column: 1 / -1;
+	grid-row: 2 / 3;
+	word-break: break-word;
+	font-size: 0.9em;
+}
+
+.activity-history .time-passed {
+	grid-column: 2 / 3;
+	grid-row: 1 / 2;
+	font-size: 0.75em;
 }
