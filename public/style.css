@@ -1667,7 +1667,7 @@ th {
 }
 
 .menu a {
-	border-radius: none;
+	border-radius: 0px;
 }
 
 .menu img {
