@@ -9,13 +9,15 @@
 </head>
 
 <body>
-  <div class="error-message">
-    <div class="icon-container"></div>
-    <h1>404</h1>
-    <p><%= message %></p>
-    <a href="/"><button class="back-button">Go Back</button></a>
+  <div class="error">
+    <div class="error-message">
+      <div class="icon-container"></div>
+      <h1>404</h1>
+      <p><%= message %></p>
+      <a href="/"><button class="back-button">Go Back</button></a>
+    </div>
+    <%- include('partials/nav') %>
   </div>
-  <%- include('partials/nav') %>
 </body>
 
 </html>

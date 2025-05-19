@@ -1667,7 +1667,7 @@ th {
 }
 
 .menu a {
-    border-radius: none;
+	border-radius: none;
 }
 
 .menu img {
@@ -2165,4 +2165,32 @@ a:hover > button {
 .items-edit .search-default-message {
 	display: grid;
 	gap: 0.5em;
+}
+
+.error {
+	height: 100%;
+
+	display: grid;
+	flex-direction: column;
+	gap: 0.55em;
+	align-content: center;
+	justify-items: center;
+
+	padding: 1em;
+	background-color: #dbdbdb;
+	overflow: auto;
+	padding-bottom: 70px;
+}
+
+.error .error-message {
+	display: grid;
+	justify-items: center;
+    gap: 0.5em;
+}
+
+.error .error-message button {
+	background-color: #eaeaea;
+	padding: 0.5em;
+	border: 0px;
+	border-radius: 0.5em;
 }
