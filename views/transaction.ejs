@@ -9,32 +9,33 @@
 </head>
 
 <body>
-  <div class="header">
-    <button class="back" onclick="history.back()">
-      ←
-    </button>
-    <h1><%= transaction.itemName %></h1>
-    <div class="transaction-description">
-      <div class="transaction-type">
-        <div class="title">Type: </div>
-        <div class="value"><%= transaction.type %><%= transaction.reason ? ` (${transaction.reason})` : '' %></div>
-      </div>
-
-      <div class="transaction-date">
-        <div class="title">Date:</div>
-        <div class="value"><%= transaction.dateUpdated %></div>
-      </div>
-
-      <div class="transaction-change">
-        <div class="title">Change:</div>
-        <div class="value"><%= transaction.quantityChange %></div>
-      </div>
-      <a class="transaction-item" href="/items/<%= transaction.itemID %>">
-        <div class="item-name"><%= transaction.itemName %></div>
-      </a>
+  <div class="transaction">
+    <div class="header">
+      <button class="back" onclick="history.back()">
+        ←
+      </button>
+      <h1><%= transaction.itemName %></h1>
+      
     </div>
+    <div class="transaction-description">
+        <div class="transaction-type">
+          <div class="title">Type: </div>
+          <div class="value"><%= transaction.type %><%= transaction.reason ? ` (${transaction.reason})` : '' %></div>
+        </div>
+        <div class="transaction-date">
+          <div class="title">Date:</div>
+          <div class="value"><%= transaction.dateUpdated %></div>
+        </div>
+        <div class="transaction-change">
+          <div class="title">Change:</div>
+          <div class="value"><%= transaction.quantityChange %></div>
+        </div>
+        <a class="transaction-item" href="/items/<%= transaction.itemID %>">
+          <div class="item-name"><%= transaction.itemName %></div>
+        </a>
+      </div>
+    <%- include('partials/nav') %>
   </div>
-  <%- include('partials/nav') %>
 
 </body>
 
