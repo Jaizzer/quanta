@@ -10,14 +10,16 @@
 </head>
 
 <body>
-  <div class="header">
-    <button class="back" onclick="history.back()">
-      ←
-    </button>
-    <h1>Low Stock</h1>
+  <div class="low-stock">
+    <div class="header">
+      <button class="back" onclick="history.back()">
+        ←
+      </button>
+      <h1>Low Stock</h1>
+    </div>
+    <%- include('partials/itemCardContainer', {items: items}) %>
+    <%- include('partials/nav') %>
   </div>
-  <%- include('partials/itemCardContainer', {items: items}) %>
-  <%- include('partials/nav') %>
 </body>
 
 </html>
