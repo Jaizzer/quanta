@@ -99,6 +99,7 @@ a {
 .header h1,
 .transactions h2,
 .transaction h1,
+.tags h2,
 .value {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -587,7 +588,8 @@ th {
 .inventory-summary .actions button,
 .inventory-summary .actions select,
 .low-stock .actions button,
-.low-stock .actions select {
+.low-stock .actions select,
+.tags select {
 	padding: 0.75em;
 	border-radius: 0.5em;
 	border: 0px;
@@ -1370,6 +1372,7 @@ th {
 .item-quantity-edit .header,
 .activity-history .header,
 .transactions .header,
+.tags .header,
 .reports .header,
 .transaction .header,
 .low-stock .header {
@@ -1382,6 +1385,7 @@ th {
 .item-quantity-edit button,
 .activity-history button,
 .reports button,
+.tags button,
 .transactions button,
 .transaction button,
 .low-stock .header button {
@@ -1824,7 +1828,8 @@ th {
 	overflow: auto;
 }
 
-.search .search-field {
+.search .search-field,
+.tags .search-field {
 	display: grid;
 	grid-template-columns: auto minmax(0, 1fr) auto;
 	border-radius: 0.5em;
@@ -1835,25 +1840,29 @@ th {
 	gap: 0.5em;
 }
 
-.search .search-field button {
+.search .search-field button,
+.tags .search-field button {
 	border: 0px;
 	background-color: transparent;
 	font-size: 1.15em;
 	color: #838a9d;
 }
 
-.search .search-field input {
+.search .search-field input,
+.tags .search-field input {
 	border: 0px;
 	font-size: 1.15em;
 	outline: none;
 }
 
-.search .search-field svg {
+.search .search-field svg,
+.tags .search-field svg {
 	fill: black;
 	display: flex;
 }
 
-.search .search-default-message div {
+.search .search-default-message div,
+.tags .search-default-message div {
 	font-size: 1.5em;
 }
 
@@ -1882,7 +1891,7 @@ th {
 
 	grid-template-columns: auto auto;
 	align-items: start;
-    justify-content: start;
+	justify-content: start;
 }
 
 .reports .report-item:hover {
@@ -1904,4 +1913,51 @@ th {
 
 .reports .report-item p {
 	font-size: 0.9em;
+}
+
+/* Tags page */
+.tags {
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.55em;
+	align-content: start;
+
+	padding: 1em;
+	background-color: #dbdbdb;
+	overflow: auto;
+	padding-bottom: 70px;
+}
+
+.tags .header button {
+	padding: 0.5em;
+}
+
+.tags .search-field button {
+	padding: 0em;
+}
+
+.tags .search-field input {
+	font-size: 1em;
+}
+
+.tags .tag-card {
+	padding: 1em;
+	background-color: white;
+	display: grid;
+	grid-template-columns: 80% minmax(0, 1fr);
+	justify-content: space-between;
+	border-radius: 0.5em;
+}
+
+.tags .tag-card:hover {
+	background-color: #bdbdbd;
+}
+.tags .arrow-container {
+	justify-self: end;
+}
+
+.tags h2 {
+	font-size: 1em;
 }

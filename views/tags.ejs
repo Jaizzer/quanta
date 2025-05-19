@@ -12,46 +12,53 @@
 </head>
 
 <body>
-  <div class="header">
-    <button class="back" onclick="history.back()">
-      ←
-    </button>
-    <h1>Tags</h1>
-    <a href="/tags/edit"><button class="edit-tag-button">Edit</button></a>
-    <button class="add-tag-button">Add</button>
-  </div>
-  <form method="GET" class="search-form">
-    <div class="search-field">
-      <label class="search-icon-container" for="search">🔍</label>
-      <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
+  <div class="tags">
+    <div class="header">
+      <button class="back" onclick="history.back()">
+        ←
+      </button>
+      <h1>Tags</h1>
+      <a href="/tags/edit"><button class="edit-tag-button">Edit</button></a>
+      <button class="add-tag-button">Add</button>
     </div>
-  </form>
-  <form action="/tags" method="GET" class="sort-form">
-    <select name="sort">
-      <% sortOptions?.forEach(sortOption => {  %>
-      <option value="<%= sortOption.value %>" <%= !sortOption.value && 'disabled' %> <%= sortOption.isSelected && 'selected' %>><%= sortOption.name %></option>
-      <% })%>
-    </select>
-  </form>
-  <% if(tags.length > 0) {%>
-  <% tags.forEach(tag => { %>
-  <a href="/tags/<%=tag.id%>" class="tag-card">
-    <h2 class="tag-name"><%= tag.name %></h2>
-    <div class="arrow-container">→</div>
-  </a>
-  <% }) %>
-  <% } else if (keyword) {%>
-  <div class="no-tags-found-message">No tag '<%= keyword %>' found</div>
-  <% } else {%>
-  <div class="search-default-message">
-    <div class="icon-container">
+    <form method="GET" class="search-form">
+      <div class="search-field">
+        <label class="search-icon-container" for="search"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30.9942 29.0056C30.4451 28.4565 29.5547 28.4565 29.0055 29.0056C28.4563 29.5548 28.4563 30.4452 29.0055 30.9944L30.9942 29.0056ZM41.0055 42.9944C41.5547 43.5435 42.4451 43.5435 42.9942 42.9944C43.5434 42.4452 43.5434 41.5548 42.9942 41.0056L41.0055 42.9944ZM19.9999 34V32.5937C13.0445 32.5937 7.40611 26.9553 7.40611 20H5.99986H4.59361C4.59361 28.5086 11.4912 35.4062 19.9999 35.4062V34ZM33.9999 20H32.5936C32.5936 26.9553 26.9552 32.5937 19.9999 32.5937V34V35.4062C28.5085 35.4062 35.4061 28.5086 35.4061 20H33.9999ZM19.9999 6V7.40625C26.9552 7.40625 32.5936 13.0447 32.5936 20H33.9999H35.4061C35.4061 11.4914 28.5085 4.59375 19.9999 4.59375V6ZM19.9999 6V4.59375C11.4912 4.59375 4.59361 11.4914 4.59361 20H5.99986H7.40611C7.40611 13.0447 13.0445 7.40625 19.9999 7.40625V6ZM29.9999 30L29.0055 30.9944L41.0055 42.9944L41.9999 42L42.9942 41.0056L30.9942 29.0056L29.9999 30Z" />
+          </svg></label>
+        <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
+      </div>
+    </form>
+    <form action="/tags" method="GET" class="sort-form">
+      <select name="sort">
+        <% sortOptions?.forEach(sortOption => {  %>
+        <option value="<%= sortOption.value %>" <%= !sortOption.value && 'disabled' %> <%= sortOption.isSelected && 'selected' %>><%= sortOption.name %></option>
+        <% })%>
+      </select>
+    </form>
+    <% if(tags.length > 0) {%>
+    <% tags.forEach(tag => { %>
+    <a href="/tags/<%=tag.id%>" class="tag-card">
+      <h2 class="tag-name"><%= tag.name %></h2>
+      <div class="arrow-container">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.91001 20.67C8.72001 20.67 8.53001 20.6 8.38001 20.45C8.09001 20.16 8.09001 19.68 8.38001 19.39L14.9 12.87C15.38 12.39 15.38 11.61 14.9 11.13L8.38001 4.61002C8.09001 4.32002 8.09001 3.84002 8.38001 3.55002C8.67001 3.26002 9.15001 3.26002 9.44001 3.55002L15.96 10.07C16.47 10.58 16.76 11.27 16.76 12C16.76 12.73 16.48 13.42 15.96 13.93L9.44001 20.45C9.29001 20.59 9.10001 20.67 8.91001 20.67Z" fill="#171717" />
+        </svg>
+      </div>
+    </a>
+    <% }) %>
+    <% } else if (keyword) {%>
+    <div class="no-tags-found-message">No tag '<%= keyword %>' found</div>
+    <% } else {%>
+    <div class="search-default-message">
+      <div class="icon-container">
+      </div>
+      <h2>There are currently no tags</h2>
+      <h3>Create a tag</h3>
     </div>
-    <h2>There are currently no tags</h2>
-    <h3>Create a tag</h3>
+    <% }%>
+    <%- include('partials/nav') %>
   </div>
-  <% }%>
-
-  <%- include('partials/nav') %>
 </body>
 
 </html>
