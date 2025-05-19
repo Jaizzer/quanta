@@ -1369,6 +1369,7 @@ th {
 .item-quantity-edit .header,
 .activity-history .header,
 .transactions .header,
+.reports .header,
 .transaction .header,
 .low-stock .header {
 	display: flex;
@@ -1379,6 +1380,7 @@ th {
 .inventory-summary .header button,
 .item-quantity-edit button,
 .activity-history button,
+.reports button,
 .transactions button,
 .transaction button,
 .low-stock .header button {
@@ -1852,4 +1854,52 @@ th {
 
 .search .search-default-message div {
 	font-size: 1.5em;
+}
+
+/* Reports page */
+.reports {
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.55em;
+	align-content: start;
+
+	padding: 1em;
+	background-color: #dbdbdb;
+	overflow: auto;
+	padding-bottom: 70px;
+}
+
+.reports .report-item {
+	padding: 1em;
+	border-radius: 0.5em;
+	background-color: white;
+	display: grid;
+	column-gap: 0.75em;
+	row-gap: 0.25em;
+
+	grid-template-columns: auto auto;
+	align-items: start;
+}
+
+.reports .report-item:hover {
+	background-color: #eaeaea;
+}
+
+.reports .report-item h2,
+.reports p {
+	grid-column: 2 / 3;
+}
+
+.reports .report-item .icon-container {
+	grid-row: 1 / 3;
+}
+
+.reports .report-item h2 {
+	font-size: 1em;
+}
+
+.reports .report-item p {
+	font-size: 0.9em;
 }
