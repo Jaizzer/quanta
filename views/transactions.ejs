@@ -9,30 +9,31 @@
 </head>
 
 <body>
-  <div class="header">
-    <button class="back" onclick="history.back()">
-      ←
-    </button>
-    <h1>Transactions</h1>
-  </div>
-
-  <div class="transactions-container">
-    <% transactions.forEach(transaction => { %>
-    <a class="transaction-card" href="/transactions/<%= transaction.transactionID %>">
-      <div class="transaction-header">
-        <div class="transaction-type">
-          <%= transaction.type %><%= transaction.reason ? ` (${transaction.reason})` : '' %>
+  <div class="transactions">
+    <div class="header">
+      <button class="back" onclick="history.back()">
+        ←
+      </button>
+      <h1>Transactions</h1>
+    </div>
+    <div class="transactions-container">
+      <% transactions.forEach(transaction => { %>
+      <a class="transaction-card" href="/transactions/<%= transaction.transactionID %>">
+        <div class="transaction-header">
+          <div class="transaction-type">
+            <%= transaction.type %><%= transaction.reason ? ` (${transaction.reason})` : '' %>
+          </div>
+          <div class="transaction-date"><%= transaction.dateUpdated %></div>
         </div>
-        <div class="transaction-date"><%= transaction.dateUpdated %></div>
-      </div>
-      <div class="transaction-item">
-        <div class="item-name"><%= transaction.itemName %></div>
-        <div class="item-update <%= transaction.quantityChange < 0 ? 'negative' : '' %>"><%= transaction.quantityChange %></div>
-      </div>
-    </a>
-    <% });%>
+        <div class="transaction-item">
+          <div class="item-name"><%= transaction.itemName %></div>
+          <div class="item-update <%= transaction.quantityChange < 0 ? 'negative' : '' %>"><%= transaction.quantityChange %></div>
+        </div>
+      </a>
+      <% });%>
+    </div>
+    <%- include('partials/nav') %>
   </div>
-  <%- include('partials/nav') %>
 
 </body>
 
