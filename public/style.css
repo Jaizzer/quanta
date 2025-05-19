@@ -100,6 +100,10 @@ a {
 	color: #3a3d44;
 }
 
+nav a {
+	color: white;
+}
+
 .item-name,
 .item-quantity,
 .variant-name,
