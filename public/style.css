@@ -1378,6 +1378,8 @@ th {
 }
 
 .inventory-summary .header,
+.items-edit .header,
+.tags .header,
 .item-quantity-edit .header,
 .activity-history .header,
 .transactions .header,
@@ -1393,6 +1395,8 @@ th {
 
 .inventory-summary .header button,
 .item-quantity-edit button,
+.items-edit .header button,
+.tags-edit .header button,
 .activity-history button,
 .reports button,
 .tags button,
@@ -1569,7 +1573,8 @@ th {
 	border-radius: 0.25em;
 }
 
-.item-quantity-edit select {
+.item-quantity-edit select,
+.tags-edit select {
 	padding: 0.5em;
 	border: 0px;
 	background-color: #eaeaea;
@@ -1841,6 +1846,7 @@ th {
 
 .search .search-field,
 .tag .search-field,
+.tags-edit .search-field,
 .tags .search-field {
 	display: grid;
 	grid-template-columns: auto minmax(0, 1fr) auto;
@@ -1854,6 +1860,7 @@ th {
 
 .search .search-field button,
 .tags .search-field button,
+.tags-edit .search-field button,
 .tag .search-field button {
 	border: 0px;
 	background-color: transparent;
@@ -1863,6 +1870,7 @@ th {
 
 .search .search-field input,
 .tags .search-field input,
+.tags-edit .search-field input,
 .tag .search-field input {
 	border: 0px;
 	font-size: 1.15em;
@@ -1871,6 +1879,7 @@ th {
 
 .search .search-field svg,
 .tag .search-field svg,
+.tags-edit .search-field svg,
 .tags .search-field svg {
 	fill: black;
 	display: flex;
@@ -1878,6 +1887,7 @@ th {
 
 .search .search-default-message div,
 .tag .search-default-message div,
+.tags-edit .search-default-message div,
 .tags .search-default-message div {
 	font-size: 1.5em;
 }
@@ -2032,4 +2042,51 @@ th {
 	padding: 1em;
 	border-radius: 0.5em;
 	background-color: white;
+}
+
+/* Edit items page */
+.items-edit,
+.tags-edit {
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.55em;
+	align-content: start;
+
+	padding: 1em;
+	background-color: #dbdbdb;
+	overflow: auto;
+	padding-bottom: 70px;
+}
+
+.items-edit form,
+.tags-edit form {
+	display: flex;
+	flex-direction: column;
+	padding: 1em;
+	gap: 0.5em;
+	background-color: white;
+	border-radius: 0.5em;
+}
+
+.items-edit form button,
+.tags-edit form button {
+	border: 0px;
+	padding: 0.5em;
+	background-color: #eaeaea;
+	font-size: 0.75em;
+	border-radius: 0.5em;
+}
+
+.items-edit form button:hover,
+.tags-edit form button:hover {
+	background-color: #f73535;
+	color: white;
+}
+
+.tags-edit .search-form,
+.tags-edit .sort-form {
+    padding: 0px;
+    margin-bottom: 1em;
 }
