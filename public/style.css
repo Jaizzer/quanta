@@ -734,7 +734,7 @@ th {
 }
 
 .warning-message-container button,
-.background-overlay button {
+.add-tag-form button {
 	grid-row: 2 / 3;
 	background-color: #eaeaea;
 	border: 0px;
@@ -1394,6 +1394,7 @@ th {
 .activity-history .header,
 .transactions .header,
 .tags .header,
+.tags-edit .header,
 .reports .header,
 .tag .header,
 .transaction .header,
@@ -1600,8 +1601,7 @@ th {
 	border-radius: 0.25em;
 }
 
-.item-quantity-edit select,
-.tags-edit select {
+.item-quantity-edit select {
 	padding: 0.5em;
 	border: 0px;
 	background-color: #eaeaea;
@@ -2016,7 +2016,7 @@ th {
 	font-size: 1em;
 }
 
-.background-overlay form {
+.background-overlay .add-tag-form {
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -2036,7 +2036,7 @@ th {
 	gap: 1em;
 }
 
-.background-overlay form input {
+.background-overlay .add-tag-form input {
 	grid-row: 2 / 3;
 	grid-column: 1 / -1;
 	background-color: #eaeaea;
@@ -2046,7 +2046,7 @@ th {
 	outline: none;
 }
 
-.background-overlay form button {
+.background-overlay .add-tag-form button {
 	grid-row: 3 / 4;
 }
 
@@ -2088,7 +2088,7 @@ th {
 }
 
 .items-edit form,
-.tags-edit form {
+.tags-edit .delete-tag-form {
 	display: flex;
 	flex-direction: column;
 	padding: 1em;
@@ -2097,8 +2097,8 @@ th {
 	border-radius: 0.5em;
 }
 
-.items-edit form button,
-.tags-edit form button {
+.tags-edit .delete-tag-form button,
+.items-edit .delete-item-button {
 	border: 0px;
 	padding: 0.5em;
 	background-color: #eaeaea;
@@ -2106,7 +2106,7 @@ th {
 	border-radius: 0.5em;
 }
 
-.items-edit .delete-tag-form button:hover,
+.items-edit .delete-item-button:hover,
 .tags-edit .delete-tag-form button:hover {
 	background-color: #f73535;
 	color: white;
@@ -2119,4 +2119,11 @@ a:hover > button {
 .item-card:hover,
 .insight-card:hover {
 	background-color: #f5f5f5;
+}
+
+.tags-edit select {
+	padding: 0.5em;
+	border-radius: 0.5em;
+	border: 0px;
+	outline: none;
 }
