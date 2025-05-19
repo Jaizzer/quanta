@@ -50,6 +50,11 @@ currentAdjustmentValue.addEventListener("keypress", (e) => {
 });
 
 currentAdjustmentValue.addEventListener("input", (e) => {
+    // Limit input to 6 characters
+	if (e.target.value.length > 6) {
+		e.target.value = e.target.value.substring(0, 6);
+	}
+
 	const quantityToAdd =
 		e.target.value.trim() === "" ? 0 : parseFloat(e.target.value);
 	newQuantityInput.value = originalQuantity + quantityToAdd;
