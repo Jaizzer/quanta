@@ -1811,6 +1811,7 @@ th {
 .activity-history .activities-container {
 	border-radius: 0.5em;
 	overflow: scroll;
+	background-color: white;
 }
 
 .activity-history .activity-card {
@@ -1821,6 +1822,7 @@ th {
 	background-color: white;
 	border-top: 1px solid #eaeaea;
 	row-gap: 0.5em;
+	border-radius: 0px;
 }
 
 .activity-history .activity-card:hover {
@@ -1881,7 +1883,7 @@ th {
 	background-color: white;
 	border-bottom: 1px solid #eaeaea;
 	row-gap: 0.5em;
-    border-radius: 0px;
+	border-radius: 0px;
 }
 
 .transactions .transaction-card:hover {
