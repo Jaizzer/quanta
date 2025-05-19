@@ -256,7 +256,7 @@ th {
 .low-stock-items .item-card a,
 .variants-section .item-card a {
 	display: grid;
-	grid-template-columns: 4em 1fr;
+	grid-template-columns: 4em minmax(0, 1fr);
 	grid-template-rows: 4em;
 	align-content: center;
 	row-gap: 0.1em;
