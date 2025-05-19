@@ -15,14 +15,16 @@
       <button class="cancel" onclick="history.back()">x</button>
       <h1>Update Quantity</h1>
     </div>
-    <div class="item-card">
-      <a href="/items/<%= item.id%>">
-        <div class="item-image"></div>
-        <div class="item-card-text-content">
-          <div class="item-name"><%= item.name %></div>
-          <div class="item-quantity"><%= `${ item.quantity !== null ?`${item.quantity} ${item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
-        </div>
-      </a>
+    <div class="items-container">
+      <div class="item-card">
+        <a href="/items/<%= item.id%>">
+          <div class="item-image"></div>
+          <div class="item-card-text-content">
+            <div class="item-name"><%= item.name %></div>
+            <div class="item-quantity"><%= `${ item.quantity !== null ?`${item.quantity} ${item.quantity <= 1 ? ` ${item.measurement}`  : ` ${item.measurement}s`}` : '--'}` %></div>
+          </div>
+        </a>
+      </div>
     </div>
     <form action="/items/edit-quantity/<%= item.id %>" method="POST">
       <div class="item-quantity-editing-section">
