@@ -4,6 +4,13 @@ html {
 	overflow: hidden;
 }
 
+button {
+	color: #3a3d44;
+}
+select {
+	color: #3a3d44;
+}
+
 * {
 	margin: 0px;
 	padding: 0px;
@@ -2184,7 +2191,7 @@ a:hover > button {
 .error .error-message {
 	display: grid;
 	justify-items: center;
-    gap: 0.5em;
+	gap: 0.5em;
 }
 
 .error .error-message button {
