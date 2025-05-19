@@ -40,9 +40,9 @@
         </thead>
         <tbody>
           <tr>
-            <td><%= tag.totalDistinctItemQuantity %></td>
-            <td><%= tag.totalItemQuantity %></td>
-            <td><%= tag.totalValue %></td>
+            <td><%= tag.totalDistinctItemQuantity !== null ?  tag.totalDistinctItemQuantity : 0 %></td>
+            <td><%= tag.totalItemQuantity !== null ? tag.totalItemQuantity : 0 %></td>
+            <td>$<%= tag.totalValue !== null?  tag.totalValue : 0.00 %></td>
           </tr>
         </tbody>
       </table>

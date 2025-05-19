@@ -8,8 +8,8 @@
       </thead>
       <tbody>
         <tr>
-          <td><%= totalItemTypeQuantity %></td>
-          <td>$<%= totalInventoryValue %></td>
+          <td><%= totalItemTypeQuantity !== null ? totalItemTypeQuantity : 0 %></td>
+          <td>$<%= totalInventoryValue !== null?  totalInventoryValue : 0.00 %></td>
         </tr>
       </tbody>
     </table>
