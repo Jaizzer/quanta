@@ -288,12 +288,14 @@ th {
 
 .low-stock-items .items-container,
 .item-quantity-edit .items-container,
+.search .items-container,
 .variants-section .items-container {
 	display: grid;
 	grid-template-columns: 1fr;
 }
 
 .low-stock-items .item-card,
+.search .item-card,
 .variants-section .item-card {
 	display: grid;
 	grid-template-columns: 1fr auto;
@@ -306,6 +308,7 @@ th {
 
 .low-stock-items .item-card a,
 .item-quantity-edit .item-card a,
+.search .item-card a,
 .variants-section .item-card a {
 	display: grid;
 	grid-template-columns: 4em minmax(0, 1fr);
@@ -316,6 +319,7 @@ th {
 }
 
 .low-stock-items .item-card .item-card-text-content,
+.search .item-card .item-card-text-content,
 .variants-section .item-card .item-card-text-content {
 	display: grid;
 	grid-template-columns: 1fr auto;
@@ -324,6 +328,7 @@ th {
 }
 
 .low-stock-items .item-card .item-quantity,
+.search .item-card .item-quantity,
 .variants-section .item-card .item-quantity {
 	grid-column: 2 / 3;
 	grid-row: 1 / 2;
@@ -336,6 +341,7 @@ th {
 }
 
 .low-stock-items .item-card .item-name,
+.search .item-card .item-name,
 .variants-section .item-card .item-name {
 	grid-column: 1 / 2;
 	grid-row: 1 / 2;
@@ -343,6 +349,7 @@ th {
 }
 
 .low-stock-items .item-card .variant-name,
+.search .item-card .variant-name,
 .variants-section .item-card .variant-name {
 	grid-column: 1 / 2;
 	grid-row: 2 / 3;
@@ -359,6 +366,7 @@ th {
 
 .low-stock-items .item-card .item-image,
 .item-quantity-edit .item-card .item-image,
+.search .item-card .item-image,
 .variants-section .item-card .item-image {
 	background-color: #bdbdbd;
 	border: 0px;
@@ -1705,7 +1713,8 @@ th {
 
 /* Transactions page */
 .transactions,
-.transaction {
+.transaction,
+.search {
 	height: 100%;
 
 	display: flex;
@@ -1792,4 +1801,46 @@ th {
 
 .transaction .transaction-item:hover {
 	background-color: #dbdbdb;
+}
+
+/* Search Page */
+.search .items-container {
+	height: 100%;
+	align-content: start;
+	background-color: white;
+	border-radius: 0.5em;
+	overflow: auto;
+}
+
+.search .search-field {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr) auto;
+	border-radius: 0.5em;
+	background-color: white;
+	padding: 0.5em;
+	padding-right: 1em;
+	padding-left: 1em;
+	gap: 0.5em;
+}
+
+.search .search-field button {
+	border: 0px;
+	background-color: transparent;
+	font-size: 1.15em;
+	color: #838a9d;
+}
+
+.search .search-field input {
+	border: 0px;
+	font-size: 1.15em;
+	outline: none;
+}
+
+.search .search-field svg {
+	fill: black;
+	display: flex;
+}
+
+.search .search-default-message div {
+	font-size: 1.5em;
 }

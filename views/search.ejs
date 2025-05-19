@@ -15,7 +15,9 @@
     <h1>Search</h1>
     <form method="GET" class="search-form">
       <div class="search-field">
-        <label class="search-icon-container" for="search">🔍</label>
+        <label class="search-icon-container" for="search"><svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30.9942 29.0056C30.4451 28.4565 29.5547 28.4565 29.0055 29.0056C28.4563 29.5548 28.4563 30.4452 29.0055 30.9944L30.9942 29.0056ZM41.0055 42.9944C41.5547 43.5435 42.4451 43.5435 42.9942 42.9944C43.5434 42.4452 43.5434 41.5548 42.9942 41.0056L41.0055 42.9944ZM19.9999 34V32.5937C13.0445 32.5937 7.40611 26.9553 7.40611 20H5.99986H4.59361C4.59361 28.5086 11.4912 35.4062 19.9999 35.4062V34ZM33.9999 20H32.5936C32.5936 26.9553 26.9552 32.5937 19.9999 32.5937V34V35.4062C28.5085 35.4062 35.4061 28.5086 35.4061 20H33.9999ZM19.9999 6V7.40625C26.9552 7.40625 32.5936 13.0447 32.5936 20H33.9999H35.4061C35.4061 11.4914 28.5085 4.59375 19.9999 4.59375V6ZM19.9999 6V4.59375C11.4912 4.59375 4.59361 11.4914 4.59361 20H5.99986H7.40611C7.40611 13.0447 13.0445 7.40625 19.9999 7.40625V6ZM29.9999 30L29.0055 30.9944L41.0055 42.9944L41.9999 42L42.9942 41.0056L30.9942 29.0056L29.9999 30Z" />
+          </svg></label>
         <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
       </div>
     </form>
@@ -27,8 +29,8 @@
     <div class="search-default-message">
       <div class="icon-container">
       </div>
-      <h2>Nothing to see here</h2>
-      <h3>Enter text to start your search</h3>
+      <div>Nothing to see here</div>
+      <p>Enter text to start your search</p>
     </div>
     <% }%>
     <%- include('partials/nav') %>
