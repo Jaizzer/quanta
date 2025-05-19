@@ -51,6 +51,8 @@ a {
 .user-name,
 .user-email,
 .activity-history h2,
+.transactions p,
+.transactions h2,
 .value {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -1304,6 +1306,7 @@ th {
 .inventory-summary .header,
 .item-quantity-edit .header,
 .activity-history .header,
+.transactions .header,
 .low-stock .header {
 	display: flex;
 	align-items: center;
@@ -1313,6 +1316,7 @@ th {
 .inventory-summary .header button,
 .item-quantity-edit button,
 .activity-history button,
+.transactions button,
 .low-stock .header button {
 	background-color: #eaeaea;
 	padding: 1em;
@@ -1649,5 +1653,66 @@ th {
 .activity-history .time-passed {
 	grid-column: 2 / 3;
 	grid-row: 1 / 2;
+	font-size: 0.75em;
+}
+
+/* Transactions page */
+.transactions {
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.55em;
+	align-content: start;
+
+	padding: 1em;
+	background-color: #dbdbdb;
+	overflow: auto;
+	padding-bottom: 70px;
+}
+
+.transactions .transactions-container {
+	height: 100%;
+	border-radius: 0.5em;
+	overflow: scroll;
+	background-color: white;
+}
+
+.transactions .item-update {
+	color: #4dc94d;
+}
+
+.transactions .transaction-card {
+	display: grid;
+	padding: 1em;
+	padding-left: 1.75em;
+	padding-right: 1.75em;
+	background-color: white;
+	border-bottom: 1px solid #eaeaea;
+	row-gap: 0.5em;
+}
+
+.transactions .transaction-card:hover {
+	background-color: #eaeaea;
+}
+
+.transactions .item-update.negative {
+	color: #ff4e4e;
+}
+
+.transactions .transaction-item {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.transactions .transaction-header {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.5em;
+}
+
+.transactions .transaction-date,
+.transactions .transaction-type {
+	color: #838a9d;
 	font-size: 0.75em;
 }
