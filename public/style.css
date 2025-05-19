@@ -1666,6 +1666,10 @@ th {
 	margin-left: auto;
 }
 
+.menu a {
+    border-radius: none;
+}
+
 .menu img {
 	width: 100%;
 }
