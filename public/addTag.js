@@ -6,6 +6,7 @@ addTagButton?.addEventListener("click", () => {
 
 	const form = document.createElement("form");
 	form.method = "POST";
+	form.className = "add-tag-form";
 	const currentSortOption = new URLSearchParams(window.location.search)?.get(
 		"sort",
 	);
