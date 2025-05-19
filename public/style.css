@@ -2,6 +2,7 @@
 
 html {
 	overflow: hidden;
+	background-color: #dbdbdb;
 }
 
 button {
@@ -653,8 +654,8 @@ th {
 	border-radius: 0.5em;
 	border: 0px;
 	background-color: #f8f8f8;
-    margin-left: auto;
-    outline: none;
+	margin-left: auto;
+	outline: none;
 }
 
 .tags .actions {
@@ -663,9 +664,8 @@ th {
 }
 
 .tags .actions form {
-    margin-left: auto;
+	margin-left: auto;
 }
-
 
 .tags button {
 	height: 100%;
@@ -738,11 +738,11 @@ th {
 	bottom: 4.25em;
 	right: 1.25em;
 	background-color: #f73535;
-    color: white;
+	color: white;
 	border: 0px;
 	padding: 0.5em;
 	border-radius: 0.25em;
-    font-size: 1em;
+	font-size: 1em;
 }
 
 .items .add-item-button:hover,
