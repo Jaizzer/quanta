@@ -18,10 +18,12 @@
       <h1>Inventory Summary</h1>
     </div>
     <%- include('partials/summaryTable', summary)  %>
+    <% if (items?.length > 0) { %>
     <div class="recently-updated-items">
       <h2>Recently Updated</h2>
       <%- include('partials/itemCardContainer', {items: items, isStockStatusVisible: true}) %>
     </div>
+    <% } %>
     <%- include('partials/nav') %>
   </div>
 </body>
