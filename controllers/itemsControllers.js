@@ -255,6 +255,7 @@ async function editItemQuantityGet(req, res, next) {
 		title: "Edit Quantity",
 		item: item,
 		reasons: [
+            "None",
 			"Consumed",
 			"Damaged",
 			"Inventory Count Adjustment",

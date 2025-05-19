@@ -533,7 +533,7 @@ async function updateActivityHistory(activity) {
 								itemID,
 								activityType,
 								updateSummary[attribute].description[0],
-								reason || "Update",
+								reason === "None" ? null : reason,
 								updateSummary[attribute].previousValue,
 								updateSummary[attribute].updatedValue,
 								updateSummary["itemNameBeforeEdit"],

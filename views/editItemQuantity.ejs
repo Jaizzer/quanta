@@ -45,7 +45,7 @@
         <label for="reason-selection">Reason</label>
         <select name="reason" id="reason-selection">
           <% reasons.forEach(reason => { %>
-          <option value="<%=reason %>" <%= reason === 'Inventory Count Adjustment' && 'selected'%>><%= reason %></option>
+          <option value="<%=reason %>" <%= reason === 'None' && 'selected'%>><%= reason %></option>
           <% })%>
         </select>
       </div>
