@@ -18,8 +18,6 @@
         ←
       </button>
       <h1>Tags</h1>
-      <a href="/tags/edit"><button class="edit-tag-button">Edit</button></a>
-      <button class="add-tag-button">Add</button>
     </div>
     <form method="GET" class="search-form">
       <div class="search-field">
@@ -29,13 +27,20 @@
         <input type="text" name="keyword" placeholder="Search" id="search" value="<%= keyword %>">
       </div>
     </form>
-    <form action="/tags" method="GET" class="sort-form">
-      <select name="sort">
-        <% sortOptions?.forEach(sortOption => {  %>
-        <option value="<%= sortOption.value %>" <%= !sortOption.value && 'disabled' %> <%= sortOption.isSelected && 'selected' %>><%= sortOption.name %></option>
-        <% })%>
-      </select>
-    </form>
+    <div class="actions">
+      <div class="modification-buttons">
+          <a href="/tags/edit"><button class="edit-tag-button">Edit</button></a>
+          <button class="add-tag-button">Add</button>
+      </div>
+      <form action="/tags" method="GET" class="sort-form">
+        <select name="sort">
+          <% sortOptions?.forEach(sortOption => {  %>
+          <option value="<%= sortOption.value %>" <%= !sortOption.value && 'disabled' %> <%= sortOption.isSelected && 'selected' %>><%= sortOption.name %></option>
+          <% })%>
+        </select>
+      </form>
+    </div>
+
     <% if(tags.length > 0) {%>
     <% tags.forEach(tag => { %>
     <a href="/tags/<%=tag.id%>" class="tag-card">
