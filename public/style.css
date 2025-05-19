@@ -1420,6 +1420,23 @@ th {
 	border-radius: 0.5em;
 }
 
+.inventory-summary .header button:hover,
+.item-quantity-edit button:hover,
+.items-edit .header button,
+:hover .tags-edit .header button:hover,
+.activity-history button:hover,
+.reports button:hover,
+.tags button:hover,
+.tag .header button:hover,
+.transactions button:hover,
+.transaction button:hover,
+.low-stock .header button:hover {
+	background-color: #bdbdbd;
+	padding: 1em;
+	border: 0px;
+	border-radius: 0.5em;
+}
+
 .inventory-summary .recently-updated-items,
 .low-stock .recently-updated-items {
 	display: flex;
@@ -2089,14 +2106,17 @@ th {
 	border-radius: 0.5em;
 }
 
-.items-edit form button:hover,
-.tags-edit form button:hover {
+.items-edit .delete-tag-form button:hover,
+.tags-edit .delete-tag-form button:hover {
 	background-color: #f73535;
 	color: white;
 }
 
-.tags-edit .search-form,
-.tags-edit .sort-form {
-    padding: 0px;
-    margin-bottom: 1em;
+a:hover > button {
+	background-color: #bdbdbd;
+}
+
+.item-card:hover,
+.insight-card:hover {
+	background-color: #f5f5f5;
 }
