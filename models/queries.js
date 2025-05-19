@@ -115,7 +115,8 @@ async function getAllItems(sortOption) {
 		}
 
 		// Only return the items which are not a parent item
-		const { rows } = await pool.query(`
+		const { rows } = 
+        await pool.query(`
             SELECT 
                 SUM(total_item_value) as total_inventory_value,
                 COUNT(*) AS total_item_type_quantity,
