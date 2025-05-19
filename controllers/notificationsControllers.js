@@ -5,7 +5,7 @@ async function getNotifications(req, res, next) {
 	let lowStockItems = (await db.getLowStockItems(true)) || [];
 	const notifications = lowStockItems.map((lowStockItem) => ({
 		itemID: lowStockItem.id,
-		message: `${lowStockItem.name} ${
+		message: `'${lowStockItem.name}' ${
 			Math.round(lowStockItem.quantity) ===
 			Math.round(lowStockItem.minLevel)
 				? `has reached the set minimum level ${lowStockItem.minLevel} ${lowStockItem.minLevel <= 1 ? ` ${lowStockItem.measurement}` : ` ${lowStockItem.measurement}s`}.`
