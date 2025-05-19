@@ -154,6 +154,10 @@ td {
 	vertical-align: baseline;
 }
 
+.dashboard .icon svg {
+	width: 20px;
+}
+
 .recent-items,
 .low-stock-items {
 	display: grid;
@@ -187,10 +191,15 @@ td {
 	border-radius: 0.5em;
 	background-color: white;
 	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
 }
 
 th {
 	color: #838a9d;
+	font-weight: 500;
 }
 
 .insight-card h2,
