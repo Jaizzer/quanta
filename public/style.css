@@ -473,6 +473,7 @@ th {
 
 .utility-box-container .delete-item-button:hover {
 	background-color: #ff4e4e;
+    color: white;
 }
 
 .utility-box-container .item {
