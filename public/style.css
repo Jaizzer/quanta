@@ -1881,6 +1881,7 @@ th {
 
 	grid-template-columns: auto auto;
 	align-items: start;
+    justify-content: start;
 }
 
 .reports .report-item:hover {
