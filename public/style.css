@@ -19,7 +19,7 @@ select {
 
 body {
 	position: relative;
-	height: 100vh;
+	height: 100dvh;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -778,7 +778,7 @@ th {
 	position: absolute;
 	left: 0;
 	right: 0;
-	top: 50vh;
+	top: 50dvh;
 	margin-inline: auto;
 
 	max-width: 400px;
@@ -2093,7 +2093,7 @@ th {
 	position: absolute;
 	left: 0;
 	right: 0;
-	top: 50vh;
+	top: 50dvh;
 	margin-inline: auto;
 
 	max-width: 400px;
