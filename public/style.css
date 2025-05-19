@@ -25,14 +25,57 @@ nav {
 	right: 0;
 
 	background-color: #f73535;
-    color: white;
-	padding: 1em;
+	color: white;
+	font-size: 0.8em;
+}
+
+nav ul {
+	gap: 1.5em;
+}
+
+nav svg {
+	stroke-width: 0px;
+	width: 20px;
+	fill: white;
+}
+
+nav li:nth-child(4) svg {
+	fill: none;
+	stroke: white;
+}
+
+nav li {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.25em;
+	padding: 0.5em;
+}
+
+nav li .icon-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 ul {
 	display: flex;
 	gap: 1em;
 	justify-content: center;
+}
+
+nav li:hover {
+	background-color: white;
+	color: #f73535;
+}
+
+li:hover svg {
+	fill: #f73535;
+}
+
+nav li:nth-child(4):hover svg {
+	fill: none;
+	stroke: #f73535;
 }
 
 li {
