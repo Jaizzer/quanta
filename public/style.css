@@ -2090,7 +2090,7 @@ th {
 .items-edit form,
 .tags-edit .delete-tag-form {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	padding: 1em;
 	gap: 0.5em;
 	background-color: white;
@@ -2109,7 +2109,16 @@ th {
 .items-edit .delete-item-button:hover,
 .tags-edit .delete-tag-form button:hover {
 	background-color: #f73535;
-	color: white;
+}
+
+.items-edit svg,
+.tags-edit svg {
+	stroke: #163300;
+}
+
+.items-edit .delete-item-button:hover svg,
+.tags-edit .delete-tag-form button:hover svg {
+	stroke: white;
 }
 
 a:hover > button {
@@ -2126,4 +2135,18 @@ a:hover > button {
 	border-radius: 0.5em;
 	border: 0px;
 	outline: none;
+}
+
+.items-edit .items-container,
+.tags-edit .tags-container {
+	display: grid;
+	gap: 1em;
+	grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+}
+
+.items-edit form,
+.tags-edit .delete-tag-form {
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	justify-content: space-between;
 }
