@@ -91,7 +91,7 @@ td {
 	text-align: left;
 }
 
-.inventory-summary > div {
+.inventory-summary-table > div {
 	display: grid;
 	gap: 0.5em;
 }
@@ -121,7 +121,7 @@ td {
 	color: #3a3d44;
 }
 
-.inventory-summary {
+.inventory-summary-table {
 	grid-column: 1 / 3;
 	grid-row: 2 / 3;
 }
@@ -131,7 +131,7 @@ td {
 }
 
 .insight-card > div,
-.inventory-summary > div {
+.inventory-summary-table > div {
 	padding: 1em;
 	border-radius: 0.5em;
 	background-color: white;
@@ -143,7 +143,7 @@ th {
 }
 
 .insight-card h2,
-.inventory-summary h2 {
+.inventory-summary-table h2 {
 	font-size: 1em;
 }
 
