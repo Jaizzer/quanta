@@ -855,6 +855,10 @@ th {
 	padding: 10px;
 }
 
+.item-description .update-date .value {
+    font-size: 0.75em;
+}
+
 .item-description form {
 	padding-top: 10px;
 }
