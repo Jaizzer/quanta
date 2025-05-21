@@ -6,16 +6,10 @@ const db = require("../models/queries");
 let _ = require("lodash");
 let parseNumberInput = require("../utils/parseNumberInput.js");
 
-// Get the tags from the database
-let tags;
-(async () => {
-	tags = await db.getAllTags();
-})();
-
 async function addItemGet(req, res, next) {
 	res.render("itemAdding", {
 		title: "Add Item",
-		tags: tags,
+		tags: await db.getAllTags(),
 		itemNameError: null,
 		itemPriceError: null,
 		itemTagError: null,
@@ -64,7 +58,7 @@ async function addItemPost(req, res, next) {
 			: null;
 		return res.status(400).render("itemAdding", {
 			title: "Add Item",
-			tags: tags,
+			tags: await db.getAllTags(),
 			item: item,
 			...itemErrors,
 		});
@@ -176,7 +170,7 @@ async function editItemGet(req, res, next) {
 	res.render("itemEdit", {
 		title: "Item Edit",
 		item: item,
-		tags: tags,
+		tags: await db.getAllTags(),
 		itemNameError: null,
 		itemPriceError: null,
 		itemTagError: null,
@@ -222,7 +216,7 @@ async function editItemPost(req, res, next) {
 			: null;
 		return res.status(400).render("itemEdit", {
 			title: "Add Item",
-			tags: tags,
+			tags: await db.getAllTags(),
 			item: updatedItem,
 			...itemErrors,
 		});
@@ -255,7 +249,7 @@ async function editItemQuantityGet(req, res, next) {
 		title: "Edit Quantity",
 		item: item,
 		reasons: [
-            "None",
+			"None",
 			"Consumed",
 			"Damaged",
 			"Inventory Count Adjustment",
@@ -306,7 +300,7 @@ async function addVariantGet(req, res, next) {
 	if (parentItem) {
 		res.render("itemVariantAdding", {
 			title: "Add Variant",
-			tags: tags,
+			tags: await db.getAllTags(),
 			itemNameError: null,
 			itemPriceError: null,
 			itemTagError: null,
@@ -373,7 +367,7 @@ async function addVariantPost(req, res, next) {
 			: null;
 		return res.status(400).render("itemVariantAdding", {
 			title: "Add Variant",
-			tags: tags,
+			tags: await db.getAllTags(),
 			item: item,
 			...itemErrors,
 		});
