@@ -200,10 +200,10 @@ async function editItemPost(req, res, next) {
 		tags: !req.body.tags
 			? []
 			: Array.isArray(req.body.tags)
-				? getTagsWithName(
+				? await getTagsWithName(
 						req.body.tags.map((tagValue) => parseInt(tagValue)),
 					)
-				: getTagsWithName([parseInt(req.body.tags)]),
+				: await getTagsWithName([parseInt(req.body.tags)]),
 	};
 
 	// Check for non-variant field errors
@@ -397,8 +397,11 @@ const validateAddItemForm = [
 		.isFloat({ min: 0, max: 99999999.99 })
 		.withMessage("Price must be between 0 to 99999999.99"),
 
-	body("tags").custom((value, { req }) => {
+	body("tags").custom(async (value, { req }) => {
 		if (value) {
+			// Get the tags
+			const tags = await db.getAllTags();
+
 			// Get all available tag id
 			const availableTagIDs = tags.map((tag) => tag.id);
 
@@ -547,7 +550,8 @@ function joinWithAnd(array) {
 	);
 }
 
-function getTagsWithName(tagIDs) {
+async function getTagsWithName(tagIDs) {
+	const tags = await db.getAllTags();
 	let tagsToReturn = [];
 	tagIDs?.forEach((tagID) => {
 		tags.forEach((tag) => {
