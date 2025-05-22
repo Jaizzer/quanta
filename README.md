@@ -52,7 +52,8 @@
 
 ---
 
-## 🚧 Coming Soon
+## 🚀 Planned Features
+These features are not yet implemented but are planned for future versions. Contributions are welcome!
 
 - Account system with role-based access
 - Image upload for visual inventory tracking
